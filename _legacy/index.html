@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUNEX TECH — Modern Web Design & Digital Experiences</title>
+  <meta name="description"
+    content="LUNEX TECH creates clean, responsive, and modern digital experiences for startups, creators, and businesses." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- CURSOR -->
+  <div id="cursor-glow"></div>
+  <div id="cursor-dot"></div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">LUNEX<span>TECH</span></a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Work</a></li>
+        <li><a href="#process">Process</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Start Project</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="mobileMenu">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <canvas id="heroCanvas"></canvas>
+
+    <!-- Floating Tech Icons -->
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/react.svg" class="tech-float tech-1" alt="React">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/javascript.svg" class="tech-float tech-2" alt="JS">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/html5.svg" class="tech-float tech-3" alt="HTML5">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/css3.svg" class="tech-float tech-4" alt="CSS3">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nodedotjs.svg" class="tech-float tech-5"
+      alt="Node.js">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/figma.svg" class="tech-float tech-6" alt="Figma">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nextdotjs.svg" class="tech-float tech-7"
+      alt="Next.js">
+
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="text-reveal-wrap"><span class="text-reveal">Modern Websites</span></span><br />
+        <span class="text-reveal-wrap"><span class="text-reveal" style="animation-delay: 0.1s">Built For <span
+              class="grad">Growing Brands</span></span></span>
+      </h1>
+      <div class="text-reveal-wrap">
+        <p class="hero-sub text-reveal" style="animation-delay: 0.2s">LUNEX TECH creates clean, responsive, and modern
+          digital experiences for startups, creators,
+          and businesses.</p>
+      </div>
+      <div class="text-reveal-wrap">
+        <div class="hero-btns text-reveal" style="animation-delay: 0.3s">
+          <a href="#services" class="btn-primary magnetic">View Services</a>
+          <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer"
+            class="btn-outline light magnetic">Contact on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-wheel"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="floating-orb orb-1 orb-light"></div>
+    <div class="floating-orb orb-3 orb-light"></div>
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <div class="section-badge">About Us</div>
+          <h2 class="section-title">Designing For The <span class="grad">Modern Web</span></h2>
+          <p class="section-sub">At LUNEX TECH, we believe that your digital presence is your most powerful asset. We
+            focus on building clean, mobile-first, and highly optimized websites that help startups and growing brands
+            stand out.</p>
+          <p class="section-sub">Our approach combines intuitive UI/UX design with modern development practices to
+            deliver fast, responsive, and engaging digital experiences tailored to your unique goals.</p>
+        </div>
+        <div class="about-visual reveal tilt-card float-slow">
+          <div class="glass-card visual-card">
+            <div class="visual-glow"></div>
+            <div class="visual-content">
+              <span class="v-icon">✦</span>
+              <h3>Clean UI/UX</h3>
+              <p>Designed for humans, engineered for performance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="floating-orb orb-2 orb-dark"></div>
+    <div class="container">
+      <div class="section-badge reveal">What We Do</div>
+      <h2 class="section-title reveal">Digital Solutions For<br /><span class="grad">Modern Brands</span></h2>
+      <div class="services-grid reveal">
+        <div class="svc-card glass-card tilt-card">
+          <div class="svc-icon">⬡</div>
+          <h3>Business Websites</h3>
+          <p>Professional, conversion-optimized websites designed to represent your company online.</p>
+          <div class="svc-glow"></div>
+        </div>
+        <div class="svc-card glass-card tilt-card">
+          <div class="svc-icon">◈</div>
+          <h3>Portfolio Websites</h3>
+          <p>Showcase your work with stunning, minimalist portfolio designs that leave an impression.</p>
+          <div class="svc-glow"></div>
+        </div>
+        <div class="svc-card glass-card tilt-card">
+          <div class="svc-icon">⬢</div>
+          <h3>Landing Pages</h3>
+          <p>High-impact, single-page designs crafted specifically for marketing campaigns and product launches.</p>
+          <div class="svc-glow"></div>
+        </div>
+        <div class="svc-card glass-card tilt-card">
+          <div class="svc-icon">◉</div>
+          <h3>UI/UX Design</h3>
+          <p>Intuitive user interfaces and seamless user experiences focused on usability and aesthetics.</p>
+          <div class="svc-glow"></div>
+        </div>
+        <div class="svc-card glass-card tilt-card">
+          <div class="svc-icon">✦</div>
+          <h3>Website Redesign</h3>
+          <p>Modernize your existing website with a fresh, contemporary look and improved performance.</p>
+          <div class="svc-glow"></div>
+        </div>
+        <div class="svc-card glass-card tilt-card">
+          <div class="svc-icon">⬟</div>
+          <h3>Responsive Web Dev</h3>
+          <p>Clean, mobile-first code ensuring your website looks perfect on every device and screen size.</p>
+          <div class="svc-glow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="floating-orb orb-1 orb-light"></div>
+    <div class="container">
+      <div class="section-badge reveal">Our Work</div>
+      <h2 class="section-title reveal">Featured <span class="grad">Projects</span></h2>
+      <p class="section-sub reveal" style="margin-bottom: 3rem;">A selection of our recent work and live applications.
+      </p>
+
+      <div class="portfolio-grid reveal">
+        <a href="https://pupilnetwork.app" target="_blank" rel="noopener noreferrer"
+          class="port-card glass-card tilt-card" style="text-decoration: none; color: inherit; display: block;">
+          <div class="port-img">
+            <div class="port-overlay"><span>Visit Live Site ↗</span></div>
+            <img src="images/pupilnetwork.png" alt="Pupil Network UI" class="port-image">
+          </div>
+          <div class="port-info">
+            <span class="port-cat">SaaS Webapp</span>
+            <h3>Pupil Network</h3>
+            <p>Modern scalable application</p>
+          </div>
+        </a>
+
+        <a href="https://stardesigns.vercel.app/" target="_blank" rel="noopener noreferrer"
+          class="port-card glass-card tilt-card" style="text-decoration: none; color: inherit; display: block;">
+          <div class="port-img">
+            <div class="port-overlay"><span>Visit Live Site ↗</span></div>
+            <img src="images/star.png" alt="Star Designs UI" class="port-image">
+          </div>
+          <div class="port-info">
+            <span class="port-cat">Web Design</span>
+            <h3>Star Designs</h3>
+            <p>Premium boutique storefront</p>
+          </div>
+        </a>
+
+        <a href="https://kaushik.codes" target="_blank" rel="noopener noreferrer" class="port-card glass-card tilt-card"
+          style="text-decoration: none; color: inherit; display: block;">
+          <div class="port-img">
+            <div class="port-overlay"><span>Visit Live Site ↗</span></div>
+            <img src="images/kaushik.code.png" alt="Kaushik Codes UI" class="port-image">
+          </div>
+          <div class="port-info">
+            <span class="port-cat">Portfolio</span>
+            <h3>Kaushik Codes</h3>
+            <p>Personal developer portfolio</p>
+          </div>
+        </a>
+
+        <a href="https://kanishma.netlify.app/" target="_blank" rel="noopener noreferrer"
+          class="port-card glass-card tilt-card" style="text-decoration: none; color: inherit; display: block;">
+          <div class="port-img">
+            <div class="port-overlay"><span>Visit Live Site ↗</span></div>
+            <img src="images/kanishma.png" alt="Kanishma App UI" class="port-image">
+          </div>
+          <div class="port-info">
+            <span class="port-cat">Web Application</span>
+            <h3>Kanishma</h3>
+            <p>Interactive digital experience</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="floating-orb orb-3 orb-dark" style="opacity: 0.2"></div>
+    <div class="container">
+      <div class="section-badge reveal">How We Work</div>
+      <h2 class="section-title reveal">Our Streamlined <span class="grad">Process</span></h2>
+      <div class="process-line reveal">
+        <div class="proc-item">
+          <div class="proc-num">01</div>
+          <div class="proc-dot"></div>
+          <div class="proc-content dark-card">
+            <h4>Discussion</h4>
+            <p>Understanding your brand, goals, and project requirements.</p>
+          </div>
+        </div>
+        <div class="proc-item">
+          <div class="proc-num">02</div>
+          <div class="proc-dot"></div>
+          <div class="proc-content dark-card">
+            <h4>Planning</h4>
+            <p>Creating a structured blueprint and layout for the project.</p>
+          </div>
+        </div>
+        <div class="proc-item">
+          <div class="proc-num">03</div>
+          <div class="proc-dot"></div>
+          <div class="proc-content dark-card">
+            <h4>Design</h4>
+            <p>Crafting modern, clean, and engaging visual interfaces.</p>
+          </div>
+        </div>
+        <div class="proc-item">
+          <div class="proc-num">04</div>
+          <div class="proc-dot"></div>
+          <div class="proc-content dark-card">
+            <h4>Development</h4>
+            <p>Building a responsive, fast-loading, and functional website.</p>
+          </div>
+        </div>
+        <div class="proc-item">
+          <div class="proc-num">05</div>
+          <div class="proc-dot"></div>
+          <div class="proc-content dark-card">
+            <h4>Launch</h4>
+            <p>Final testing, optimization, and deploying your website live.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section id="why-us">
+    <div class="floating-orb orb-2 orb-light"></div>
+    <div class="container">
+      <div class="section-badge reveal">Why LUNEX TECH</div>
+      <h2 class="section-title reveal">Built For <span class="grad">Performance</span></h2>
+      <div class="why-grid reveal">
+        <div class="why-item glass-card float-slow">
+          <span class="why-icon">✨</span>
+          <h4>Modern Design</h4>
+          <p>Contemporary aesthetics aligned with current web standards.</p>
+        </div>
+        <div class="why-item glass-card">
+          <span class="why-icon">📱</span>
+          <h4>Mobile Responsive</h4>
+          <p>Flawless experience across all mobile devices and tablets.</p>
+        </div>
+        <div class="why-item glass-card">
+          <span class="why-icon">🎯</span>
+          <h4>Clean UI/UX</h4>
+          <p>Intuitive navigation and user-focused digital interactions.</p>
+        </div>
+        <div class="why-item glass-card">
+          <span class="why-icon">⚡</span>
+          <h4>Fast Performance</h4>
+          <p>Optimized code and assets for rapid loading speeds.</p>
+        </div>
+        <div class="why-item glass-card">
+          <span class="why-icon">🚀</span>
+          <h4>Startup-Friendly</h4>
+          <p>Agile processes designed to suit growing business needs.</p>
+        </div>
+        <div class="why-item glass-card">
+          <span class="why-icon">🤝</span>
+          <h4>Personalized Support</h4>
+          <p>Direct communication and dedicated attention to your project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="floating-orb orb-1 orb-dark"></div>
+    <div class="container">
+      <div class="section-badge reveal">Get In Touch</div>
+      <h2 class="section-title reveal">Ready To <span class="grad">Start?</span></h2>
+      <div class="contact-wrap reveal">
+        <div class="contact-info">
+          <p class="contact-sub">We're always excited to discuss new projects. Reach out to us through the form or
+            directly via email or WhatsApp.</p>
+
+          <a href="https://wa.me/6381231706" target="_blank" rel="noopener noreferrer"
+            class="ci-link glass-card magnetic">
+            <span class="ci-icon">💬</span>
+            <div>
+              <strong>WhatsApp Us</strong>
+              <span>Quickest response</span>
+            </div>
+          </a>
+
+          <a href="mailto:lunextech15@gmail.com" class="ci-link glass-card magnetic">
+            <span class="ci-icon">✉️</span>
+            <div>
+              <strong>Email Us</strong>
+              <span>lunextech15@gmail.com</span>
+            </div>
+          </a>
+        </div>
+
+        <form class="contact-form glass-card" id="contactForm">
+          <div class="form-group">
+              <input type="text" id="fname" placeholder="Your Name" required />
+              <label for="fname">Your Name</label>
+              <div class="input-glow"></div>
+            </div>
+            <div class="form-group">
+              <input type="email" id="femail" placeholder="Email Address" required />
+              <label for="femail">Email Address</label>
+              <div class="input-glow"></div>
+            </div>
+            <div class="form-group">
+              <textarea id="fmsg" rows="4" placeholder="Tell us about your project..." required></textarea>
+              <label for="fmsg">Project Details</label>
+              <div class="input-glow"></div>
+            </div>
+            <button type="submit" class="btn-primary full magnetic">
+              <span>Start Your Project</span>
+              <div class="btn-shimmer"></div>
+            </button>
+            <div class="form-success" id="formSuccess">
+              <span>✦ Message received. We'll be in touch soon.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-orb"></div>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">LUNEX<span>TECH</span></div>
+          <p>Modern web design for growing brands.</p>
+        </div>
+        <div class="footer-links">
+          <h5>Explore</h5>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#portfolio">Work</a>
+          <a href="#process">Process</a>
+        </div>
+        <div class="footer-links">
+          <h5>Connect</h5>
+          <a href="#">WhatsApp</a>
+          <a href="mailto:lunextech15@gmail.com">Email</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 LUNEX TECH. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
