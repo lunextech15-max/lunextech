@@ -50,7 +50,7 @@ const FormField = ({ type = 'text', name, label, delay = 0, isTextarea = false }
       className={`anim-field ${isActive ? 'active' : ''} ${focused ? 'focused' : ''}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       <Tag
@@ -183,7 +183,7 @@ export const Contact = () => {
                       <motion.h3
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                       >
                         Start a project
@@ -192,7 +192,7 @@ export const Contact = () => {
                         className="form-header-line"
                         initial={{ scaleX: 0 }}
                         whileInView={{ scaleX: 1 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                         transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                       />
                     </div>
@@ -208,7 +208,7 @@ export const Contact = () => {
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
+                      viewport={{ once: false }}
                       transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
                     >
                       <Magnetic>
