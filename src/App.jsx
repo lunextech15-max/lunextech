@@ -1,6 +1,11 @@
 import React, { useState, useCallback } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Catalog } from './components/Catalog';
+import { PrivacyPolicy } from './components/PrivacyPolicy';
+import { TermsConditions } from './components/TermsConditions';
+import { RefundPolicy } from './components/RefundPolicy';
+import { ScrollToHash } from './components/ScrollToHash';
 import { CustomCursor } from './components/CustomCursor';
 import { Loader } from './components/Loader';
 import { Navbar } from './components/Navbar';
@@ -33,16 +38,26 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
+            <ScrollToHash />
             <Navbar />
             <main>
-              <Hero />
-              <About />
-              <Services />
-              <Catalog />
-              <Portfolio />
-              <Process />
-              <WhyUs />
-              <Contact />
+              <Routes>
+                <Route path="/" element={
+                  <>
+                    <Hero />
+                    <About />
+                    <Services />
+                    <Catalog />
+                    <Portfolio />
+                    <Process />
+                    <WhyUs />
+                    <Contact />
+                  </>
+                } />
+                <Route path="/privacy" element={<PrivacyPolicy />} />
+                <Route path="/terms" element={<TermsConditions />} />
+                <Route path="/refund" element={<RefundPolicy />} />
+              </Routes>
             </main>
             <Footer />
           </motion.div>

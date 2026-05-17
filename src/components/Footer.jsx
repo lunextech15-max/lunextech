@@ -25,15 +25,21 @@ export const Footer = () => {
           </div>
           <div className="footer-links">
             <h5>Explore</h5>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#portfolio">Work</a>
-            <a href="#process">Process</a>
+            <a href="/#about">About</a>
+            <a href="/#services">Services</a>
+            <a href="/#portfolio">Work</a>
+            <a href="/#process">Process</a>
           </div>
           <div className="footer-links">
             <h5>Connect</h5>
             <a href="https://wa.me/6381231706" target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <a href="mailto:lunextech15@gmail.com">Email</a>
+          </div>
+          <div className="footer-links">
+            <h5>Legal</h5>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms & Conditions</a>
+            <a href="/refund">Refund Policy</a>
           </div>
         </div>
         <div className="footer-bottom">

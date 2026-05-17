@@ -1306,6 +1306,116 @@ body.hovering #cursor-glow { width: 70px; height: 70px; background: var(--c-acce
 }
 
 /* =============================================
+   LEGAL POLICY PAGES
+============================================= */
+.policy-page {
+  padding: 160px 0 100px;
+  min-height: 100vh;
+  position: relative;
+  background: var(--bg-main);
+  overflow: hidden;
+}
+
+.policy-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px;
+}
+
+.policy-updated {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-top: 15px;
+  text-transform: uppercase;
+}
+
+.policy-content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.policy-section {
+  padding: 35px 40px;
+  text-align: left;
+}
+
+.policy-section h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-main);
+  border-bottom: 1px solid rgba(120, 120, 120, 0.15);
+  padding-bottom: 10px;
+}
+
+.policy-section p {
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
+.policy-section ul {
+  padding-left: 20px;
+  margin-bottom: 15px;
+}
+
+.policy-section li {
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.policy-contact-details {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 15px;
+}
+
+.policy-contact-details p {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.policy-contact-details p:last-child {
+  margin-bottom: 0;
+}
+
+.policy-contact-details a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.policy-contact-details a:hover {
+  color: #a855f7;
+}
+
+.contact-box-style {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.02) 0%, rgba(168, 85, 247, 0.02) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+@media (max-width: 768px) {
+  .policy-page {
+    padding: 120px 0 60px;
+  }
+  .policy-section {
+    padding: 25px 20px;
+  }
+}
+
+/* =============================================
    CATALOG PAGE
 ============================================= */
 #catalog {
