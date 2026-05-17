@@ -10,32 +10,38 @@ export const Services = () => {
       icon: '⬡',
       title: 'Business Websites',
       desc: 'Professional, conversion-optimized websites designed to represent your company online.',
+      price: '₹999',
       tag: 'Most Popular'
     },
     {
       icon: '◈',
       title: 'Portfolio Websites',
-      desc: 'Showcase your work with stunning, minimalist portfolio designs that leave an impression.'
+      desc: 'Showcase your work with stunning, minimalist portfolio designs that leave an impression.',
+      price: '₹1499'
     },
     {
       icon: '⬢',
       title: 'Landing Pages',
-      desc: 'High-impact, single-page designs crafted specifically for marketing campaigns and product launches.'
+      desc: 'High-impact, single-page designs crafted specifically for marketing campaigns and product launches.',
+      price: '₹799'
     },
     {
       icon: '◉',
       title: 'UI/UX Design',
-      desc: 'Intuitive user interfaces and seamless user experiences focused on usability and aesthetics.'
+      desc: 'Intuitive user interfaces and seamless user experiences focused on usability and aesthetics.',
+      price: '₹699'
     },
     {
       icon: '✦',
       title: 'Website Redesign',
-      desc: 'Modernize your existing website with a fresh, contemporary look and improved performance.'
+      desc: 'Modernize your existing website with a fresh, contemporary look and improved performance.',
+      price: '₹1999'
     },
     {
       icon: '⬟',
-      title: 'Responsive Web Dev',
-      desc: 'Clean, mobile-first code ensuring your website looks perfect on every device and screen size.'
+      title: 'Custom Websites',
+      desc: 'Clean, mobile-first code ensuring your website looks perfect on every device and screen size.',
+      price: 'Starting at ₹4999'
     }
   ];
 
@@ -46,10 +52,10 @@ export const Services = () => {
         <Reveal>
           <div className="svc-header">
             <div>
-              <div className="section-badge">What We Do</div>
+              <div className="section-badge">Better Structure</div>
               <h2 className="section-title">
-                Digital Solutions For<br />
-                <span className="grad">Modern Brands</span>
+                For Your<br />
+                <span className="grad">Page</span>
               </h2>
             </div>
             <p className="svc-header-sub">
@@ -77,13 +83,17 @@ export const Services = () => {
                 <div className="svc-featured-icon">{services[0].icon}</div>
                 <h3>{services[0].title}</h3>
                 <p>{services[0].desc}</p>
-                <div className="svc-featured-arrow">
-                  <motion.span
-                    animate={{ x: hoveredIdx === 0 ? 8 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    →
-                  </motion.span>
+                
+                <div className="svc-featured-bottom">
+                  <div className="svc-featured-price">{services[0].price}</div>
+                  <div className="svc-featured-arrow">
+                    <motion.span
+                      animate={{ x: hoveredIdx === 0 ? 8 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      →
+                    </motion.span>
+                  </div>
                 </div>
               </div>
               <div className="svc-card-glow"></div>
@@ -108,6 +118,7 @@ export const Services = () => {
                   <div className="svc-compact-right">
                     <h4>{svc.title}</h4>
                     <p>{svc.desc}</p>
+                    <div className="svc-price">{svc.price}</div>
                   </div>
                   <motion.div
                     className="svc-compact-line"
@@ -135,6 +146,7 @@ export const Services = () => {
                 <div className="svc-bottom-icon">{svc.icon}</div>
                 <h4>{svc.title}</h4>
                 <p>{svc.desc}</p>
+                <div className="svc-price-bottom">{svc.price}</div>
                 <motion.div
                   className="svc-bottom-indicator"
                   animate={{ width: hoveredIdx === i + 3 ? '100%' : '0%' }}
