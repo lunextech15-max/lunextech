@@ -1239,6 +1239,73 @@ body.hovering #cursor-glow { width: 70px; height: 70px; background: var(--c-acce
 }
 
 /* =============================================
+   MSME TRUST BADGE
+============================================= */
+.msme-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-top: 25px;
+  max-width: max-content;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.msme-badge:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15), 0 0 15px rgba(168, 85, 247, 0.1);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.msme-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b82f6; /* Premium tech blue */
+  filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.4));
+  flex-shrink: 0;
+}
+
+.msme-content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.msme-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-light);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.msme-reg {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 500;
+  margin-top: 2px;
+  letter-spacing: 0.5px;
+}
+
+.msme-sub {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+/* =============================================
    CATALOG PAGE
 ============================================= */
 #catalog {
