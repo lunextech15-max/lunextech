@@ -17,13 +17,13 @@ export const Navbar = () => {
       <div className="nav-inner">
         <a href="#hero" className="nav-logo">LUNEX<span>TECH</span></a>
         <ul className="nav-links">
-          <li><a href="/#about">About</a></li>
-          <li><a href="/#services">Services</a></li>
-          <li><a href="/#portfolio">Work</a></li>
-          <li><a href="/#process">Process</a></li>
-          <li><a href="/catalog" target="_blank" rel="noopener noreferrer">Catalog</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Work</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#catalog">Catalog</a></li>
         </ul>
-        <a href="/#contact" className="nav-cta">Start Project</a>
+        <a href="#contact" className="nav-cta">Start Project</a>
         <button 
           className={`nav-hamburger ${menuOpen ? 'active' : ''}`} 
           id="hamburger" 
@@ -34,12 +34,12 @@ export const Navbar = () => {
         </button>
       </div>
       <div className={`nav-mobile ${menuOpen ? 'active' : ''}`} id="mobileMenu">
-        <a href="/#about" onClick={() => setMenuOpen(false)}>About</a>
-        <a href="/#services" onClick={() => setMenuOpen(false)}>Services</a>
-        <a href="/#portfolio" onClick={() => setMenuOpen(false)}>Work</a>
-        <a href="/#process" onClick={() => setMenuOpen(false)}>Process</a>
-        <a href="/catalog" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>Catalog</a>
-        <a href="/#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+        <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+        <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+        <a href="#portfolio" onClick={() => setMenuOpen(false)}>Work</a>
+        <a href="#process" onClick={() => setMenuOpen(false)}>Process</a>
+        <a href="#catalog" onClick={() => setMenuOpen(false)}>Catalog</a>
+        <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
       </div>
     </nav>
   );

@@ -64,7 +64,7 @@ export const Catalog = () => {
   ];
 
   return (
-    <div className="catalog-page">
+    <section id="catalog">
       <div className="floating-orb orb-1 orb-light"></div>
       <div className="floating-orb orb-2 orb-dark"></div>
       
@@ -130,10 +130,10 @@ export const Catalog = () => {
           <div className="catalog-cta-section">
             <h2>Ready to Start?</h2>
             <p>Contact us today and let's build something amazing together.</p>
-            <a href="/#contact" className="btn-primary">Start a Project</a>
+            <a href="#contact" className="btn-primary">Start a Project</a>
           </div>
         </Reveal>
       </div>
-    </div>
+    </section>
   );
 };

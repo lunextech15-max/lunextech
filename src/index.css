@@ -1241,9 +1241,8 @@ body.hovering #cursor-glow { width: 70px; height: 70px; background: var(--c-acce
 /* =============================================
    CATALOG PAGE
 ============================================= */
-.catalog-page {
-  padding: 180px 0 100px;
-  min-height: 100vh;
+#catalog {
+  padding: 140px 0;
   position: relative;
   background: var(--bg-main);
 }

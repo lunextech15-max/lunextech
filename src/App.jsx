@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Catalog } from './components/Catalog';
 import { CustomCursor } from './components/CustomCursor';
@@ -36,20 +35,14 @@ function App() {
           >
             <Navbar />
             <main>
-              <Routes>
-                <Route path="/" element={
-                  <>
-                    <Hero />
-                    <About />
-                    <Services />
-                    <Portfolio />
-                    <Process />
-                    <WhyUs />
-                    <Contact />
-                  </>
-                } />
-                <Route path="/catalog" element={<Catalog />} />
-              </Routes>
+              <Hero />
+              <About />
+              <Services />
+              <Catalog />
+              <Portfolio />
+              <Process />
+              <WhyUs />
+              <Contact />
             </main>
             <Footer />
           </motion.div>
