@@ -6,9 +6,44 @@ import { Magnetic } from './Magnetic';
 const FormField = ({ type = 'text', name, label, delay = 0, isTextarea = false }) => {
   const [focused, setFocused] = useState(false);
   const [value, setValue] = useState('');
+  const inputRef = React.useRef(null);
   const isActive = focused || value.length > 0;
 
   const Tag = isTextarea ? 'textarea' : 'input';
+
+  // Detect browser autofill which doesn't trigger onChange
+  React.useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+
+    // Check for autofill on mount and after a short delay
+    const checkAutofill = () => {
+      if (el.value && el.value !== value) {
+        setValue(el.value);
+      }
+    };
+
+    // Webkit fires an animation on autofill
+    const handleAnimation = (e) => {
+      if (e.animationName === 'onAutoFillStart') {
+        setValue(el.value || ' ');
+      }
+    };
+
+    el.addEventListener('animationstart', handleAnimation);
+
+    // Poll briefly to catch autofill
+    const timers = [
+      setTimeout(checkAutofill, 100),
+      setTimeout(checkAutofill, 500),
+      setTimeout(checkAutofill, 1000),
+    ];
+
+    return () => {
+      el.removeEventListener('animationstart', handleAnimation);
+      timers.forEach(clearTimeout);
+    };
+  }, []);
 
   return (
     <motion.div
@@ -19,9 +54,11 @@ const FormField = ({ type = 'text', name, label, delay = 0, isTextarea = false }
       transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       <Tag
+        ref={inputRef}
         type={type}
         name={name}
         id={name}
+        placeholder=" "
         rows={isTextarea ? 4 : undefined}
         value={value}
         onChange={(e) => setValue(e.target.value)}

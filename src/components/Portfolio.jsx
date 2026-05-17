@@ -3,10 +3,10 @@ import { Reveal } from './Reveal';
 
 export const Portfolio = () => {
   const projects = [
-    { name: 'Pupil Network', cat: 'SaaS Webapp', desc: 'Modern scalable application', img: 'images/pupilnetwork.png', link: 'https://pupilnetwork.app' },
-    { name: 'Star Designs', cat: 'Web Design', desc: 'Premium boutique storefront', img: 'images/star.png', link: 'https://stardesigns.vercel.app/' },
-    { name: 'Kaushik Codes', cat: 'Portfolio', desc: 'Personal developer portfolio', img: 'images/kaushik.code.png', link: 'https://kaushik.codes' },
-    { name: 'Kanishma', cat: 'Web Application', desc: 'Interactive digital experience', img: 'images/kanishma.png', link: 'https://kanishma.netlify.app/' }
+    { name: 'Pupil Network', cat: 'SaaS Webapp', desc: 'Modern scalable application', img: '/images/pupilnetwork.png', link: 'https://pupilnetwork.app' },
+    { name: 'Star Designs', cat: 'Web Design', desc: 'Premium boutique storefront', img: '/images/star.png', link: 'https://stardesigns.vercel.app/' },
+    { name: 'Kaushik Codes', cat: 'Portfolio', desc: 'Personal developer portfolio', img: '/images/kaushik.code.png', link: 'https://kaushik.codes' },
+    { name: 'Kanishma', cat: 'Web Application', desc: 'Interactive digital experience', img: '/images/kanishma.png', link: 'https://kanishma.netlify.app/' }
   ];
 
   return (

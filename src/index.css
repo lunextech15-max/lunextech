@@ -251,6 +251,11 @@ body.hovering #cursor-glow { width: 70px; height: 70px; background: var(--c-acce
   transform-origin: left top;
 }
 
+.anim-field label span {
+  display: inline-block;
+  transform-origin: left top;
+}
+
 .field-line {
   position: absolute;
   bottom: 0;
@@ -272,6 +277,27 @@ body.hovering #cursor-glow { width: 70px; height: 70px; background: var(--c-acce
 
 .anim-field.focused .field-bg {
   background: rgba(255, 94, 58, 0.03);
+}
+
+/* Autofill detection & override */
+@keyframes onAutoFillStart { from { /**/ } to { /**/ } }
+@keyframes onAutoFillCancel { from { /**/ } to { /**/ } }
+
+.anim-field input:-webkit-autofill,
+.anim-field textarea:-webkit-autofill {
+  animation-name: onAutoFillStart;
+  -webkit-text-fill-color: var(--text-light) !important;
+  -webkit-box-shadow: 0 0 0 1000px rgba(255,255,255,0.06) inset !important;
+  box-shadow: 0 0 0 1000px rgba(255,255,255,0.06) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: var(--text-light);
+}
+
+/* Pure CSS fallback: move label when placeholder isn't shown (i.e. input has value) */
+.anim-field input:not(:placeholder-shown) + label span,
+.anim-field textarea:not(:placeholder-shown) + label span {
+  transform: translateY(-28px) scale(0.8) !important;
+  color: #8B8B8B !important;
 }
 
 /* Submit Button */
