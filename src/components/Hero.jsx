@@ -63,7 +63,7 @@ export const Hero = () => {
               <a href="#services" className="btn-primary magnetic">View Services</a>
             </Magnetic>
             <Magnetic>
-              <a href="https://wa.me/1234567890" target="_blank" rel="noreferrer" className="btn-outline light magnetic">Contact on WhatsApp</a>
+              <a href="https://wa.me/916381231706" target="_blank" rel="noreferrer" className="btn-outline light magnetic">Contact on WhatsApp</a>
             </Magnetic>
           </motion.div>
         </div>

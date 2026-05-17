@@ -32,7 +32,7 @@ export const Footer = () => {
           </div>
           <div className="footer-links">
             <h5>Connect</h5>
-            <a href="https://wa.me/6381231706" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href="https://wa.me/916381231706" target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <a href="mailto:lunextech15@gmail.com">Email</a>
           </div>
           <div className="footer-links">
