@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Catalog } from './components/Catalog';
+import { Pricing } from './components/Pricing';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsConditions } from './components/TermsConditions';
 import { RefundPolicy } from './components/RefundPolicy';
@@ -11,7 +11,6 @@ import { Loader } from './components/Loader';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
-import { Services } from './components/Services';
 import { Portfolio } from './components/Portfolio';
 import { Process } from './components/Process';
 import { WhyUs } from './components/WhyUs';
@@ -46,8 +45,7 @@ function App() {
                   <>
                     <Hero />
                     <About />
-                    <Services />
-                    <Catalog />
+                    <Pricing />
                     <Portfolio />
                     <Process />
                     <WhyUs />
