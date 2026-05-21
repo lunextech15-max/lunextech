@@ -22,6 +22,7 @@ export const Navbar = () => {
           <li><a href="/#portfolio">Work</a></li>
           <li><a href="/#process">Process</a></li>
           <li><a href="/#plans">Plans</a></li>
+          <li><a href="/#ownership">Ownership</a></li>
         </ul>
         <a href="/#contact" className="nav-cta">Start Project</a>
         <button 
@@ -39,6 +40,7 @@ export const Navbar = () => {
         <a href="/#portfolio" onClick={() => setMenuOpen(false)}>Work</a>
         <a href="/#process" onClick={() => setMenuOpen(false)}>Process</a>
         <a href="/#plans" onClick={() => setMenuOpen(false)}>Plans</a>
+        <a href="/#ownership" onClick={() => setMenuOpen(false)}>Ownership</a>
         <a href="/#contact" onClick={() => setMenuOpen(false)}>Contact</a>
       </div>
     </nav>

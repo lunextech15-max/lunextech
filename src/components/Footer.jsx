@@ -29,6 +29,7 @@ export const Footer = () => {
             <a href="/#services">Services</a>
             <a href="/#portfolio">Work</a>
             <a href="/#process">Process</a>
+            <a href="/#ownership">Ownership</a>
           </div>
           <div className="footer-links">
             <h5>Connect</h5>
@@ -40,6 +41,7 @@ export const Footer = () => {
             <a href="/privacy">Privacy Policy</a>
             <a href="/terms">Terms & Conditions</a>
             <a href="/refund">Refund Policy</a>
+            <a href="/transparency">Pricing & Ownership</a>
           </div>
         </div>
         <div className="footer-bottom">

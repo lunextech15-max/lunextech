@@ -2,9 +2,11 @@ import React, { useState, useCallback } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Pricing } from './components/Pricing';
+import { Ownership } from './components/Ownership';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsConditions } from './components/TermsConditions';
 import { RefundPolicy } from './components/RefundPolicy';
+import { Transparency } from './components/Transparency';
 import { ScrollToHash } from './components/ScrollToHash';
 import { CustomCursor } from './components/CustomCursor';
 import { Loader } from './components/Loader';
@@ -46,6 +48,7 @@ function App() {
                     <Hero />
                     <About />
                     <Pricing />
+                    <Ownership />
                     <Portfolio />
                     <Process />
                     <WhyUs />
@@ -55,6 +58,7 @@ function App() {
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsConditions />} />
                 <Route path="/refund" element={<RefundPolicy />} />
+                <Route path="/transparency" element={<Transparency />} />
               </Routes>
             </main>
             <Footer />

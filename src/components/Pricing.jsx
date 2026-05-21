@@ -62,8 +62,8 @@ export const Pricing = () => {
         'Cart & Checkout',
         'Payment Gateway',
         'Admin Dashboard',
-        'Domain Setup',
-        'Hosting Setup'
+        'Initial Domain Setup',
+        'Initial Hosting Setup (Plan Dependent)'
       ],
       optional: '+ Delivery Integration',
       buttonText: 'Build Store'
@@ -99,7 +99,7 @@ export const Pricing = () => {
   ];
 
   const standardInclusions = [
-    { title: 'Hosting Setup', desc: 'Complete deployment on secure servers.' },
+    { title: 'Hosting Setup', desc: 'Initial server deployment and configuration setup (plan dependent).' },
     { title: 'Mobile Responsive', desc: 'Pixel-perfect on phones, tablets & desktops.' },
     { title: 'Basic SEO', desc: 'Proper meta tags and clean URL structure.' },
     { title: 'Performance Optimization', desc: 'Fast load speeds and optimized assets.' },
@@ -129,6 +129,11 @@ export const Pricing = () => {
             <p className="plans-header-sub">
               Built to grow with your business.
             </p>
+            <div className="plans-badges">
+              <span className="plans-badge-item">✓ Transparent renewal pricing</span>
+              <span className="plans-badge-item">✓ No hidden recurring charges</span>
+              <span className="plans-badge-item">✓ Client-owned domain</span>
+            </div>
           </div>
         </Reveal>
 
@@ -213,9 +218,19 @@ export const Pricing = () => {
         </div>
 
         <Reveal>
-          <p className="plans-disclaimer">
-            * Domain renewal, payment gateway, and shipping charges are billed directly to client.
-          </p>
+          <div className="plans-disclaimer-wrap">
+            <p className="plans-disclaimer">
+              * <strong>Domain (Year 1):</strong> Included (for package-supported plans). 
+              <strong> Domain Renewal (After Year 1):</strong> Separate charge at applicable renewal rates.
+            </p>
+            <p className="plans-disclaimer">
+              * Domain renewal, server hosting, payment gateway, API usage, and shipping charges are billed directly by respective providers. 
+              Client retains full ownership and control of all accounts. See our <a href="/transparency" className="disclaimer-link">Pricing &amp; Ownership Transparency Policy</a> for details.
+            </p>
+            <div className="plans-trust-badge">
+              Transparent Pricing • Client Ownership • No Hidden Charges
+            </div>
+          </div>
         </Reveal>
 
         {/* Bottom CTA section */}
