@@ -16,19 +16,18 @@ type FooterLink = {
 
 const EXPLORE_LINKS: FooterLink[] = [
   { label: "Home", href: "/" },
-  { label: "Who We Are", href: "/#about" },
-  { label: "What We Do", href: "/#what-we-do" },
-  { label: "What We Build", href: "/#what-we-build" },
-  { label: "How We Work", href: "/#how-we-work" },
-  { label: "Selected Work", href: "/#work" },
+  { label: "About", href: "/about" },
+  { label: "Capabilities", href: "/capabilities" },
+  { label: "Projects", href: "/projects" },
+  { label: "Careers", href: "/careers" },
 ];
 
 const CAPABILITIES_LINKS: FooterLink[] = [
-  { label: "Digital Experiences", href: "/#what-we-do" },
-  { label: "Product Development", href: "/#what-we-do" },
-  { label: "UI / UX Design", href: "/#what-we-do" },
-  { label: "AI & Automation", href: "/#what-we-do" },
-  { label: "Digital Systems", href: "/#what-we-do" },
+  { label: "Digital Experiences", href: "/capabilities" },
+  { label: "Product Development", href: "/capabilities" },
+  { label: "UI / UX Design", href: "/capabilities" },
+  { label: "AI & Automation", href: "/capabilities" },
+  { label: "Digital Systems", href: "/capabilities" },
 ];
 
 const CONNECT_LINKS: FooterLink[] = [

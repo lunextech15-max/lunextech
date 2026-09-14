@@ -1,0 +1,106 @@
+/* Shared background/fade treatment for standalone content pages (About,
+   Capabilities, Projects, Careers) — same cinematic minimal language as
+   contact.css, factored out so every standalone page doesn't redefine it. */
+
+.page-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 110px 110px;
+  opacity: 0.28;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 20%, #000 10%, transparent 65%);
+  mask-image: radial-gradient(ellipse at 50% 20%, #000 10%, transparent 65%);
+  pointer-events: none;
+}
+
+.page-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.035;
+  pointer-events: none;
+}
+
+.page-glow {
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  width: 80vmax;
+  height: 80vmax;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 26, 26, 0.1) 0%, rgba(255, 26, 26, 0.03) 35%, transparent 62%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.page-fade {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: page-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.page-fade:nth-child(2) { animation-delay: 0.08s; }
+.page-fade:nth-child(3) { animation-delay: 0.16s; }
+.page-fade:nth-child(4) { animation-delay: 0.24s; }
+
+@keyframes page-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reusable bordered card, same visual language as contact's channel cards. */
+.page-card {
+  position: relative;
+  padding: 1.75rem;
+  border: 1px solid var(--color-line);
+  transition: border-color 0.4s ease;
+}
+
+.page-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 0;
+  background: var(--color-accent);
+  transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.page-card:hover,
+.page-card:focus-within {
+  border-color: rgba(229, 229, 229, 0.25);
+}
+
+.page-card:hover::before,
+.page-card:focus-within::before {
+  height: 100%;
+}
+
+.page-link {
+  color: var(--color-soft-white);
+  transition: color 0.3s ease;
+}
+
+.page-link:hover,
+.page-link:focus-visible {
+  color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-fade {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .page-card::before,
+  .page-link {
+    transition: none;
+  }
+}

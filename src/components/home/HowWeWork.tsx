@@ -3,51 +3,12 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ProcessVisual, { type ProcessId } from "./ProcessVisuals";
+import ProcessVisual from "./ProcessVisuals";
 import { useLoadingState } from "@/components/loading/LoadingProvider";
+import { PROCESS_STEPS as STEPS } from "@/lib/process";
 import "@/styles/how-we-work.css";
 
 gsap.registerPlugin(ScrollTrigger);
-
-type Step = {
-  id: ProcessId;
-  number: string;
-  title: string;
-  description: string;
-};
-
-const STEPS: Step[] = [
-  {
-    id: "discover",
-    number: "01",
-    title: "Discover",
-    description: "Understand the idea, problem, audience and goals.",
-  },
-  {
-    id: "define",
-    number: "02",
-    title: "Define",
-    description: "Transform possibilities into a clear strategy and direction.",
-  },
-  {
-    id: "design",
-    number: "03",
-    title: "Design",
-    description: "Shape the experience, interface, identity and product vision.",
-  },
-  {
-    id: "build",
-    number: "04",
-    title: "Build",
-    description: "Turn the vision into a functional digital product.",
-  },
-  {
-    id: "evolve",
-    number: "05",
-    title: "Evolve",
-    description: "Test, improve and prepare the product to grow.",
-  },
-];
 
 export default function HowWeWork() {
   const rootRef = useRef<HTMLElement>(null);

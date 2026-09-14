@@ -3,44 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ServiceVisual, { type ServiceId } from "./ServiceVisuals";
+import ServiceVisual from "./ServiceVisuals";
 import { useLoadingState } from "@/components/loading/LoadingProvider";
+import { SERVICES } from "@/lib/services";
 import "@/styles/what-we-do.css";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const SERVICES: { id: ServiceId; title: string; description: string }[] = [
-  {
-    id: "experiences",
-    title: "Digital Experiences",
-    description:
-      "We create powerful digital experiences that capture attention and leave a lasting impression.",
-  },
-  {
-    id: "product",
-    title: "Product Development",
-    description:
-      "We transform ambitious ideas into functional, scalable digital products.",
-  },
-  {
-    id: "uiux",
-    title: "UI / UX Design",
-    description:
-      "We design intuitive interfaces where clarity, creativity and functionality work together.",
-  },
-  {
-    id: "ai",
-    title: "AI & Automation",
-    description:
-      "We build intelligent systems and automation that simplify work and unlock new possibilities.",
-  },
-  {
-    id: "systems",
-    title: "Digital Systems",
-    description:
-      "We create connected digital systems designed to support growth and long-term innovation.",
-  },
-];
 
 // How much scroll the pinned desktop stage consumes, in viewport heights.
 const PIN_LENGTH_VH = 2.4;

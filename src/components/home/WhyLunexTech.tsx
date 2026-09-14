@@ -3,49 +3,12 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import PrincipleVisual, { type PrincipleId } from "./PrincipleVisuals";
+import PrincipleVisual from "./PrincipleVisuals";
 import { useLoadingState } from "@/components/loading/LoadingProvider";
+import { PRINCIPLES } from "@/lib/principles";
 import "@/styles/why-lunex-tech.css";
 
 gsap.registerPlugin(ScrollTrigger);
-
-type Principle = {
-  id: PrincipleId;
-  number: string;
-  title: string[];
-  description: string;
-};
-
-const PRINCIPLES: Principle[] = [
-  {
-    id: "think",
-    number: "01",
-    title: ["Think before", "we build."],
-    description:
-      "Before choosing tools or writing code, we focus on understanding the problem, the people and the goal. The right solution starts with asking the right questions.",
-  },
-  {
-    id: "design",
-    number: "02",
-    title: ["Design with", "purpose."],
-    description:
-      "Design is more than making something look good. Every interaction, screen and detail should have a reason to exist. We focus on experiences that are clear, useful and memorable.",
-  },
-  {
-    id: "technology",
-    number: "03",
-    title: ["Technology", "that fits."],
-    description:
-      "We don't choose technology simply because it is popular. We choose tools and systems based on what the product actually needs.",
-  },
-  {
-    id: "evolve",
-    number: "04",
-    title: ["Built to", "evolve."],
-    description:
-      "A product should not only work on launch day. We think about flexibility, improvement and future growth from the beginning.",
-  },
-];
 
 export default function WhyLunexTech() {
   const rootRef = useRef<HTMLElement>(null);
