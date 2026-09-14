@@ -1,0 +1,159 @@
+/* Internship Programs — shared styles for /internships, /internships/:slug,
+   and /apply. Reuses the page-hero.css background/fade treatment; this file
+   adds the program-row, timeline, and form-specific pieces. */
+
+/* ---------- program row (listing) ---------- */
+
+.program-row {
+  position: relative;
+  display: block;
+  border-top: 1px solid var(--color-line);
+  padding: 2.25rem 0;
+  transition: border-color 0.35s ease;
+}
+
+.program-row:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.program-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.program-row:hover::before,
+.program-row:focus-within::before {
+  width: 100%;
+}
+
+.program-row-title {
+  color: var(--color-soft-white);
+  transition: color 0.3s ease;
+}
+
+.program-row:hover .program-row-title,
+.program-row:focus-within .program-row-title {
+  color: var(--color-accent);
+}
+
+.program-row-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.program-row:hover .program-row-arrow,
+.program-row:focus-within .program-row-arrow {
+  transform: translateX(4px);
+}
+
+/* ---------- vertical timeline (how it works / program structure) ---------- */
+
+.timeline-track {
+  position: relative;
+}
+
+.timeline-track::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  width: 1px;
+  background: var(--color-line);
+}
+
+.timeline-step {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.timeline-step::before {
+  content: "";
+  position: absolute;
+  left: -3.5px;
+  top: 0.55rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-accent);
+}
+
+/* ---------- application form ---------- */
+
+.apply-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.apply-field-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-soft-white) 45%, transparent);
+}
+
+.apply-input,
+.apply-select,
+.apply-textarea {
+  width: 100%;
+  border: 1px solid var(--color-line);
+  background: transparent;
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  color: var(--color-soft-white);
+  transition: border-color 0.3s ease;
+}
+
+.apply-textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.apply-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23e5e5e5' fill-opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+}
+
+.apply-input:focus,
+.apply-select:focus,
+.apply-textarea:focus {
+  outline: none;
+  border-color: rgba(229, 229, 229, 0.35);
+}
+
+.apply-input::placeholder,
+.apply-textarea::placeholder {
+  color: color-mix(in srgb, var(--color-soft-white) 25%, transparent);
+}
+
+.apply-error {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--color-accent);
+}
+
+.apply-section-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-soft-white) 40%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .program-row::before,
+  .program-row-title,
+  .program-row-arrow {
+    transition: none;
+  }
+}

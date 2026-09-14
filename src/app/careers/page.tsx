@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import { PRINCIPLES } from "@/lib/principles";
@@ -45,13 +46,22 @@ export default function CareersPage() {
               you&apos;d be a strong fit for LUNEX TECH, reach out anyway —
               tell us what you&apos;d want to work on.
             </p>
-            <a
-              href="/contact"
-              className="page-link mt-4 inline-flex items-center gap-2 text-xs font-medium tracking-[0.15em] uppercase"
-            >
-              Get in touch
-              <span aria-hidden>↗</span>
-            </a>
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+              <Link
+                href="/contact"
+                className="page-link inline-flex items-center gap-2 text-xs font-medium tracking-[0.15em] uppercase"
+              >
+                Get in touch
+                <span aria-hidden>↗</span>
+              </Link>
+              <Link
+                href="/internships"
+                className="page-link inline-flex items-center gap-2 text-xs font-medium tracking-[0.15em] uppercase"
+              >
+                Explore internship programs
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
           </div>
         </div>
       </main>

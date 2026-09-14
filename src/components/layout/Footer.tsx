@@ -19,6 +19,7 @@ const EXPLORE_LINKS: FooterLink[] = [
   { label: "About", href: "/about" },
   { label: "Capabilities", href: "/capabilities" },
   { label: "Projects", href: "/projects" },
+  { label: "Internships", href: "/internships" },
   { label: "Careers", href: "/careers" },
 ];
 
