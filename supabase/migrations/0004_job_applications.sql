@@ -13,7 +13,7 @@ create table if not exists public.job_applications (
   phone text not null default '',
   location text not null default '',
   job_id text not null,
-  current_role text not null default '',
+  current_position text not null default '',
   experience_level text not null default '',
   experience text not null default '',
   skills text not null default '',

@@ -67,7 +67,7 @@ export default function JobApplicationForm({ job }: { job: Job }) {
       phone: data.phone.trim(),
       location: data.location.trim(),
       job_id: job.id,
-      current_role: data.currentRole.trim(),
+      current_position: data.currentRole.trim(),
       experience_level: data.experienceLevel,
       experience: data.experience.trim(),
       skills: data.skills.trim(),
