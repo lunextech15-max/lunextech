@@ -2,21 +2,41 @@
 
 import { useId, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 
 type Errors = {
   staffId?: string;
   password?: string;
 };
 
-// Integration point: swap this stub for a real Supabase credential check once
-// it's connected. Until then there is no real account system to verify
-// against, so any correctly-filled Staff ID + password is let through to the
-// dashboard — this is a routing placeholder, not real authentication, and
-// grants no session.
-async function submitStaffLogin(credentials: { staffId: string; password: string }) {
-  void credentials;
-  await new Promise((resolve) => setTimeout(resolve, 550));
-  return { connected: true as const };
+type LoginResult = { ok: true } | { ok: false; message: string };
+
+// Real authentication: a Staff ID isn't a Supabase Auth identity, so this
+// first resolves it to the account's email via the `get_staff_email` RPC
+// (see supabase/migrations/0001_staff_auth.sql), then signs in with that
+// email + password. Generic error messages throughout — never reveal
+// whether a given Staff ID exists.
+async function submitStaffLogin(credentials: { staffId: string; password: string }): Promise<LoginResult> {
+  const supabase = createClient();
+
+  const { data: email, error: lookupError } = await supabase.rpc("get_staff_email", {
+    staff_id_input: credentials.staffId,
+  });
+
+  if (lookupError || !email) {
+    return { ok: false, message: "Invalid Staff ID or password." };
+  }
+
+  const { error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password: credentials.password,
+  });
+
+  if (signInError) {
+    return { ok: false, message: "Invalid Staff ID or password." };
+  }
+
+  return { ok: true };
 }
 
 export default function LoginForm() {
@@ -56,14 +76,15 @@ export default function LoginForm() {
     setStatus(null);
     const result = await submitStaffLogin({ staffId: staffId.trim(), password });
 
-    if (result.connected) {
+    if (result.ok) {
       setStatus("Access granted. Redirecting…");
       router.push("/staff/dashboard");
+      router.refresh();
       return;
     }
 
     setPending(false);
-    setStatus("Staff authentication isn't connected yet. Check back soon.");
+    setStatus(result.message);
   };
 
   return (

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SignOutButton from "@/components/staff/SignOutButton";
 import type { StaffUser } from "@/lib/staff/types";
 
 export type StaffNavId =
@@ -95,13 +96,7 @@ export default function Sidebar({
             Profile
             <span aria-hidden>→</span>
           </Link>
-          <Link
-            href="/staff"
-            className="dash-signout inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.15em] uppercase"
-          >
-            Sign out
-            <span aria-hidden>→</span>
-          </Link>
+          <SignOutButton className="dash-signout inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.15em] uppercase disabled:opacity-50" />
         </div>
       </div>
     </div>
