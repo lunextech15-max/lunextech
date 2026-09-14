@@ -3,8 +3,8 @@ import StaffPortalLayout from "@/components/staff/StaffPortalLayout";
 import LoginForm from "@/components/staff/LoginForm";
 
 export const metadata: Metadata = {
-  title: "Staff Portal — LUNEX TECH",
-  description: "Internal LUNEX TECH staff workspace access.",
+  title: "Staff / Intern Login — LUNEX TECH",
+  description: "Internal LUNEX TECH staff and intern workspace access.",
   robots: { index: false, follow: false },
 };
 
@@ -23,8 +23,8 @@ export default function StaffPortalPage() {
 
           <div className="mt-10 flex items-center gap-4 border-l border-line pl-5 lg:mt-14">
             <p className="text-xs leading-relaxed text-soft-white/50 sm:text-sm">
-              Sign in with your LUNEX TECH staff credentials to reach internal
-              tools, projects and systems.
+              Sign in with your LUNEX TECH staff or intern credentials to
+              reach internal tools, projects and systems.
             </p>
           </div>
         </div>

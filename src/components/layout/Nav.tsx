@@ -47,7 +47,7 @@ export default function Nav() {
             href="/staff"
             className="text-xs font-medium tracking-[0.15em] text-soft-white/60 uppercase transition-colors hover:text-soft-white"
           >
-            Staff Portal →
+            Staff / Intern Login →
           </a>
           <a
             href="/contact"
@@ -92,7 +92,7 @@ export default function Nav() {
             </a>
           ))}
           <a href="/staff" className="py-3 text-base font-medium text-accent">
-            STAFF PORTAL →
+            STAFF / INTERN LOGIN →
           </a>
         </nav>
       )}

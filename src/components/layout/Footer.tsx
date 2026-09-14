@@ -174,7 +174,7 @@ export default function Footer() {
           <span>© 2026 Lunex Tech</span>
           <span className="text-soft-white/30">From idea to impact.</span>
           <Link href="/staff" className="footer-portal">
-            Staff Portal
+            Staff / Intern Login
             <span aria-hidden>→</span>
           </Link>
         </div>
