@@ -12,7 +12,6 @@ type Errors = {
 type LoginResult = { ok: true; redirectTo: string } | { ok: false; message: string };
 
 const ROLE_REDIRECT: Record<string, string> = {
-  admin: "/admin",
   staff: "/staff/dashboard",
   intern: "/intern/dashboard",
 };

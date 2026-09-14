@@ -1,15 +1,13 @@
 // Refreshes the Supabase auth session on every request that passes through
 // proxy.ts, so server components always see an up-to-date session — and
-// redirects signed-out visitors away from protected /staff/*, /intern/* and
-// /admin/* pages. /admin/* additionally requires role === "admin", checked
-// via the get_my_role() RPC (supabase/migrations/0002_roles.sql) — real,
-// backend-enforced, not just a hidden nav item.
+// redirects signed-out visitors away from protected /staff/* and /intern/*
+// pages. The admin panel is a separate deployment (lunextech-admin), so an
+// admin-role account landing here just falls back to the staff dashboard.
 
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 const ROLE_HOME: Record<string, string> = {
-  admin: "/admin",
   staff: "/staff/dashboard",
   intern: "/intern/dashboard",
 };
@@ -41,26 +39,16 @@ export async function updateSession(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
   const isLoginPage = pathname === "/staff";
-  const isAdminRoute = pathname === "/admin" || pathname.startsWith("/admin/");
   const isProtectedRoute =
-    isAdminRoute ||
-    pathname.startsWith("/staff/") ||
-    pathname === "/intern" ||
-    pathname.startsWith("/intern/");
+    pathname.startsWith("/staff/") || pathname === "/intern" || pathname.startsWith("/intern/");
 
   if (!user && isProtectedRoute) {
     return NextResponse.redirect(new URL("/staff", request.url));
   }
 
-  if (user && (isAdminRoute || isLoginPage)) {
+  if (user && isLoginPage) {
     const { data: role } = (await supabase.rpc("get_my_role")) as { data: string | null };
-
-    if (isAdminRoute && role !== "admin") {
-      return NextResponse.redirect(new URL(ROLE_HOME[role ?? "staff"] ?? "/staff/dashboard", request.url));
-    }
-    if (isLoginPage) {
-      return NextResponse.redirect(new URL(ROLE_HOME[role ?? "staff"] ?? "/staff/dashboard", request.url));
-    }
+    return NextResponse.redirect(new URL(ROLE_HOME[role ?? "staff"] ?? "/staff/dashboard", request.url));
   }
 
   return supabaseResponse;
