@@ -61,6 +61,36 @@ export const MOCK_TEAM: StaffTeamMember[] = [
     projectIds: ["LX-003", "LX-007"],
     status: "active",
   },
+  {
+    id: "member-vp",
+    name: "Team member",
+    initials: "VP",
+    role: "Backend Developer",
+    discipline: "Engineering",
+    skills: ["Backend", "Node.js", "Databases"],
+    projectIds: ["LX-003"],
+    status: "active",
+  },
+  {
+    id: "member-rs",
+    name: "Team member",
+    initials: "RS",
+    role: "Marketing Lead",
+    discipline: "Product",
+    skills: ["Marketing", "Content Strategy"],
+    projectIds: ["LX-004"],
+    status: "active",
+  },
+  {
+    id: "member-nt",
+    name: "Team member",
+    initials: "NT",
+    role: "DevOps Engineer",
+    discipline: "Engineering",
+    skills: ["CI/CD", "Infrastructure"],
+    projectIds: ["LX-006"],
+    status: "active",
+  },
 ];
 
 export function getMemberProjects(member: StaffTeamMember): StaffProject[] {

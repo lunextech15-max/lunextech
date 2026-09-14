@@ -9,26 +9,32 @@ type Errors = {
   password?: string;
 };
 
-type LoginResult = { ok: true } | { ok: false; message: string };
+type LoginResult = { ok: true; redirectTo: string } | { ok: false; message: string };
+
+const ROLE_REDIRECT: Record<string, string> = {
+  admin: "/admin",
+  staff: "/staff/dashboard",
+  intern: "/intern/dashboard",
+};
 
 // Real authentication: a Staff ID isn't a Supabase Auth identity, so this
-// first resolves it to the account's email via the `get_staff_email` RPC
-// (see supabase/migrations/0001_staff_auth.sql), then signs in with that
-// email + password. Generic error messages throughout — never reveal
-// whether a given Staff ID exists.
+// first resolves it to the account's email + role via the
+// `get_staff_login_info` RPC (see supabase/migrations/0002_roles.sql), then
+// signs in with that email + password and routes by role. Generic error
+// messages throughout — never reveal whether a given Staff ID exists.
 async function submitStaffLogin(credentials: { staffId: string; password: string }): Promise<LoginResult> {
   const supabase = createClient();
 
-  const { data: email, error: lookupError } = await supabase.rpc("get_staff_email", {
-    staff_id_input: credentials.staffId,
-  });
+  const { data, error: lookupError } = (await supabase
+    .rpc("get_staff_login_info", { staff_id_input: credentials.staffId })
+    .maybeSingle()) as { data: { email: string; role: string } | null; error: unknown };
 
-  if (lookupError || !email) {
+  if (lookupError || !data?.email) {
     return { ok: false, message: "Invalid Staff ID or password." };
   }
 
   const { error: signInError } = await supabase.auth.signInWithPassword({
-    email,
+    email: data.email,
     password: credentials.password,
   });
 
@@ -36,7 +42,7 @@ async function submitStaffLogin(credentials: { staffId: string; password: string
     return { ok: false, message: "Invalid Staff ID or password." };
   }
 
-  return { ok: true };
+  return { ok: true, redirectTo: ROLE_REDIRECT[data.role] ?? "/staff/dashboard" };
 }
 
 export default function LoginForm() {
@@ -78,7 +84,7 @@ export default function LoginForm() {
 
     if (result.ok) {
       setStatus("Access granted. Redirecting…");
-      router.push("/staff/dashboard");
+      router.push(result.redirectTo);
       router.refresh();
       return;
     }
