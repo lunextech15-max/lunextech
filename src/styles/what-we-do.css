@@ -1,0 +1,122 @@
+/* Section 03 — What We Do. Stage surface, visual crossfade and the few SVG accents that move. */
+
+.wwd-stage {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  background: linear-gradient(160deg, #111111 0%, #0b0b0b 55%, #070707 100%);
+}
+
+.wwd-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.35;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 30%, transparent 78%);
+  pointer-events: none;
+}
+
+.wwd-stage::after {
+  content: "";
+  position: absolute;
+  right: -20%;
+  bottom: -30%;
+  width: 70%;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(255, 26, 26, 0.16) 0%, rgba(255, 26, 26, 0.04) 35%, transparent 62%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.wwd-stage-reflection {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(118deg, transparent 35%, rgba(229, 229, 229, 0.035) 50%, transparent 65%);
+  pointer-events: none;
+}
+
+.wwd-visual {
+  position: absolute;
+  inset: 0;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  opacity: 0;
+  transform: scale(0.985) translateY(8px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+  pointer-events: none;
+}
+
+.wwd-visual.is-active {
+  opacity: 1;
+  transform: none;
+}
+
+.wwd-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* mobile inline stage keeps a fixed ratio */
+.wwd-stage--inline {
+  aspect-ratio: 4 / 3;
+}
+
+.wwd-stage--inline .wwd-visual {
+  position: relative;
+  inset: auto;
+  height: 100%;
+}
+
+/* ---------- SVG accents ---------- */
+
+.wwd-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wwd-pulse 2.8s ease-in-out infinite;
+}
+
+.wwd-flow {
+  stroke-dasharray: 8 14;
+  animation: wwd-dash 2.4s linear infinite;
+}
+
+.wwd-flow--slow {
+  stroke-dasharray: 4 18;
+  animation-duration: 4s;
+}
+
+.wwd-scan {
+  animation: wwd-scan 7s ease-in-out infinite;
+}
+
+@keyframes wwd-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.8); opacity: 0.45; }
+}
+
+@keyframes wwd-dash {
+  to { stroke-dashoffset: -44; }
+}
+
+@keyframes wwd-scan {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 0.5; }
+  80% { opacity: 0.5; }
+  90%, 100% { transform: translateY(438px); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wwd-pulse,
+  .wwd-flow,
+  .wwd-scan {
+    animation: none;
+  }
+}

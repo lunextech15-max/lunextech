@@ -1,0 +1,130 @@
+/* Section 09 — Footer. Deliberately quieter than every section before it: this is the
+   calm landing point after the Section 08 peak, not another cinematic moment. */
+
+.footer-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 120px 120px;
+  opacity: 0.18;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 25%, #000 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 25%, #000 100%);
+  pointer-events: none;
+}
+
+.footer-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.025;
+  pointer-events: none;
+}
+
+.footer-glow {
+  position: absolute;
+  left: 50%;
+  top: -10%;
+  width: 60vmax;
+  height: 60vmax;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255, 26, 26, 0.06) 0%, rgba(255, 26, 26, 0.02) 35%, transparent 62%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+/* ---------- brand wordmark ---------- */
+
+.footer-logo {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--color-soft-white);
+  transition: opacity 0.4s ease;
+}
+
+.footer-logo:hover,
+.footer-logo:focus-visible {
+  opacity: 0.85;
+}
+
+/* ---------- nav links ---------- */
+
+.footer-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 14px;
+  color: rgba(229, 229, 229, 0.55);
+  transition: color 0.35s ease;
+}
+
+.footer-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 8px;
+  height: 1px;
+  background: var(--color-accent);
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: var(--color-soft-white);
+}
+
+.footer-link:hover::before,
+.footer-link:focus-visible::before {
+  transform: translateY(-50%) scaleX(1);
+}
+
+.footer-link-arrow {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.footer-link:hover .footer-link-arrow,
+.footer-link:focus-visible .footer-link-arrow {
+  transform: translateX(3px);
+}
+
+/* ---------- staff portal (secondary, technical) ---------- */
+
+.footer-portal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(229, 229, 229, 0.45);
+  transition: color 0.35s ease;
+}
+
+.footer-portal:hover,
+.footer-portal:focus-visible {
+  color: var(--color-accent);
+}
+
+/* ---------- social placeholders (no verified handles yet — clearly non-interactive) ---------- */
+
+.footer-social-item {
+  color: rgba(229, 229, 229, 0.28);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-link::before,
+  .footer-link-arrow,
+  .footer-logo,
+  .footer-portal {
+    transition: none;
+  }
+}

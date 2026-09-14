@@ -1,0 +1,381 @@
+/* LUNEX TECH — cinematic loading screen.
+   All motion here is CSS-composited (transform/opacity); sequencing lives in LoadingScreen.tsx. */
+
+.ld-root {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--color-carbon);
+  color: var(--color-soft-white);
+}
+
+/* ---------- atmosphere ---------- */
+
+.ld-texture {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 42%, #151515 0%, #0b0b0b 52%, #040404 100%);
+}
+
+.ld-reflection {
+  position: absolute;
+  inset: -25%;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    rgba(229, 229, 229, 0.035) 50%,
+    transparent 58%
+  );
+  animation: ld-reflect 16s ease-in-out infinite;
+  will-change: transform;
+}
+
+.ld-grain {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.045;
+  pointer-events: none;
+  animation: ld-grain 0.9s steps(6) infinite;
+  will-change: transform;
+}
+
+.ld-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+/* ---------- red energy ---------- */
+
+.ld-energy {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 70vmax;
+  height: 70vmax;
+  transform: translate(-50%, -50%) scale(0.55);
+  background: radial-gradient(
+    circle,
+    rgba(255, 26, 26, 0.26) 0%,
+    rgba(255, 26, 26, 0.08) 28%,
+    rgba(255, 26, 26, 0.02) 45%,
+    transparent 62%
+  );
+  filter: blur(12px);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.ld-sweep {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -45%;
+  width: 40%;
+  transform: skewX(-12deg);
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 26, 26, 0.06) 40%,
+    rgba(255, 90, 90, 0.16) 50%,
+    rgba(255, 26, 26, 0.06) 60%,
+    transparent 100%
+  );
+  opacity: 0;
+  will-change: left, opacity;
+}
+
+.ld-particles {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ld-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--color-soft-white);
+  opacity: 0.35;
+  animation: ld-float var(--dur) ease-in-out var(--delay) infinite alternate;
+  will-change: transform, opacity;
+}
+
+.ld-particle--red {
+  background: var(--color-accent);
+  box-shadow: 0 0 6px rgba(255, 26, 26, 0.9);
+  opacity: 0.7;
+}
+
+/* ---------- orbital structure ---------- */
+
+.ld-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(84vmin, 680px);
+  height: min(84vmin, 680px);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ld-ring svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ld-ring-spin {
+  transform-origin: 50% 50%;
+  animation: ld-spin 52s linear infinite;
+}
+
+.ld-ring-spin--reverse {
+  animation: ld-spin 70s linear infinite reverse;
+}
+
+/* ---------- logo block ---------- */
+
+.ld-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.ld-logo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(3.2rem, 9.5vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: 0.04em;
+  opacity: 0;
+}
+
+.ld-logo-lunex {
+  position: relative;
+  display: block;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #dcdcdc 36%,
+    #8c8c8c 52%,
+    #ececec 68%,
+    #b3b3b3 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ld-logo-sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.95) 50%,
+    transparent 62%
+  );
+  background-size: 300% 100%;
+  background-position: -150% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  pointer-events: none;
+}
+
+.ld-logo-tech {
+  display: block;
+  color: var(--color-accent);
+  text-shadow:
+    0 0 0px rgba(255, 26, 26, 0),
+    0 0 0px rgba(255, 26, 26, 0);
+}
+
+.ld-tagline {
+  margin: 1.6rem 0 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.62rem, 1.1vw, 0.78rem);
+  font-weight: 500;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: rgba(229, 229, 229, 0.72);
+  opacity: 0;
+}
+
+/* ---------- progress ---------- */
+
+.ld-progress {
+  width: min(320px, 72vw);
+  margin: 2.6rem auto 0;
+  opacity: 0;
+}
+
+.ld-bar {
+  position: relative;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #1c1c1c;
+}
+
+.ld-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #b10f0f 0%, var(--color-accent) 100%);
+  box-shadow: 0 0 12px rgba(255, 26, 26, 0.65);
+}
+
+.ld-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.8rem;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(229, 229, 229, 0.45);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- microcopy ---------- */
+
+.ld-side {
+  position: absolute;
+  top: 50%;
+  display: none;
+  flex-direction: column;
+  gap: 0.9rem;
+  transform: translateY(-50%);
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(229, 229, 229, 0.3);
+  opacity: 0;
+}
+
+.ld-side--left {
+  left: clamp(1.5rem, 4vw, 4rem);
+}
+
+.ld-side--right {
+  right: clamp(1.5rem, 4vw, 4rem);
+  text-align: right;
+}
+
+.ld-corner {
+  position: absolute;
+  bottom: clamp(1.25rem, 3vw, 2.5rem);
+  display: none;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  line-height: 1.9;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(229, 229, 229, 0.28);
+  opacity: 0;
+}
+
+.ld-corner--left {
+  left: clamp(1.5rem, 4vw, 4rem);
+}
+
+.ld-corner--right {
+  right: clamp(1.5rem, 4vw, 4rem);
+  text-align: right;
+}
+
+@media (min-width: 640px) {
+  .ld-corner {
+    display: block;
+  }
+}
+
+/* tablet: side copy present but reduced */
+@media (min-width: 768px) {
+  .ld-side {
+    display: flex;
+    gap: 0.6rem;
+    font-size: 0.55rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ld-side {
+    gap: 0.9rem;
+    font-size: 0.6rem;
+  }
+}
+
+/* ---------- exit ---------- */
+
+.ld-exit-sweep {
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: -70%;
+  width: 60%;
+  z-index: 3;
+  transform: skewX(-14deg);
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 26, 26, 0.22) 40%,
+    rgba(255, 96, 96, 0.5) 50%,
+    rgba(255, 26, 26, 0.22) 60%,
+    transparent 100%
+  );
+  filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  will-change: left;
+}
+
+/* ---------- keyframes ---------- */
+
+@keyframes ld-grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -4%); }
+  60% { transform: translate(-4%, -1%); }
+  80% { transform: translate(3%, 3%); }
+  100% { transform: translate(-1%, 4%); }
+}
+
+@keyframes ld-float {
+  from { transform: translate3d(0, 0, 0); opacity: 0.15; }
+  to { transform: translate3d(var(--dx), var(--dy), 0); opacity: 0.55; }
+}
+
+@keyframes ld-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ld-reflect {
+  0%, 100% { transform: translate3d(-6%, -4%, 0); }
+  50% { transform: translate3d(6%, 4%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ld-grain,
+  .ld-reflection,
+  .ld-particle,
+  .ld-ring-spin {
+    animation: none;
+  }
+}

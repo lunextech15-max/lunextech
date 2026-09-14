@@ -1,0 +1,108 @@
+/* Contact page. Standalone route reached from Start a Project / Talk to Us / Contact
+   across the site — matches the cinematic minimal language of the home sections. */
+
+.contact-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 110px 110px;
+  opacity: 0.28;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 10%, transparent 65%);
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 10%, transparent 65%);
+  pointer-events: none;
+}
+
+.contact-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.035;
+  pointer-events: none;
+}
+
+.contact-glow {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  width: 80vmax;
+  height: 80vmax;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 26, 26, 0.1) 0%, rgba(255, 26, 26, 0.03) 35%, transparent 62%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.contact-fade {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: contact-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.contact-fade:nth-child(2) { animation-delay: 0.08s; }
+.contact-fade:nth-child(3) { animation-delay: 0.16s; }
+
+@keyframes contact-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- contact channel cards ---------- */
+
+.contact-channel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.75rem;
+  border: 1px solid var(--color-line);
+  transition: border-color 0.4s ease;
+}
+
+.contact-channel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 0;
+  background: var(--color-accent);
+  transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-channel:hover,
+.contact-channel:focus-within {
+  border-color: rgba(229, 229, 229, 0.25);
+}
+
+.contact-channel:hover::before,
+.contact-channel:focus-within::before {
+  height: 100%;
+}
+
+.contact-channel-link {
+  color: var(--color-soft-white);
+  transition: color 0.3s ease;
+}
+
+.contact-channel-link:hover,
+.contact-channel-link:focus-visible {
+  color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-fade {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .contact-channel::before,
+  .contact-channel-link {
+    transition: none;
+  }
+}

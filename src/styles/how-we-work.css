@@ -1,0 +1,165 @@
+/* Section 05 — How We Work. Background depth, the vertical progress line, big background
+   numbers, and the active/inactive step states. Entrances and the scrub fill are GSAP-driven
+   (see HowWeWork.tsx); everything here is the resting/transition styling GSAP animates toward. */
+
+.hww-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 96px 96px;
+  opacity: 0.3;
+  -webkit-mask-image: radial-gradient(ellipse at 72% 20%, #000 15%, transparent 62%);
+  mask-image: radial-gradient(ellipse at 72% 20%, #000 15%, transparent 62%);
+  pointer-events: none;
+}
+
+.hww-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.hww-glow {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 70vmax;
+  height: 70vmax;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255, 26, 26, 0.1) 0%, rgba(255, 26, 26, 0.03) 32%, transparent 60%);
+  filter: blur(24px);
+  pointer-events: none;
+}
+
+/* ---------- vertical journey line ---------- */
+
+.hww-track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: var(--color-line);
+}
+
+.hww-track-fill {
+  width: 100%;
+  height: 100%;
+  transform-origin: top center;
+  background: linear-gradient(180deg, var(--color-accent) 0%, #b1120f 100%);
+  box-shadow: 0 0 10px rgba(255, 26, 26, 0.4);
+}
+
+/* ---------- background number ---------- */
+
+.hww-bg-number {
+  position: absolute;
+  top: 50%;
+  right: clamp(0.5rem, 4vw, 3rem);
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 1;
+  font-size: clamp(7rem, 26vw, 20rem);
+  color: var(--color-soft-white);
+  opacity: 0.035;
+  transition: opacity 0.8s ease, color 0.8s ease, text-shadow 0.8s ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hww-step.is-active .hww-bg-number {
+  opacity: 0.07;
+  text-shadow: 0 0 60px rgba(255, 26, 26, 0.25);
+}
+
+/* ---------- step content states ---------- */
+
+.hww-step-num {
+  color: rgba(229, 229, 229, 0.3);
+  transition: color 0.6s ease;
+}
+
+.hww-step.is-active .hww-step-num {
+  color: var(--color-accent);
+}
+
+.hww-step-title {
+  color: rgba(229, 229, 229, 0.35);
+  transition: color 0.6s ease;
+}
+
+.hww-step.is-active .hww-step-title {
+  color: var(--color-soft-white);
+}
+
+.hww-step-body {
+  opacity: 0.4;
+  transform: translateY(4px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hww-step.is-active .hww-step-body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hww-step-rule {
+  background: var(--color-line);
+  transition: background 0.6s ease;
+}
+
+.hww-step.is-active .hww-step-rule {
+  background: var(--color-accent);
+}
+
+.hww-stage {
+  opacity: 0.3;
+  transform: scale(0.97);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.hww-step.is-active .hww-stage {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hww-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ---------- SVG accents ---------- */
+
+.hww-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hww-pulse 2.8s ease-in-out infinite;
+}
+
+.hww-flow {
+  stroke-dasharray: 5 9;
+  animation: hww-dash 2.2s linear infinite;
+}
+
+@keyframes hww-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.7); opacity: 0.5; }
+}
+
+@keyframes hww-dash {
+  to { stroke-dashoffset: -28; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hww-pulse,
+  .hww-flow {
+    animation: none;
+  }
+}
