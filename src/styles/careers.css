@@ -1,0 +1,144 @@
+/* Careers / Hiring — job-row, status, filters, technology tags, skeletons.
+   Reuses page-hero.css (background/fade) and internships.css (.apply-*
+   form fields, .timeline-*) rather than redefining them. */
+
+.job-row {
+  position: relative;
+  display: block;
+  border-top: 1px solid var(--color-line);
+  padding: 2.25rem 0;
+  transition: border-color 0.35s ease;
+}
+
+.job-row:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.job-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.job-row:hover::before,
+.job-row:focus-within::before {
+  width: 100%;
+}
+
+.job-row-title {
+  color: var(--color-soft-white);
+  transition: color 0.3s ease;
+}
+
+.job-row:hover .job-row-title,
+.job-row:focus-within .job-row-title {
+  color: var(--color-accent);
+}
+
+.job-row-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.job-row:hover .job-row-arrow,
+.job-row:focus-within .job-row-arrow {
+  transform: translateX(4px);
+}
+
+/* ---------- status ---------- */
+
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px rgba(255, 26, 26, 0.6);
+}
+
+.status-dot.is-closed {
+  background: color-mix(in srgb, var(--color-soft-white) 35%, transparent);
+  box-shadow: none;
+}
+
+/* ---------- filters ---------- */
+
+.job-filter-tab {
+  border: 1px solid var(--color-line);
+  padding: 0.55rem 1rem;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-soft-white) 55%, transparent);
+  transition: border-color 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+
+.job-filter-tab:hover {
+  border-color: rgba(229, 229, 229, 0.3);
+  color: var(--color-soft-white);
+}
+
+.job-filter-tab.is-active {
+  border-color: var(--color-accent);
+  color: var(--color-soft-white);
+}
+
+/* ---------- technology tags ---------- */
+
+.tech-tag {
+  border: 1px solid var(--color-line);
+  padding: 0.35rem 0.7rem;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: color-mix(in srgb, var(--color-soft-white) 65%, transparent);
+}
+
+/* ---------- skeleton ---------- */
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-line);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-soft-white) 6%, transparent),
+    transparent
+  );
+  animation: skeleton-sweep 1.6s ease-in-out infinite;
+}
+
+@keyframes skeleton-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .job-row::before,
+  .job-row-title,
+  .job-row-arrow,
+  .job-filter-tab {
+    transition: none;
+  }
+  .skeleton::after {
+    animation: none;
+  }
+}
