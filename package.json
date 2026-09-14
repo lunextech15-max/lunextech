@@ -8,10 +8,12 @@
     "start": "next start",
     "lint": "eslint",
     "video": "remotion render remotion/index.ts HeroReel public/videos/hero-reel.mp4 --codec h264 --crf 26",
+    "video:brand": "remotion render remotion/index.ts BrandShowcase public/videos/brand-showcase.mp4 --codec h264 --crf 20",
     "video:studio": "remotion studio remotion/index.ts"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.524",
+    "@remotion/google-fonts": "^4.0.524",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.116.0",
     "gsap": "^3.15.0",
