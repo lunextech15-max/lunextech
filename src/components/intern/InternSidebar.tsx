@@ -1,7 +1,15 @@
 import Link from "next/link";
 import type { InternUser } from "@/lib/intern/types";
 
-export type InternNavId = "dashboard" | "project" | "tasks" | "learning" | "team" | "announcements" | "profile";
+export type InternNavId =
+  | "dashboard"
+  | "project"
+  | "tasks"
+  | "learning"
+  | "team"
+  | "attendance"
+  | "announcements"
+  | "profile";
 
 type NavItem = {
   id: InternNavId;
@@ -16,8 +24,9 @@ const NAV_ITEMS: NavItem[] = [
   { id: "tasks", number: "03", label: "Tasks", href: "/intern/tasks" },
   { id: "learning", number: "04", label: "Learning", href: "/intern/learning" },
   { id: "team", number: "05", label: "Team", href: "/intern/team" },
-  { id: "announcements", number: "06", label: "Announcements", href: "/intern/announcements" },
-  { id: "profile", number: "07", label: "Profile", href: "/intern/profile" },
+  { id: "attendance", number: "06", label: "Attendance", href: "/intern/attendance" },
+  { id: "announcements", number: "07", label: "Announcements", href: "/intern/announcements" },
+  { id: "profile", number: "08", label: "Profile", href: "/intern/profile" },
 ];
 
 export default function InternSidebar({

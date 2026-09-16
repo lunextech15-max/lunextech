@@ -1,0 +1,154 @@
+/* Attendance — calendar grid, summary tiles, and the mark/correct form.
+   Reuses .dash-status, .staff-field-label/.staff-input, .proj-filter and
+   .team-row's visual language rather than inventing new primitives. */
+
+.att-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .att-summary-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.att-summary-tile {
+  border: 1px solid var(--color-line);
+  padding: 1.1rem 1.25rem;
+}
+
+.att-summary-value {
+  font-family: var(--font-display, inherit);
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--color-soft-white);
+  letter-spacing: -0.01em;
+}
+
+.att-summary-label {
+  margin-top: 0.4rem;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(229, 229, 229, 0.45);
+}
+
+.att-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.att-calendar-weekday {
+  padding-block: 0.4rem;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(229, 229, 229, 0.35);
+}
+
+.att-calendar-day {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 1px solid var(--color-line);
+  font-size: 12px;
+  color: var(--color-soft-white);
+}
+
+.att-calendar-day.is-empty {
+  border-color: transparent;
+}
+
+.att-calendar-day.is-today {
+  border-color: var(--color-accent);
+}
+
+.att-calendar-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.att-calendar-dot--present {
+  background: var(--color-soft-white);
+}
+
+.att-calendar-dot--late {
+  background: var(--color-accent);
+}
+
+.att-calendar-dot--absent {
+  background: rgba(229, 229, 229, 0.25);
+}
+
+.att-calendar-dot--half-day,
+.att-calendar-dot--leave {
+  background: rgba(229, 229, 229, 0.4);
+}
+
+.att-table-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--color-line);
+  padding-block: 0.9rem;
+}
+
+.att-table-row:last-child {
+  border-bottom: none;
+}
+
+/* ---------- modal ---------- */
+
+.att-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.72);
+  padding: 5vh 1.25rem;
+}
+
+.att-modal {
+  width: 100%;
+  max-width: 560px;
+  border: 1px solid var(--color-line);
+  background: var(--color-carbon);
+  padding: 2rem;
+}
+
+@media (min-width: 640px) {
+  .att-modal {
+    padding: 2.5rem;
+  }
+}
+
+.att-modal-close {
+  color: rgba(229, 229, 229, 0.45);
+  transition: color 0.3s ease;
+}
+
+.att-modal-close:hover,
+.att-modal-close:focus-visible {
+  color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .att-modal-close {
+    transition: none;
+  }
+}

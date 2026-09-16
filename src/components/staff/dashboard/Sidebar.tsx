@@ -7,6 +7,7 @@ export type StaffNavId =
   | "projects"
   | "tasks"
   | "team"
+  | "attendance"
   | "announcements"
   | "profile";
 
@@ -22,8 +23,9 @@ const NAV_ITEMS: NavItem[] = [
   { id: "projects", number: "02", label: "Projects", href: "/staff/projects" },
   { id: "tasks", number: "03", label: "Tasks", href: "/staff/tasks" },
   { id: "team", number: "04", label: "Team", href: "/staff/team" },
-  { id: "announcements", number: "05", label: "Announcements", href: "/staff/announcements" },
-  { id: "profile", number: "06", label: "Profile", href: "/staff/profile" },
+  { id: "attendance", number: "05", label: "Attendance", href: "/staff/attendance" },
+  { id: "announcements", number: "06", label: "Announcements", href: "/staff/announcements" },
+  { id: "profile", number: "07", label: "Profile", href: "/staff/profile" },
 ];
 
 export default function Sidebar({
