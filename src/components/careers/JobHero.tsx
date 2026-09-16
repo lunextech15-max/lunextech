@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Job } from "@/lib/jobs";
-import SectionHeader from "@/components/internships/SectionHeader";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 export default function JobHero({ job }: { job: Job }) {
   return (

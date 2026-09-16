@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { PROJECTS } from "@/lib/projects";
 import "@/styles/page-hero.css";
 
@@ -21,11 +22,7 @@ export default function ProjectsPage() {
         <div className="page-glow" aria-hidden />
 
         <div className="relative z-10 px-6 pt-32 pb-20 md:px-10 lg:px-16 lg:pt-40">
-          <div className="page-fade flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
-            <span className="font-display text-accent">03</span>
-            <span aria-hidden className="h-px w-8 bg-accent/60" />
-            <span>Selected work</span>
-          </div>
+          <SectionHeader number="03" label="Selected work" className="page-fade" />
 
           <h1 className="page-fade mt-8 max-w-4xl font-display text-[12vw] font-black leading-[0.92] tracking-tight text-soft-white sm:text-[9vw] lg:mt-12 lg:text-[5.6vw] xl:text-[5rem]">
             PRODUCTS WE&apos;VE <span className="text-accent">BROUGHT TO LIFE.</span>

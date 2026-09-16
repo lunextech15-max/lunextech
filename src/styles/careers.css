@@ -101,44 +101,11 @@
   color: color-mix(in srgb, var(--color-soft-white) 65%, transparent);
 }
 
-/* ---------- skeleton ---------- */
-
-.skeleton {
-  position: relative;
-  overflow: hidden;
-  background: var(--color-line);
-}
-
-.skeleton::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--color-soft-white) 6%, transparent),
-    transparent
-  );
-  animation: skeleton-sweep 1.6s ease-in-out infinite;
-}
-
-@keyframes skeleton-sweep {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .job-row::before,
   .job-row-title,
   .job-row-arrow,
   .job-filter-tab {
     transition: none;
-  }
-  .skeleton::after {
-    animation: none;
   }
 }

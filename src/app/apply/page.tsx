@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import SectionHeader from "@/components/internships/SectionHeader";
+import SectionHeader from "@/components/shared/SectionHeader";
 import ApplicationForm from "@/components/internships/ApplicationForm";
 import "@/styles/page-hero.css";
 import "@/styles/internships.css";

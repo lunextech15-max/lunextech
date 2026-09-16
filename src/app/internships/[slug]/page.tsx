@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import SectionHeader from "@/components/internships/SectionHeader";
+import SectionHeader from "@/components/shared/SectionHeader";
 import ProgramHero from "@/components/internships/ProgramHero";
 import ProgramDetails from "@/components/internships/ProgramDetails";
 import ExplorationList from "@/components/internships/ExplorationList";

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import SectionHeader from "@/components/internships/SectionHeader";
+import SectionHeader from "@/components/shared/SectionHeader";
 import JobApplicationForm from "@/components/careers/JobApplicationForm";
 import { JOBS, getJobBySlug } from "@/lib/jobs";
 import "@/styles/page-hero.css";

@@ -129,7 +129,7 @@ export default function WhatWeDo() {
                       onMouseEnter={() => setHovered(i)}
                       onFocus={() => setHovered(i)}
                       onBlur={() => setHovered(null)}
-                      className="group flex w-full cursor-pointer items-baseline gap-5 py-4 text-left focus-visible:outline-none lg:py-3.5"
+                      className="group flex w-full cursor-pointer items-baseline gap-5 py-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent lg:py-3.5"
                     >
                       <span
                         className={`font-display text-[10px] tracking-[0.25em] transition-colors duration-500 ${

@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { EXPERIENCE_LEVELS, type JobApplicationInput } from "@/lib/job-applications";
 import type { Job } from "@/lib/jobs";
 import FileUpload from "./FileUpload";
-import ApplicationSuccess from "./ApplicationSuccess";
+import ApplicationSuccess from "@/components/shared/ApplicationSuccess";
 
 const EMPTY: Omit<JobApplicationInput, "jobId"> = {
   name: "",
@@ -25,7 +25,15 @@ const EMPTY: Omit<JobApplicationInput, "jobId"> = {
 
 type Errors = Partial<Record<keyof JobApplicationInput, string>> & { confirm?: string };
 
-const REQUIRED_FIELDS: (keyof typeof EMPTY)[] = ["name", "email", "location", "experienceLevel", "experience", "motivation"];
+const REQUIRED_FIELDS: (keyof typeof EMPTY)[] = [
+  "name",
+  "email",
+  "location",
+  "experienceLevel",
+  "experience",
+  "motivation",
+  "resumeFileName",
+];
 
 function validate(data: typeof EMPTY, confirmed: boolean): Errors {
   const errors: Errors = {};
@@ -86,7 +94,7 @@ export default function JobApplicationForm({ job }: { job: Job }) {
     setSubmitted(true);
   };
 
-  if (submitted) return <ApplicationSuccess />;
+  if (submitted) return <ApplicationSuccess href="/careers" label="View other open roles" />;
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-14">
@@ -98,8 +106,19 @@ export default function JobApplicationForm({ job }: { job: Job }) {
             <label htmlFor={`${idBase}-name`} className="apply-field-label">
               Full name
             </label>
-            <input id={`${idBase}-name`} className="apply-input" value={data.name} onChange={field("name")} aria-invalid={!!errors.name} />
-            {errors.name && <p className="apply-error">{errors.name}</p>}
+            <input
+              id={`${idBase}-name`}
+              className="apply-input"
+              value={data.name}
+              onChange={field("name")}
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? `${idBase}-name-error` : undefined}
+            />
+            {errors.name && (
+              <p id={`${idBase}-name-error`} className="apply-error" role="alert">
+                {errors.name}
+              </p>
+            )}
           </div>
           <div className="apply-field">
             <label htmlFor={`${idBase}-email`} className="apply-field-label">
@@ -112,8 +131,13 @@ export default function JobApplicationForm({ job }: { job: Job }) {
               value={data.email}
               onChange={field("email")}
               aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? `${idBase}-email-error` : undefined}
             />
-            {errors.email && <p className="apply-error">{errors.email}</p>}
+            {errors.email && (
+              <p id={`${idBase}-email-error`} className="apply-error" role="alert">
+                {errors.email}
+              </p>
+            )}
           </div>
           <div className="apply-field">
             <label htmlFor={`${idBase}-phone`} className="apply-field-label">
@@ -131,8 +155,13 @@ export default function JobApplicationForm({ job }: { job: Job }) {
               value={data.location}
               onChange={field("location")}
               aria-invalid={!!errors.location}
+              aria-describedby={errors.location ? `${idBase}-location-error` : undefined}
             />
-            {errors.location && <p className="apply-error">{errors.location}</p>}
+            {errors.location && (
+              <p id={`${idBase}-location-error`} className="apply-error" role="alert">
+                {errors.location}
+              </p>
+            )}
           </div>
         </div>
       </section>
@@ -157,6 +186,7 @@ export default function JobApplicationForm({ job }: { job: Job }) {
               value={data.experienceLevel}
               onChange={field("experienceLevel")}
               aria-invalid={!!errors.experienceLevel}
+              aria-describedby={errors.experienceLevel ? `${idBase}-level-error` : undefined}
             >
               <option value="">Choose a level</option>
               {EXPERIENCE_LEVELS.map((level) => (
@@ -165,7 +195,11 @@ export default function JobApplicationForm({ job }: { job: Job }) {
                 </option>
               ))}
             </select>
-            {errors.experienceLevel && <p className="apply-error">{errors.experienceLevel}</p>}
+            {errors.experienceLevel && (
+              <p id={`${idBase}-level-error`} className="apply-error" role="alert">
+                {errors.experienceLevel}
+              </p>
+            )}
           </div>
         </div>
       </section>
@@ -183,8 +217,13 @@ export default function JobApplicationForm({ job }: { job: Job }) {
             value={data.experience}
             onChange={field("experience")}
             aria-invalid={!!errors.experience}
+            aria-describedby={errors.experience ? `${idBase}-experience-error` : undefined}
           />
-          {errors.experience && <p className="apply-error">{errors.experience}</p>}
+          {errors.experience && (
+            <p id={`${idBase}-experience-error`} className="apply-error" role="alert">
+              {errors.experience}
+            </p>
+          )}
         </div>
       </section>
 
@@ -243,8 +282,13 @@ export default function JobApplicationForm({ job }: { job: Job }) {
             value={data.motivation}
             onChange={field("motivation")}
             aria-invalid={!!errors.motivation}
+            aria-describedby={errors.motivation ? `${idBase}-motivation-error` : undefined}
           />
-          {errors.motivation && <p className="apply-error">{errors.motivation}</p>}
+          {errors.motivation && (
+            <p id={`${idBase}-motivation-error`} className="apply-error" role="alert">
+              {errors.motivation}
+            </p>
+          )}
         </div>
       </section>
 
@@ -252,6 +296,11 @@ export default function JobApplicationForm({ job }: { job: Job }) {
       <section className="flex flex-col gap-6">
         <p className="apply-section-title">Resume</p>
         <FileUpload onFileNameChange={(name) => setData((prev) => ({ ...prev, resumeFileName: name }))} />
+        {errors.resumeFileName && (
+          <p className="apply-error" role="alert">
+            {errors.resumeFileName}
+          </p>
+        )}
       </section>
 
       {/* Submission */}
@@ -265,7 +314,11 @@ export default function JobApplicationForm({ job }: { job: Job }) {
           />
           I confirm that the information provided is accurate.
         </label>
-        {errors.confirm && <p className="apply-error">{errors.confirm}</p>}
+        {errors.confirm && (
+          <p className="apply-error" role="alert">
+            {errors.confirm}
+          </p>
+        )}
 
         <div className="flex items-center gap-5">
           <button
@@ -278,7 +331,11 @@ export default function JobApplicationForm({ job }: { job: Job }) {
               →
             </span>
           </button>
-          {submitError && <p className="apply-error">{submitError}</p>}
+          {submitError && (
+            <p className="apply-error" role="alert">
+              {submitError}
+            </p>
+          )}
         </div>
       </section>
     </form>

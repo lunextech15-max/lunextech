@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { SERVICES } from "@/lib/services";
 import { CAPABILITIES } from "@/lib/capabilities";
 import "@/styles/page-hero.css";
@@ -21,11 +22,7 @@ export default function CapabilitiesPage() {
         <div className="page-glow" aria-hidden />
 
         <div className="relative z-10 px-6 pt-32 pb-20 md:px-10 lg:px-16 lg:pt-40">
-          <div className="page-fade flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
-            <span className="font-display text-accent">→</span>
-            <span aria-hidden className="h-px w-8 bg-accent/60" />
-            <span>Capabilities</span>
-          </div>
+          <SectionHeader number="→" label="Capabilities" className="page-fade" />
 
           <h1 className="page-fade mt-8 max-w-4xl font-display text-[12vw] font-black leading-[0.92] tracking-tight text-soft-white sm:text-[9vw] lg:mt-12 lg:text-[5.6vw] xl:text-[5rem]">
             WHAT WE <span className="text-accent">DO & BUILD.</span>
@@ -41,11 +38,7 @@ export default function CapabilitiesPage() {
 
       {/* Services */}
       <section aria-labelledby="services-heading" className="relative w-full border-b border-line bg-carbon px-6 py-20 md:px-10 lg:px-16 lg:py-28">
-        <div className="flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
-          <span className="font-display text-accent">01</span>
-          <span aria-hidden className="h-px w-8 bg-accent/60" />
-          <span>What we do</span>
-        </div>
+        <SectionHeader number="01" label="What we do" />
         <h2 id="services-heading" className="sr-only">
           Services
         </h2>
@@ -65,11 +58,7 @@ export default function CapabilitiesPage() {
 
       {/* What we build */}
       <section aria-labelledby="build-heading" className="relative w-full border-b border-line bg-carbon px-6 py-20 md:px-10 lg:px-16 lg:py-28">
-        <div className="flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
-          <span className="font-display text-accent">02</span>
-          <span aria-hidden className="h-px w-8 bg-accent/60" />
-          <span>What we build</span>
-        </div>
+        <SectionHeader number="02" label="What we build" />
         <h2 id="build-heading" className="sr-only">
           Build categories
         </h2>

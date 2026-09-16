@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import SectionHeader from "@/components/internships/SectionHeader";
+import SectionHeader from "@/components/shared/SectionHeader";
 import JobsBoard from "@/components/careers/JobsBoard";
 import { CAREER_VALUES } from "@/lib/career-values";
+import { getOpenJobs } from "@/lib/jobs";
 import "@/styles/page-hero.css";
 import "@/styles/internships.css";
 import "@/styles/careers.css";
@@ -123,7 +124,7 @@ export default function CareersPage() {
         </p>
 
         <div className="mt-14 lg:mt-16">
-          <JobsBoard />
+          <JobsBoard jobs={getOpenJobs()} />
         </div>
       </section>
 

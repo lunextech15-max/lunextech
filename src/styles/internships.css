@@ -97,7 +97,8 @@
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--color-soft-white) 45%, transparent);
+  /* 45% failed WCAG AA contrast (~3.8:1) against --color-carbon; 65% clears 4.5:1. */
+  color: color-mix(in srgb, var(--color-soft-white) 65%, transparent);
 }
 
 .apply-input,
@@ -147,7 +148,8 @@
   font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--color-soft-white) 40%, transparent);
+  /* 40% failed WCAG AA contrast (~3.2:1) against --color-carbon; 65% clears 4.5:1. */
+  color: color-mix(in srgb, var(--color-soft-white) 65%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

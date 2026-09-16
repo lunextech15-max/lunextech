@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import SectionHeader from "@/components/internships/SectionHeader";
+import SectionHeader from "@/components/shared/SectionHeader";
 import ProgramRow from "@/components/internships/ProgramRow";
 import Timeline from "@/components/internships/Timeline";
 import { PROGRAMS } from "@/lib/programs";

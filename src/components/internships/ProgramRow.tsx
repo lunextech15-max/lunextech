@@ -19,15 +19,15 @@ export default function ProgramRow({ program }: { program: Program }) {
 
           <dl className="flex flex-wrap gap-x-8 gap-y-3">
             <div>
-              <dt className="text-[10px] font-medium tracking-[0.2em] text-soft-white/35 uppercase">Duration</dt>
+              <dt className="text-[10px] font-medium tracking-[0.2em] text-soft-white/60 uppercase">Duration</dt>
               <dd className="mt-1 text-xs font-medium text-soft-white/70">{program.duration}</dd>
             </div>
             <div>
-              <dt className="text-[10px] font-medium tracking-[0.2em] text-soft-white/35 uppercase">Format</dt>
+              <dt className="text-[10px] font-medium tracking-[0.2em] text-soft-white/60 uppercase">Format</dt>
               <dd className="mt-1 text-xs font-medium text-soft-white/70">{program.format}</dd>
             </div>
             <div>
-              <dt className="text-[10px] font-medium tracking-[0.2em] text-soft-white/35 uppercase">Level</dt>
+              <dt className="text-[10px] font-medium tracking-[0.2em] text-soft-white/60 uppercase">Level</dt>
               <dd className="mt-1 text-xs font-medium text-soft-white/70">{program.level}</dd>
             </div>
           </dl>

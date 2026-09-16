@@ -24,13 +24,13 @@ export default function FileUpload({ onFileNameChange }: FileUploadProps) {
         Resume
       </label>
       <div className="flex flex-wrap items-center gap-4 border border-line px-5 py-4">
+        <input id={inputId} type="file" accept={ACCEPTED} className="peer sr-only" onChange={handleChange} />
         <label
           htmlFor={inputId}
-          className="inline-flex cursor-pointer items-center gap-2 border border-soft-white/25 px-4 py-2 text-[11px] font-semibold tracking-[0.1em] text-soft-white uppercase transition-colors hover:border-accent hover:bg-accent/10"
+          className="inline-flex cursor-pointer items-center gap-2 border border-soft-white/25 px-4 py-2 text-[11px] font-semibold tracking-[0.1em] text-soft-white uppercase transition-colors hover:border-accent hover:bg-accent/10 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent"
         >
           Upload file
         </label>
-        <input id={inputId} type="file" accept={ACCEPTED} className="sr-only" onChange={handleChange} />
         <span className="text-xs text-soft-white/50">
           {fileName ?? "No file selected"}
         </span>

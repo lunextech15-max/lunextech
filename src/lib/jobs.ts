@@ -29,6 +29,8 @@ export type Job = {
   technologies: string[];
   createdAt: string;
   updatedAt: string;
+  /** ISO date. Optional — omit rather than invent one; Google downranks JobPosting listings with no validThrough, so set this once there's a real application deadline. */
+  validThrough?: string;
 };
 
 export const DEPARTMENTS = ["ALL", "ENGINEERING", "DESIGN", "PRODUCT", "AI & RESEARCH", "OPERATIONS"] as const;

@@ -3,17 +3,46 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import SectionHeader from "@/components/internships/SectionHeader";
+import SectionHeader from "@/components/shared/SectionHeader";
 import ExplorationList from "@/components/internships/ExplorationList";
 import JobHero from "@/components/careers/JobHero";
 import JobInformation from "@/components/careers/JobInformation";
 import RequirementsList from "@/components/careers/RequirementsList";
 import TechnologyList from "@/components/careers/TechnologyList";
 import JobRow from "@/components/careers/JobRow";
-import { JOBS, getJobBySlug } from "@/lib/jobs";
+import { JOBS, getJobBySlug, type Job } from "@/lib/jobs";
+import { SITE_URL } from "@/lib/site";
 import "@/styles/page-hero.css";
 import "@/styles/internships.css";
 import "@/styles/careers.css";
+
+// Google Jobs structured data — only meaningful for genuinely open roles.
+// `location` is currently a free-text string ("REMOTE / AS SPECIFIED" for
+// every job today); jobLocationType: TELECOMMUTE is the correct field for
+// that. If an on-site role is ever added with a real address, extend this
+// to emit `jobLocation` instead rather than fabricating one now.
+function jobPostingJsonLd(job: Job) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title.join(" "),
+    description: job.description,
+    identifier: {
+      "@type": "PropertyValue",
+      name: "LUNEX TECH",
+      value: job.id,
+    },
+    datePosted: job.createdAt,
+    ...(job.validThrough ? { validThrough: job.validThrough } : {}),
+    employmentType: job.employmentType.replace(/\s+/g, "_").toUpperCase(),
+    hiringOrganization: {
+      "@type": "Organization",
+      name: "LUNEX TECH",
+      sameAs: SITE_URL,
+    },
+    jobLocationType: "TELECOMMUTE",
+  };
+}
 
 export function generateStaticParams() {
   return JOBS.map((job) => ({ jobSlug: job.slug }));
@@ -40,6 +69,12 @@ export default async function JobDetailPage({ params }: PageProps<"/careers/[job
 
   return (
     <div className="flex flex-1 flex-col bg-carbon">
+      {job.status === "OPEN" && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingJsonLd(job)) }}
+        />
+      )}
       <Nav />
 
       <main className="relative w-full overflow-hidden border-b border-line bg-carbon">

@@ -39,16 +39,29 @@ export async function updateSession(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
   const isLoginPage = pathname === "/staff";
-  const isProtectedRoute =
-    pathname.startsWith("/staff/") || pathname === "/intern" || pathname.startsWith("/intern/");
+  const isStaffSection = pathname.startsWith("/staff/");
+  const isInternSection = pathname === "/intern" || pathname.startsWith("/intern/");
+  const isProtectedRoute = isStaffSection || isInternSection;
 
   if (!user && isProtectedRoute) {
     return NextResponse.redirect(new URL("/staff", request.url));
   }
 
-  if (user && isLoginPage) {
+  if (user && (isLoginPage || isProtectedRoute)) {
     const { data: role } = (await supabase.rpc("get_my_role")) as { data: string | null };
-    return NextResponse.redirect(new URL(ROLE_HOME[role ?? "staff"] ?? "/staff/dashboard", request.url));
+
+    if (isLoginPage) {
+      return NextResponse.redirect(new URL(ROLE_HOME[role ?? "staff"] ?? "/staff/dashboard", request.url));
+    }
+
+    // Cross-portal access control: a signed-in intern browsing /staff/* (or
+    // a staff/admin account browsing /intern/*) gets sent to their own
+    // section instead — checking that you're logged in isn't the same as
+    // checking you're logged in as the right role.
+    const home = ROLE_HOME[role ?? "staff"] ?? "/staff/dashboard";
+    if ((isStaffSection && role === "intern") || (isInternSection && role !== "intern")) {
+      return NextResponse.redirect(new URL(home, request.url));
+    }
   }
 
   return supabaseResponse;

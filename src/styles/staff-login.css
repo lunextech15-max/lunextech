@@ -74,7 +74,8 @@
   font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(229, 229, 229, 0.45);
+  /* 0.45 failed WCAG AA contrast (~3.8:1) against carbon; 0.65 clears 4.5:1. */
+  color: rgba(229, 229, 229, 0.65);
   margin-bottom: 0.6rem;
 }
 
@@ -111,7 +112,7 @@
   position: absolute;
   right: 0;
   bottom: 0.85rem;
-  color: rgba(229, 229, 229, 0.45);
+  color: rgba(229, 229, 229, 0.65);
   transition: color 0.3s ease;
 }
 

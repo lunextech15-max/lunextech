@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Program } from "@/lib/programs";
-import SectionHeader from "./SectionHeader";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 export default function ProgramHero({ program }: { program: Program }) {
   return (

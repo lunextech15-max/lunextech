@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { PROCESS_STEPS } from "@/lib/process";
 import { PRINCIPLES } from "@/lib/principles";
 import "@/styles/page-hero.css";
@@ -22,11 +23,7 @@ export default function AboutPage() {
 
         <div className="relative z-10 px-6 pt-32 pb-24 md:px-10 lg:px-16 lg:pt-40">
           {/* Section label */}
-          <div className="page-fade flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
-            <span className="font-display text-accent">01</span>
-            <span aria-hidden className="h-px w-8 bg-accent/60" />
-            <span>About</span>
-          </div>
+          <SectionHeader number="01" label="About" className="page-fade" />
 
           {/* Headline */}
           <h1 className="page-fade mt-8 max-w-5xl font-display text-[12vw] font-black leading-[0.92] tracking-tight text-soft-white sm:text-[9vw] lg:mt-12 lg:text-[5.6vw] xl:text-[5rem]">
@@ -56,11 +53,7 @@ export default function AboutPage() {
 
       {/* Principles */}
       <section aria-labelledby="principles-heading" className="relative w-full border-b border-line bg-carbon px-6 py-20 md:px-10 lg:px-16 lg:py-28">
-        <div className="flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
-          <span className="font-display text-accent">02</span>
-          <span aria-hidden className="h-px w-8 bg-accent/60" />
-          <span>How we think</span>
-        </div>
+        <SectionHeader number="02" label="How we think" />
         <h2 id="principles-heading" className="sr-only">
           Our principles
         </h2>
@@ -82,11 +75,7 @@ export default function AboutPage() {
 
       {/* Process detail */}
       <section aria-labelledby="process-heading" className="relative w-full border-b border-line bg-carbon px-6 py-20 md:px-10 lg:px-16 lg:py-28">
-        <div className="flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
-          <span className="font-display text-accent">03</span>
-          <span aria-hidden className="h-px w-8 bg-accent/60" />
-          <span>How we work</span>
-        </div>
+        <SectionHeader number="03" label="How we work" />
         <h2 id="process-heading" className="sr-only">
           Our process
         </h2>
