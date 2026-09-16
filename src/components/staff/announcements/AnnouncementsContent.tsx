@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import AnnouncementsHeader from "./AnnouncementsHeader";
 import AnnouncementsSummary from "./AnnouncementsSummary";
 import AnnouncementFilters, { type AnnouncementFilter } from "./AnnouncementFilters";
@@ -11,31 +11,19 @@ import type { StaffAnnouncement } from "@/lib/staff/types";
 import "@/styles/staff-projects.css";
 import "@/styles/staff-announcements.css";
 
-// Stands in for the future Supabase fetch — brief and genuine (skeletons
-// really are shown while this resolves).
-function loadAnnouncements(): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, 450));
-}
+const EMPTY_READ_IDS = new Set<string>();
+const noopSubscribe = () => () => {};
+const getServerReadIds = () => EMPTY_READ_IDS;
 
 export default function AnnouncementsContent({ announcements }: { announcements: StaffAnnouncement[] }) {
-  const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<AnnouncementFilter>("all");
   const [sortOldestFirst, setSortOldestFirst] = useState(false);
-  const [readIds, setReadIds] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    let cancelled = false;
-    loadAnnouncements().then(() => {
-      if (!cancelled) {
-        setReadIds(getReadIds());
-        setLoading(false);
-      }
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  // localStorage isn't available during SSR, so the server snapshot stays a
+  // neutral "all unread" and the real value appears once the client
+  // subscribes — same pattern as DashboardHeader's greeting, no
+  // server/client markup mismatch, no post-mount setState.
+  const readIds = useSyncExternalStore(noopSubscribe, getReadIds, getServerReadIds);
 
   const availableCategories = useMemo(
     () => Array.from(new Set(announcements.map((a) => a.category))),
@@ -61,18 +49,6 @@ export default function AnnouncementsContent({ announcements }: { announcements:
       );
   }, [sorted, query, category]);
 
-  if (loading) {
-    return (
-      <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
-        <div className="dash-skeleton h-4 w-32" />
-        <div className="dash-skeleton mt-4 h-10 w-56" />
-        <div className="dash-skeleton mt-8 h-10 w-full" />
-        <div className="dash-skeleton mt-6 h-24" />
-        <div className="dash-skeleton mt-4 h-24" />
-        <div className="dash-skeleton mt-4 h-24" />
-      </div>
-    );
-  }
 
   return (
     <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">

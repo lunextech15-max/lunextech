@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import StaffLayout from "@/components/staff/dashboard/StaffLayout";
 import TeamContent from "@/components/staff/team/TeamContent";
-import { MOCK_STAFF_USER } from "@/lib/staff/mock-data";
-import { MOCK_TEAM, getDisciplines } from "@/lib/staff/team-data";
-import { MOCK_PROJECTS } from "@/lib/staff/projects-data";
+import { getStaffSession } from "@/lib/staff/session";
+import { getAllTeamMembers } from "@/lib/staff/real-team";
+import { getAllRealProjects } from "@/lib/staff/real-projects";
 
 export const metadata: Metadata = {
   title: "Team — LUNEX TECH Staff Portal",
@@ -11,10 +11,13 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function StaffTeamPage() {
+export default async function StaffTeamPage() {
+  const [user, team, projects] = await Promise.all([getStaffSession(), getAllTeamMembers(), getAllRealProjects()]);
+  const disciplines = Array.from(new Set(team.map((m) => m.discipline).filter((d) => d !== "—")));
+
   return (
-    <StaffLayout active="team" user={MOCK_STAFF_USER}>
-      <TeamContent team={MOCK_TEAM} projects={MOCK_PROJECTS} disciplines={getDisciplines()} />
+    <StaffLayout active="team" user={user}>
+      <TeamContent team={team} projects={projects} disciplines={disciplines} />
     </StaffLayout>
   );
 }

@@ -5,19 +5,15 @@ import StaffLayout from "@/components/staff/dashboard/StaffLayout";
 import ProgressIndicator from "@/components/staff/dashboard/ProgressIndicator";
 import TeamAvatars from "@/components/staff/dashboard/TeamAvatars";
 import ProjectWorkspace from "@/components/staff/projects/ProjectWorkspace";
-import { MOCK_STAFF_USER } from "@/lib/staff/mock-data";
-import { MOCK_PROJECTS } from "@/lib/staff/projects-data";
+import { getStaffSession } from "@/lib/staff/session";
+import { getRealProject } from "@/lib/staff/real-projects";
 import "@/styles/staff-projects.css";
-
-export function generateStaticParams() {
-  return MOCK_PROJECTS.map((project) => ({ slug: project.slug }));
-}
 
 export async function generateMetadata({
   params,
 }: PageProps<"/staff/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const project = MOCK_PROJECTS.find((p) => p.slug === slug);
+  const project = await getRealProject(slug);
   return {
     title: project ? `${project.name} — LUNEX TECH Staff Portal` : "Project — LUNEX TECH Staff Portal",
     robots: { index: false, follow: false },
@@ -34,11 +30,11 @@ const STATUS_LABEL: Record<string, string> = {
 
 export default async function StaffProjectDetailPage({ params }: PageProps<"/staff/projects/[slug]">) {
   const { slug } = await params;
-  const project = MOCK_PROJECTS.find((p) => p.slug === slug);
+  const [user, project] = await Promise.all([getStaffSession(), getRealProject(slug)]);
   if (!project) notFound();
 
   return (
-    <StaffLayout active="projects" user={MOCK_STAFF_USER}>
+    <StaffLayout active="projects" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <Link
           href="/staff/projects"

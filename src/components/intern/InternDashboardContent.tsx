@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import DashboardHeader from "@/components/staff/dashboard/DashboardHeader";
 import MetricBlock from "@/components/staff/dashboard/MetricBlock";
 import CurrentFocus from "@/components/staff/dashboard/CurrentFocus";
@@ -8,10 +7,6 @@ import RecentActivity from "@/components/staff/dashboard/RecentActivity";
 import InternNextTasks from "./InternNextTasks";
 import InternQuickActions from "./InternQuickActions";
 import type { InternActivityEntry, InternProject, InternTask, InternUser } from "@/lib/intern/types";
-
-function loadDashboard(): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, 450));
-}
 
 export default function InternDashboardContent({
   user,
@@ -26,34 +21,6 @@ export default function InternDashboardContent({
   activity: InternActivityEntry[];
   learningPercent: number;
 }) {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let cancelled = false;
-    loadDashboard().then(() => {
-      if (!cancelled) setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
-        <div className="dash-skeleton h-4 w-40" />
-        <div className="dash-skeleton mt-4 h-10 w-72" />
-        <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          <div className="dash-skeleton h-24" />
-          <div className="dash-skeleton h-24" />
-          <div className="dash-skeleton h-24" />
-          <div className="dash-skeleton h-24" />
-        </div>
-        <div className="dash-skeleton mt-6 h-56" />
-      </div>
-    );
-  }
-
   const activeProjects = project.status === "in-progress" ? 1 : 0;
   const inProgressTasks = tasks.filter((t) => t.status === "in-progress").length;
   const pendingTasks = tasks.filter((t) => t.status !== "completed").length;

@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import DashboardHeader from "./DashboardHeader";
 import OverviewMetrics from "./OverviewMetrics";
 import CurrentFocus from "./CurrentFocus";
@@ -29,42 +26,7 @@ type DashboardData = {
   activity: ActivityItem[];
 };
 
-// Stands in for the future Supabase fetch — brief and genuine (skeletons
-// really are shown while this resolves), not a fake progress animation.
-function loadDashboardData(): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, 450));
-}
-
 export default function DashboardContent({ data }: { data: DashboardData }) {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let cancelled = false;
-    loadDashboardData().then(() => {
-      if (!cancelled) setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
-        <div className="dash-skeleton h-4 w-40" />
-        <div className="dash-skeleton mt-4 h-10 w-72" />
-        <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          <div className="dash-skeleton h-24" />
-          <div className="dash-skeleton h-24" />
-          <div className="dash-skeleton h-24" />
-          <div className="dash-skeleton h-24" />
-        </div>
-        <div className="dash-skeleton mt-6 h-56" />
-        <div className="dash-skeleton mt-6 h-48" />
-      </div>
-    );
-  }
-
   return (
     <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
       <div className="dash-fade">

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import StaffLayout from "@/components/staff/dashboard/StaffLayout";
 import TaskWorkspace from "@/components/staff/tasks/TaskWorkspace";
-import { MOCK_STAFF_USER } from "@/lib/staff/mock-data";
+import { getStaffSession } from "@/lib/staff/session";
 import { MOCK_TASKS } from "@/lib/staff/tasks-data";
 import { MOCK_PROJECTS } from "@/lib/staff/projects-data";
 import "@/styles/staff-tasks.css";
@@ -24,13 +24,14 @@ export async function generateMetadata({ params }: PageProps<"/staff/tasks/[id]"
 
 export default async function StaffTaskDetailPage({ params }: PageProps<"/staff/tasks/[id]">) {
   const { id } = await params;
+  const user = await getStaffSession();
   const task = MOCK_TASKS.find((t) => t.id === id);
   if (!task) notFound();
 
   const project = MOCK_PROJECTS.find((p) => p.code === task.projectId);
 
   return (
-    <StaffLayout active="tasks" user={MOCK_STAFF_USER}>
+    <StaffLayout active="tasks" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <Link href="/staff/tasks" className="dash-metric-link text-xs font-medium tracking-[0.15em] uppercase">
           ← All tasks

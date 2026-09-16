@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import StaffLayout from "@/components/staff/dashboard/StaffLayout";
 import MarkAnnouncementRead from "@/components/staff/announcements/MarkAnnouncementRead";
-import { MOCK_STAFF_USER } from "@/lib/staff/mock-data";
+import { getStaffSession } from "@/lib/staff/session";
 import { MOCK_ANNOUNCEMENTS } from "@/lib/staff/announcements-data";
 import "@/styles/staff-announcements.css";
 
@@ -30,11 +30,12 @@ export default async function StaffAnnouncementDetailPage({
   params,
 }: PageProps<"/staff/announcements/[id]">) {
   const { id } = await params;
+  const user = await getStaffSession();
   const announcement = MOCK_ANNOUNCEMENTS.find((a) => a.id === id);
   if (!announcement) notFound();
 
   return (
-    <StaffLayout active="announcements" user={MOCK_STAFF_USER}>
+    <StaffLayout active="announcements" user={user}>
       <MarkAnnouncementRead id={announcement.id} />
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <Link

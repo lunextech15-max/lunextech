@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import TaskFilters, { type TaskFilter } from "@/components/staff/tasks/TaskFilters";
 import TaskSearch from "@/components/staff/tasks/TaskSearch";
 import TaskProjectFilter from "@/components/staff/tasks/TaskProjectFilter";
@@ -9,25 +9,10 @@ import type { InternTask } from "@/lib/intern/types";
 import "@/styles/staff-projects.css";
 import "@/styles/staff-tasks.css";
 
-function loadTasks(): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, 400));
-}
-
 export default function InternTasksContent({ tasks }: { tasks: InternTask[] }) {
-  const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<TaskFilter>("all");
   const [projectFilter, setProjectFilter] = useState("all");
-
-  useEffect(() => {
-    let cancelled = false;
-    loadTasks().then(() => {
-      if (!cancelled) setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   const projectNames = useMemo(() => Array.from(new Set(tasks.map((t) => t.project))), [tasks]);
 
@@ -42,18 +27,6 @@ export default function InternTasksContent({ tasks }: { tasks: InternTask[] }) {
       .filter((t) => projectFilter === "all" || t.project === projectFilter)
       .filter((t) => !q || t.title.toLowerCase().includes(q) || t.project.toLowerCase().includes(q));
   }, [tasks, query, statusFilter, projectFilter]);
-
-  if (loading) {
-    return (
-      <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
-        <div className="dash-skeleton h-4 w-32" />
-        <div className="dash-skeleton mt-4 h-10 w-56" />
-        <div className="dash-skeleton mt-8 h-10 w-full" />
-        <div className="dash-skeleton mt-6 h-24" />
-        <div className="dash-skeleton mt-4 h-24" />
-      </div>
-    );
-  }
 
   return (
     <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">

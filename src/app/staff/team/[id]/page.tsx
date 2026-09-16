@@ -2,17 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import StaffLayout from "@/components/staff/dashboard/StaffLayout";
-import { MOCK_STAFF_USER } from "@/lib/staff/mock-data";
-import { MOCK_TEAM, getMemberProjects } from "@/lib/staff/team-data";
+import { getStaffSession } from "@/lib/staff/session";
+import { getTeamMember } from "@/lib/staff/real-team";
+import { getProjectsForMember } from "@/lib/staff/real-projects";
 import "@/styles/staff-team.css";
-
-export function generateStaticParams() {
-  return MOCK_TEAM.map((member) => ({ id: member.id }));
-}
 
 export async function generateMetadata({ params }: PageProps<"/staff/team/[id]">): Promise<Metadata> {
   const { id } = await params;
-  const member = MOCK_TEAM.find((m) => m.id === id);
+  const member = await getTeamMember(id);
   return {
     title: member ? `${member.name} — LUNEX TECH Staff Portal` : "Team member — LUNEX TECH Staff Portal",
     robots: { index: false, follow: false },
@@ -29,13 +26,15 @@ const STATUS_LABEL: Record<string, string> = {
 
 export default async function StaffTeamMemberPage({ params }: PageProps<"/staff/team/[id]">) {
   const { id } = await params;
-  const member = MOCK_TEAM.find((m) => m.id === id);
+  const [user, member, projects] = await Promise.all([
+    getStaffSession(),
+    getTeamMember(id),
+    getProjectsForMember(id),
+  ]);
   if (!member) notFound();
 
-  const projects = getMemberProjects(member);
-
   return (
-    <StaffLayout active="team" user={MOCK_STAFF_USER}>
+    <StaffLayout active="team" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <Link href="/staff/team" className="dash-metric-link text-xs font-medium tracking-[0.15em] uppercase">
           ← Team
