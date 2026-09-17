@@ -4,7 +4,8 @@ import ProgressIndicator from "@/components/staff/dashboard/ProgressIndicator";
 import { getInternUser } from "@/lib/intern/session";
 import { getMyInternProject } from "@/lib/intern/real-project";
 import { getMyInternTasks } from "@/lib/intern/real-tasks";
-import { INTERN_JOURNEY, getLearningProgress } from "@/lib/intern/mock-data";
+import { getMyLearningProgress } from "@/lib/intern/learning";
+import { INTERN_JOURNEY } from "@/lib/intern/mock-data";
 
 export const metadata: Metadata = {
   title: "Profile — LUNEX TECH Intern Portal",
@@ -28,8 +29,11 @@ const JOURNEY_STATUS_LABEL: Record<string, string> = {
 
 export default async function InternProfilePage() {
   const user = await getInternUser();
-  const [project, tasks] = await Promise.all([getMyInternProject(user.id), getMyInternTasks(user.id)]);
-  const learning = getLearningProgress();
+  const [project, tasks, learning] = await Promise.all([
+    getMyInternProject(user.id),
+    getMyInternTasks(user.id),
+    getMyLearningProgress(user.id),
+  ]);
   const completedTasks = tasks.filter((t) => t.status === "completed").length;
   const taskCompletion = tasks.length > 0 ? Math.round((completedTasks / tasks.length) * 100) : 0;
   const currentStage = INTERN_JOURNEY.find((s) => s.status === "in-progress");

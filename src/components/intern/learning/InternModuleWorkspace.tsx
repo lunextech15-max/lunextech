@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { markLessonComplete } from "@/lib/intern/learning-client";
 import type { InternLesson } from "@/lib/intern/types";
 
 const STATUS_LABEL: Record<InternLesson["status"], string> = {
@@ -10,15 +12,21 @@ const STATUS_LABEL: Record<InternLesson["status"], string> = {
 };
 
 export default function InternModuleWorkspace({
+  moduleId,
   moduleTitle,
-  lessons: initialLessons,
+  lessons,
+  staffId,
 }: {
+  moduleId: string;
   moduleTitle: string;
   lessons: InternLesson[];
+  staffId: string;
 }) {
-  const [lessons, setLessons] = useState(initialLessons);
+  const router = useRouter();
   const firstOpenable = lessons.find((l) => l.status !== "locked")?.id ?? lessons[0].id;
   const [activeId, setActiveId] = useState(firstOpenable);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const activeIndex = lessons.findIndex((l) => l.id === activeId);
   const active = lessons[activeIndex];
@@ -29,14 +37,16 @@ export default function InternModuleWorkspace({
     if (lesson && lesson.status !== "locked") setActiveId(id);
   };
 
-  const markComplete = () => {
-    setLessons((prev) =>
-      prev.map((lesson, index) => {
-        if (lesson.id === active.id) return { ...lesson, status: "completed" };
-        if (index === activeIndex + 1 && lesson.status === "locked") return { ...lesson, status: "in-progress" };
-        return lesson;
-      })
-    );
+  const markComplete = async () => {
+    setPending(true);
+    setError(null);
+    const { error: completeError } = await markLessonComplete(staffId, moduleId, active.id);
+    setPending(false);
+    if (completeError) {
+      setError(`Couldn't save progress: ${completeError}`);
+      return;
+    }
+    router.refresh();
   };
 
   const goPrevious = () => {
@@ -107,6 +117,12 @@ export default function InternModuleWorkspace({
           )}
         </div>
 
+        {error && (
+          <p role="alert" className="mt-4 text-sm text-accent">
+            {error}
+          </p>
+        )}
+
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6">
           <button
             type="button"
@@ -120,10 +136,10 @@ export default function InternModuleWorkspace({
           <button
             type="button"
             onClick={markComplete}
-            disabled={active.status === "completed"}
+            disabled={active.status === "completed" || pending}
             className="task-action text-xs font-semibold tracking-[0.15em] text-soft-white uppercase disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {active.status === "completed" ? "Completed ✓" : "Mark as complete"}
+            {active.status === "completed" ? "Completed ✓" : pending ? "Saving…" : "Mark as complete"}
           </button>
 
           <button

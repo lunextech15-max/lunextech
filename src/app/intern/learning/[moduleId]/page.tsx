@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import InternLayout from "@/components/intern/InternLayout";
 import InternModuleWorkspace from "@/components/intern/learning/InternModuleWorkspace";
 import { getInternUser } from "@/lib/intern/session";
+import { getMyLearningModules } from "@/lib/intern/learning";
 import { INTERN_LEARNING_MODULES } from "@/lib/intern/mock-data";
 import "@/styles/staff-projects.css";
 import "@/styles/staff-task-detail.css";
@@ -29,9 +30,10 @@ export default async function InternLearningModulePage({
   params,
 }: PageProps<"/intern/learning/[moduleId]">) {
   const { moduleId } = await params;
-  const learningModule = INTERN_LEARNING_MODULES.find((m) => m.id === moduleId);
-  if (!learningModule || learningModule.status === "locked") notFound();
   const user = await getInternUser();
+  const modules = await getMyLearningModules(user.id);
+  const learningModule = modules.find((m) => m.id === moduleId);
+  if (!learningModule || learningModule.status === "locked") notFound();
 
   return (
     <InternLayout active="learning" user={user}>
@@ -47,7 +49,12 @@ export default async function InternLearningModulePage({
           {learningModule.title}
         </h1>
 
-        <InternModuleWorkspace moduleTitle={learningModule.title} lessons={learningModule.lessons} />
+        <InternModuleWorkspace
+          moduleId={learningModule.id}
+          moduleTitle={learningModule.title}
+          lessons={learningModule.lessons}
+          staffId={user.id}
+        />
       </div>
     </InternLayout>
   );

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import InternLayout from "@/components/intern/InternLayout";
 import InternModuleRow from "@/components/intern/learning/InternModuleRow";
 import { getInternUser } from "@/lib/intern/session";
-import { INTERN_LEARNING_MODULES, getLearningProgress } from "@/lib/intern/mock-data";
+import { getMyLearningModules, getMyLearningProgress } from "@/lib/intern/learning";
 import "@/styles/staff-team.css";
 
 export const metadata: Metadata = {
@@ -12,8 +12,11 @@ export const metadata: Metadata = {
 };
 
 export default async function InternLearningPage() {
-  const { completed, total, percent } = getLearningProgress();
   const user = await getInternUser();
+  const [{ completed, total, percent }, modules] = await Promise.all([
+    getMyLearningProgress(user.id),
+    getMyLearningModules(user.id),
+  ]);
 
   return (
     <InternLayout active="learning" user={user}>
@@ -40,7 +43,7 @@ export default async function InternLearningPage() {
         </div>
 
         <div className="mt-10 border border-line px-6 sm:px-8">
-          {INTERN_LEARNING_MODULES.map((module) => (
+          {modules.map((module) => (
             <InternModuleRow key={module.id} module={module} />
           ))}
         </div>

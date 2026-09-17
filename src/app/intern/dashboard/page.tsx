@@ -5,7 +5,7 @@ import { getInternUser } from "@/lib/intern/session";
 import { getMyInternProject } from "@/lib/intern/real-project";
 import { getMyInternTasks } from "@/lib/intern/real-tasks";
 import { getMyRecentActivity } from "@/lib/staff/activity";
-import { getLearningProgress } from "@/lib/intern/mock-data";
+import { getMyLearningProgress } from "@/lib/intern/learning";
 
 export const metadata: Metadata = {
   title: "Dashboard — LUNEX TECH Intern Portal",
@@ -15,10 +15,11 @@ export const metadata: Metadata = {
 
 export default async function InternDashboardPage() {
   const user = await getInternUser();
-  const [project, tasks, activity] = await Promise.all([
+  const [project, tasks, activity, learning] = await Promise.all([
     getMyInternProject(user.id),
     getMyInternTasks(user.id),
     getMyRecentActivity(),
+    getMyLearningProgress(user.id),
   ]);
 
   return (
@@ -28,7 +29,7 @@ export default async function InternDashboardPage() {
         project={project}
         tasks={tasks}
         activity={activity}
-        learningPercent={getLearningProgress().percent}
+        learningPercent={learning.percent}
       />
     </InternLayout>
   );
