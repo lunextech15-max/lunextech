@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { recordCall } from "@/lib/caller/leads-client";
+import { logActivity } from "@/lib/staff/activity-client";
 import { STATUS_LABEL, QUEUE_STATUSES, type Lead, type LeadStatus } from "@/lib/caller/types";
 import "@/styles/staff-login.css";
 import "@/styles/caller.css";
@@ -64,6 +65,7 @@ export default function CallQueueContent({ leads, callerStaffId }: { leads: Lead
       return;
     }
 
+    void logActivity(callerStaffId, "leads", "Logged call", `${current.name} — ${STATUS_LABEL[status]}`);
     setSkipped((prev) => new Set(prev).add(current.id));
     reset();
     router.refresh();

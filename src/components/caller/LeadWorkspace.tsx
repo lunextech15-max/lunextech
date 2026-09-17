@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { updateLeadWorkspace, convertLead } from "@/lib/caller/leads-client";
+import { logActivity } from "@/lib/staff/activity-client";
 import { STATUS_CLASS, STATUS_LABEL, type Lead, type LeadCall } from "@/lib/caller/types";
 import "@/styles/staff-login.css";
 import "@/styles/caller.css";
@@ -59,6 +60,7 @@ export default function LeadWorkspace({
       setSaveStatus(`Couldn't convert: ${error}`);
       return;
     }
+    void logActivity(callerStaffId, "leads", "Converted lead", lead.name);
     router.refresh();
   };
 

@@ -5,6 +5,7 @@ import { getStaffSession } from "@/lib/staff/session";
 import { getProjectsForMember } from "@/lib/staff/real-projects";
 import { getTasksForAssignee } from "@/lib/staff/real-tasks";
 import { getRealAnnouncements } from "@/lib/staff/real-announcements";
+import { getMyRecentActivity } from "@/lib/staff/activity";
 
 export const metadata: Metadata = {
   title: "Dashboard — LUNEX TECH Staff Portal",
@@ -21,10 +22,11 @@ function daysAgo(iso: string, days: number): boolean {
 
 export default async function StaffDashboardPage() {
   const user = await getStaffSession();
-  const [myProjects, myTasks, announcements] = await Promise.all([
+  const [myProjects, myTasks, announcements, activity] = await Promise.all([
     getProjectsForMember(user.staffId),
     getTasksForAssignee(user.staffId),
     getRealAnnouncements(),
+    getMyRecentActivity(),
   ]);
   const activeProjects = myProjects.filter((p) => p.status === "in-progress" || p.status === "review");
   // Highest-progress active project stands in for "current focus" until a
@@ -41,8 +43,7 @@ export default async function StaffDashboardPage() {
       <DashboardContent
         data={{
           user,
-          // "today" (no real calendar/meetings system exists at all) and
-          // "activity" (no real activity-log system exists yet) stay empty.
+          // "today" stays empty — no real calendar/meetings system exists.
           metrics: {
             activeProjects: activeProjects.length,
             myTasks: pendingTasks.length,
@@ -64,7 +65,7 @@ export default async function StaffDashboardPage() {
           today: [],
           tasks: myTasks.slice(0, 4),
           announcements: announcements.slice(0, 2),
-          activity: [],
+          activity,
         }}
       />
     </StaffLayout>
