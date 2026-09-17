@@ -6,10 +6,9 @@ import ProjectOverview from "./ProjectOverview";
 import ProjectTaskList from "./ProjectTaskList";
 import ProjectActivityTimeline from "./ProjectActivityTimeline";
 import ProjectResources from "./ProjectResources";
-import { getProjectTasks } from "@/lib/staff/tasks-data";
-import type { StaffProject } from "@/lib/staff/types";
+import type { StaffProject, Task } from "@/lib/staff/types";
 
-export default function ProjectWorkspace({ project }: { project: StaffProject }) {
+export default function ProjectWorkspace({ project, tasks }: { project: StaffProject; tasks: Task[] }) {
   const [section, setSection] = useState<WorkspaceSection>("overview");
 
   return (
@@ -18,7 +17,7 @@ export default function ProjectWorkspace({ project }: { project: StaffProject })
 
       <div key={section} id={`workspace-panel-${section}`} role="tabpanel" aria-labelledby={`workspace-tab-${section}`} className="proj-section mt-8">
         {section === "overview" && <ProjectOverview project={project} />}
-        {section === "tasks" && <ProjectTaskList tasks={getProjectTasks(project.code)} />}
+        {section === "tasks" && <ProjectTaskList tasks={tasks} />}
         {section === "activity" && <ProjectActivityTimeline activity={project.activity} />}
         {section === "resources" && <ProjectResources resources={project.resources} />}
       </div>

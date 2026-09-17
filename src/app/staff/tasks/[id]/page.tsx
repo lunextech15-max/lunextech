@@ -4,18 +4,14 @@ import { notFound } from "next/navigation";
 import StaffLayout from "@/components/staff/dashboard/StaffLayout";
 import TaskWorkspace from "@/components/staff/tasks/TaskWorkspace";
 import { getStaffSession } from "@/lib/staff/session";
-import { MOCK_TASKS } from "@/lib/staff/tasks-data";
-import { MOCK_PROJECTS } from "@/lib/staff/projects-data";
+import { getRealTask } from "@/lib/staff/real-tasks";
+import { getRealProject } from "@/lib/staff/real-projects";
 import "@/styles/staff-tasks.css";
 import "@/styles/staff-task-detail.css";
 
-export function generateStaticParams() {
-  return MOCK_TASKS.map((task) => ({ id: task.id }));
-}
-
 export async function generateMetadata({ params }: PageProps<"/staff/tasks/[id]">): Promise<Metadata> {
   const { id } = await params;
-  const task = MOCK_TASKS.find((t) => t.id === id);
+  const task = await getRealTask(id);
   return {
     title: task ? `${task.title} — LUNEX TECH Staff Portal` : "Task — LUNEX TECH Staff Portal",
     robots: { index: false, follow: false },
@@ -25,10 +21,10 @@ export async function generateMetadata({ params }: PageProps<"/staff/tasks/[id]"
 export default async function StaffTaskDetailPage({ params }: PageProps<"/staff/tasks/[id]">) {
   const { id } = await params;
   const user = await getStaffSession();
-  const task = MOCK_TASKS.find((t) => t.id === id);
+  const task = await getRealTask(id);
   if (!task) notFound();
 
-  const project = MOCK_PROJECTS.find((p) => p.code === task.projectId);
+  const project = task.projectId ? await getRealProject(task.projectId) : null;
 
   return (
     <StaffLayout active="tasks" user={user}>
@@ -54,7 +50,7 @@ export default async function StaffTaskDetailPage({ params }: PageProps<"/staff/
         </div>
 
         <div className="mt-8">
-          <TaskWorkspace task={task} />
+          <TaskWorkspace task={task} viewer={{ staffId: user.staffId, name: user.name }} />
         </div>
       </div>
     </StaffLayout>

@@ -1,11 +1,20 @@
 import Link from "next/link";
-import { getActiveProjectCount } from "@/lib/staff/team-data";
-import { CURRENT_USER_ID } from "@/lib/staff/tasks-data";
-import type { StaffTeamMember } from "@/lib/staff/types";
+import type { StaffProject, StaffTeamMember } from "@/lib/staff/types";
 
-export default function TeamMemberRow({ member }: { member: StaffTeamMember }) {
-  const activeProjects = getActiveProjectCount(member);
-  const isCurrentUser = member.initials === CURRENT_USER_ID;
+export default function TeamMemberRow({
+  member,
+  projects,
+  currentUserId,
+}: {
+  member: StaffTeamMember;
+  projects: StaffProject[];
+  currentUserId: string;
+}) {
+  const activeProjects = projects.filter(
+    (p) =>
+      p.team.some((m) => m.id === member.id) && (p.status === "in-progress" || p.status === "review")
+  ).length;
+  const isCurrentUser = member.id === currentUserId;
 
   return (
     <Link href={`/staff/team/${member.id}`} className="team-row group">

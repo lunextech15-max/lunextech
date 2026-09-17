@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import StaffLayout from "@/components/staff/dashboard/StaffLayout";
 import TasksContent from "@/components/staff/tasks/TasksContent";
 import { getStaffSession } from "@/lib/staff/session";
-import { CURRENT_USER_ID, getMyTasks } from "@/lib/staff/tasks-data";
+import { getTasksForAssignee } from "@/lib/staff/real-tasks";
 
 export const metadata: Metadata = {
   title: "My Tasks — LUNEX TECH Staff Portal",
@@ -12,11 +12,10 @@ export const metadata: Metadata = {
 
 export default async function StaffTasksPage() {
   const user = await getStaffSession();
-  // Tasks aren't real yet (later phase) — this list is still the mock
-  // demo data, keyed to a fake CURRENT_USER_ID rather than this real user.
+  const tasks = await getTasksForAssignee(user.staffId);
   return (
     <StaffLayout active="tasks" user={user}>
-      <TasksContent tasks={getMyTasks(CURRENT_USER_ID)} />
+      <TasksContent tasks={tasks} />
     </StaffLayout>
   );
 }

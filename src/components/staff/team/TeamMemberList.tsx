@@ -1,11 +1,15 @@
 import TeamMemberRow from "./TeamMemberRow";
-import type { StaffTeamMember } from "@/lib/staff/types";
+import type { StaffProject, StaffTeamMember } from "@/lib/staff/types";
 
 export default function TeamMemberList({
   members,
+  projects,
+  currentUserId,
   onClearFilters,
 }: {
   members: StaffTeamMember[];
+  projects: StaffProject[];
+  currentUserId: string;
   onClearFilters: () => void;
 }) {
   if (members.length === 0) {
@@ -27,7 +31,7 @@ export default function TeamMemberList({
   return (
     <div className="border border-line px-6 sm:px-8">
       {members.map((member) => (
-        <TeamMemberRow key={member.id} member={member} />
+        <TeamMemberRow key={member.id} member={member} projects={projects} currentUserId={currentUserId} />
       ))}
     </div>
   );

@@ -17,7 +17,7 @@ export default async function StaffTeamPage() {
 
   return (
     <StaffLayout active="team" user={user}>
-      <TeamContent team={team} projects={projects} disciplines={disciplines} />
+      <TeamContent team={team} projects={projects} disciplines={disciplines} currentUserId={user.staffId} />
     </StaffLayout>
   );
 }

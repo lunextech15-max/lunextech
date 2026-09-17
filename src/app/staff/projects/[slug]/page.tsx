@@ -7,6 +7,7 @@ import TeamAvatars from "@/components/staff/dashboard/TeamAvatars";
 import ProjectWorkspace from "@/components/staff/projects/ProjectWorkspace";
 import { getStaffSession } from "@/lib/staff/session";
 import { getRealProject } from "@/lib/staff/real-projects";
+import { getTasksForProject } from "@/lib/staff/real-tasks";
 import "@/styles/staff-projects.css";
 
 export async function generateMetadata({
@@ -32,6 +33,7 @@ export default async function StaffProjectDetailPage({ params }: PageProps<"/sta
   const { slug } = await params;
   const [user, project] = await Promise.all([getStaffSession(), getRealProject(slug)]);
   if (!project) notFound();
+  const tasks = await getTasksForProject(project.code);
 
   return (
     <StaffLayout active="projects" user={user}>
@@ -70,7 +72,7 @@ export default async function StaffProjectDetailPage({ params }: PageProps<"/sta
           </div>
         </div>
 
-        <ProjectWorkspace project={project} />
+        <ProjectWorkspace project={project} tasks={tasks} />
       </div>
     </StaffLayout>
   );

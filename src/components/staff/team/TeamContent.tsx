@@ -14,10 +14,12 @@ export default function TeamContent({
   team,
   projects,
   disciplines,
+  currentUserId,
 }: {
   team: StaffTeamMember[];
   projects: StaffProject[];
   disciplines: string[];
+  currentUserId: string;
 }) {
   const [query, setQuery] = useState("");
   const [discipline, setDiscipline] = useState("all");
@@ -60,6 +62,8 @@ export default function TeamContent({
       <div className="dash-fade mt-8" style={{ animationDelay: "0.18s" }}>
         <TeamMemberList
           members={filtered}
+          projects={projects}
+          currentUserId={currentUserId}
           onClearFilters={() => {
             setQuery("");
             setDiscipline("all");
