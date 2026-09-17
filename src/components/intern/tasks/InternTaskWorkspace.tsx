@@ -1,10 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import TaskPriority from "@/components/staff/tasks/TaskPriority";
 import TaskChecklist from "@/components/staff/tasks/TaskChecklist";
 import TaskComments from "@/components/staff/tasks/TaskComments";
 import InternSubmission from "./InternSubmission";
+import { toggleChecklistItem, addTaskComment } from "@/lib/staff/real-tasks-client";
+import { logActivity } from "@/lib/staff/activity-client";
 import type { InternTask } from "@/lib/intern/types";
 
 const STATUS_LABEL: Record<InternTask["status"], string> = {
@@ -14,12 +17,46 @@ const STATUS_LABEL: Record<InternTask["status"], string> = {
   completed: "Completed",
 };
 
-export default function InternTaskWorkspace({ task }: { task: InternTask }) {
+export default function InternTaskWorkspace({
+  task,
+  viewer,
+}: {
+  task: InternTask;
+  viewer: { staffId: string; name: string };
+}) {
+  const router = useRouter();
   const [objectives, setObjectives] = useState(task.objectives);
-  const [comments, setComments] = useState(task.comments);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleToggle = async (id: string) => {
+    const item = objectives.find((i) => i.id === id);
+    if (!item) return;
+    setObjectives((items) => items.map((i) => (i.id === id ? { ...i, completed: !i.completed } : i)));
+    const { error: toggleError } = await toggleChecklistItem(id, !item.completed);
+    if (toggleError) {
+      setObjectives((items) => items.map((i) => (i.id === id ? { ...i, completed: item.completed } : i)));
+      setError(`Couldn't update: ${toggleError}`);
+    }
+  };
+
+  const handleAddComment = async (body: string) => {
+    const { error: commentError } = await addTaskComment(task.id, viewer.staffId, body);
+    if (commentError) {
+      setError(`Couldn't post comment: ${commentError}`);
+      return;
+    }
+    void logActivity(viewer.staffId, "tasks", "Commented on task", task.title);
+    router.refresh();
+  };
 
   return (
     <div className="mt-10">
+      {error && (
+        <p role="alert" className="mb-6 border border-line px-5 py-3 text-sm text-accent">
+          {error}
+        </p>
+      )}
+
       <div className="grid grid-cols-3 gap-6 border border-line p-6 sm:p-8">
         <div>
           <p className="text-[10px] font-medium tracking-[0.2em] text-soft-white/40 uppercase">Status</p>
@@ -49,30 +86,13 @@ export default function InternTaskWorkspace({ task }: { task: InternTask }) {
             <p className="mt-4 max-w-lg text-sm leading-relaxed text-soft-white/60">{task.description}</p>
           </section>
 
-          <TaskChecklist
-            title="Objectives"
-            items={objectives}
-            onToggle={(id) =>
-              setObjectives((items) =>
-                items.map((item) => (item.id === id ? { ...item, completed: !item.completed } : item))
-              )
-            }
-          />
+          <TaskChecklist title="Objectives" items={objectives} onToggle={handleToggle} />
 
           <InternSubmission />
         </div>
 
         <div>
-          <TaskComments
-            title="Comments"
-            comments={comments}
-            onAddComment={(body) =>
-              setComments((prev) => [
-                ...prev,
-                { id: `local-${prev.length + 1}`, author: "Alex K", body, relativeTime: "Just now" },
-              ])
-            }
-          />
+          <TaskComments title="Comments" comments={task.comments} onAddComment={handleAddComment} />
         </div>
       </div>
     </div>

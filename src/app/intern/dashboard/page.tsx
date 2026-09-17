@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import InternLayout from "@/components/intern/InternLayout";
 import InternDashboardContent from "@/components/intern/InternDashboardContent";
 import { getInternUser } from "@/lib/intern/session";
-import {
-  INTERN_PROJECT,
-  INTERN_TASKS,
-  INTERN_ACTIVITY,
-  getLearningProgress,
-} from "@/lib/intern/mock-data";
+import { getMyInternProject } from "@/lib/intern/real-project";
+import { getMyInternTasks } from "@/lib/intern/real-tasks";
+import { getMyRecentActivity } from "@/lib/staff/activity";
+import { getLearningProgress } from "@/lib/intern/mock-data";
 
 export const metadata: Metadata = {
   title: "Dashboard — LUNEX TECH Intern Portal",
@@ -17,13 +15,19 @@ export const metadata: Metadata = {
 
 export default async function InternDashboardPage() {
   const user = await getInternUser();
+  const [project, tasks, activity] = await Promise.all([
+    getMyInternProject(user.id),
+    getMyInternTasks(user.id),
+    getMyRecentActivity(),
+  ]);
+
   return (
     <InternLayout active="dashboard" user={user}>
       <InternDashboardContent
         user={user}
-        project={INTERN_PROJECT}
-        tasks={INTERN_TASKS}
-        activity={INTERN_ACTIVITY}
+        project={project}
+        tasks={tasks}
+        activity={activity}
         learningPercent={getLearningProgress().percent}
       />
     </InternLayout>

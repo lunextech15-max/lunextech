@@ -16,26 +16,28 @@ export default function InternDashboardContent({
   learningPercent,
 }: {
   user: InternUser;
-  project: InternProject;
+  project: InternProject | null;
   tasks: InternTask[];
   activity: InternActivityEntry[];
   learningPercent: number;
 }) {
-  const activeProjects = project.status === "in-progress" ? 1 : 0;
+  const activeProjects = project?.status === "in-progress" ? 1 : 0;
   const inProgressTasks = tasks.filter((t) => t.status === "in-progress").length;
   const pendingTasks = tasks.filter((t) => t.status !== "completed").length;
   const nextTasks = tasks.filter((t) => t.status !== "completed").slice(0, 3);
 
-  const currentFocusProject = {
-    name: project.name,
-    category: project.category,
-    description: project.description,
-    progress: project.progress,
-    role: project.roleTitle,
-    team: project.team,
-    nextMilestone: project.nextMilestone,
-    href: "/intern/project",
-  };
+  const currentFocusProject = project
+    ? {
+        name: project.name,
+        category: project.category,
+        description: project.description,
+        progress: project.progress,
+        role: project.roleTitle,
+        team: project.team,
+        nextMilestone: project.nextMilestone,
+        href: "/intern/project",
+      }
+    : null;
 
   return (
     <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
@@ -44,7 +46,7 @@ export default function InternDashboardContent({
       </div>
 
       <div className="dash-fade mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4" style={{ animationDelay: "0.06s" }}>
-        <MetricBlock label="Internship progress" value={`${project.progress}%`} ctaLabel="View project" ctaHref="/intern/project" />
+        <MetricBlock label="Internship progress" value={`${project?.progress ?? 0}%`} ctaLabel="View project" ctaHref="/intern/project" />
         <MetricBlock
           label="Active project"
           value={String(activeProjects).padStart(2, "0")}

@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import InternLayout from "@/components/intern/InternLayout";
 import ProgressIndicator from "@/components/staff/dashboard/ProgressIndicator";
 import { getInternUser } from "@/lib/intern/session";
-import {
-  INTERN_PROJECT,
-  INTERN_TASKS,
-  INTERN_JOURNEY,
-  getLearningProgress,
-} from "@/lib/intern/mock-data";
+import { getMyInternProject } from "@/lib/intern/real-project";
+import { getMyInternTasks } from "@/lib/intern/real-tasks";
+import { INTERN_JOURNEY, getLearningProgress } from "@/lib/intern/mock-data";
 
 export const metadata: Metadata = {
   title: "Profile — LUNEX TECH Intern Portal",
@@ -31,10 +28,10 @@ const JOURNEY_STATUS_LABEL: Record<string, string> = {
 
 export default async function InternProfilePage() {
   const user = await getInternUser();
+  const [project, tasks] = await Promise.all([getMyInternProject(user.id), getMyInternTasks(user.id)]);
   const learning = getLearningProgress();
-  const taskCompletion = Math.round(
-    (INTERN_TASKS.filter((t) => t.status === "completed").length / INTERN_TASKS.length) * 100
-  );
+  const completedTasks = tasks.filter((t) => t.status === "completed").length;
+  const taskCompletion = tasks.length > 0 ? Math.round((completedTasks / tasks.length) * 100) : 0;
   const currentStage = INTERN_JOURNEY.find((s) => s.status === "in-progress");
 
   return (
@@ -117,12 +114,16 @@ export default async function InternProfilePage() {
               >
                 Projects
               </h2>
-              <div className="mt-4 flex items-center justify-between border-t border-line pt-4">
-                <p className="text-sm font-semibold tracking-wide text-soft-white/85 uppercase">
-                  {INTERN_PROJECT.name}
-                </p>
-                <span className="dash-status dash-status--in-progress">In progress</span>
-              </div>
+              {project ? (
+                <div className="mt-4 flex items-center justify-between border-t border-line pt-4">
+                  <p className="text-sm font-semibold tracking-wide text-soft-white/85 uppercase">{project.name}</p>
+                  <span className={`dash-status dash-status--${project.status}`}>
+                    {project.status === "completed" ? "Completed" : "In progress"}
+                  </span>
+                </div>
+              ) : (
+                <p className="mt-4 text-sm text-soft-white/45">No project assigned yet.</p>
+              )}
             </section>
           </div>
 
@@ -140,7 +141,7 @@ export default async function InternProfilePage() {
                     Internship progress
                   </p>
                   <div className="mt-2 max-w-[220px]">
-                    <ProgressIndicator value={INTERN_PROJECT.progress} label="Internship progress" />
+                    <ProgressIndicator value={project?.progress ?? 0} label="Internship progress" />
                   </div>
                 </div>
                 <div>

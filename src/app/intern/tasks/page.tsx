@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import InternLayout from "@/components/intern/InternLayout";
 import InternTasksContent from "@/components/intern/tasks/InternTasksContent";
 import { getInternUser } from "@/lib/intern/session";
-import { INTERN_TASKS } from "@/lib/intern/mock-data";
+import { getMyInternTasks } from "@/lib/intern/real-tasks";
 
 export const metadata: Metadata = {
   title: "My Tasks — LUNEX TECH Intern Portal",
@@ -12,9 +12,10 @@ export const metadata: Metadata = {
 
 export default async function InternTasksPage() {
   const user = await getInternUser();
+  const tasks = await getMyInternTasks(user.id);
   return (
     <InternLayout active="tasks" user={user}>
-      <InternTasksContent tasks={INTERN_TASKS} />
+      <InternTasksContent tasks={tasks} />
     </InternLayout>
   );
 }

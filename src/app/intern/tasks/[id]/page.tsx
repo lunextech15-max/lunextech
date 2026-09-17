@@ -4,17 +4,13 @@ import { notFound } from "next/navigation";
 import InternLayout from "@/components/intern/InternLayout";
 import InternTaskWorkspace from "@/components/intern/tasks/InternTaskWorkspace";
 import { getInternUser } from "@/lib/intern/session";
-import { INTERN_TASKS } from "@/lib/intern/mock-data";
+import { getInternTask } from "@/lib/intern/real-tasks";
 import "@/styles/staff-tasks.css";
 import "@/styles/staff-task-detail.css";
 
-export function generateStaticParams() {
-  return INTERN_TASKS.map((task) => ({ id: task.id }));
-}
-
 export async function generateMetadata({ params }: PageProps<"/intern/tasks/[id]">): Promise<Metadata> {
   const { id } = await params;
-  const task = INTERN_TASKS.find((t) => t.id === id);
+  const task = await getInternTask(id);
   return {
     title: task ? `${task.title} — LUNEX TECH Intern Portal` : "Task — LUNEX TECH Intern Portal",
     robots: { index: false, follow: false },
@@ -23,9 +19,8 @@ export async function generateMetadata({ params }: PageProps<"/intern/tasks/[id]
 
 export default async function InternTaskDetailPage({ params }: PageProps<"/intern/tasks/[id]">) {
   const { id } = await params;
-  const task = INTERN_TASKS.find((t) => t.id === id);
+  const [task, user] = await Promise.all([getInternTask(id), getInternUser()]);
   if (!task) notFound();
-  const user = await getInternUser();
 
   return (
     <InternLayout active="tasks" user={user}>
@@ -39,7 +34,7 @@ export default async function InternTaskDetailPage({ params }: PageProps<"/inter
           {task.title}
         </h1>
 
-        <InternTaskWorkspace task={task} />
+        <InternTaskWorkspace task={task} viewer={{ staffId: user.id, name: user.name }} />
       </div>
     </InternLayout>
   );
