@@ -1,10 +1,11 @@
 import Link from "next/link";
 import StaffLayout from "@/components/staff/dashboard/StaffLayout";
-import { MOCK_STAFF_USER } from "@/lib/staff/mock-data";
+import { getStaffSession } from "@/lib/staff/session";
 
-export default function ProjectNotFound() {
+export default async function ProjectNotFound() {
+  const user = await getStaffSession();
   return (
-    <StaffLayout active="projects" user={MOCK_STAFF_USER}>
+    <StaffLayout active="projects" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
           03 <span className="text-accent">/ Projects</span>
