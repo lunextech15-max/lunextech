@@ -4,7 +4,8 @@ import InternLayout from "@/components/intern/InternLayout";
 import ProgressIndicator from "@/components/staff/dashboard/ProgressIndicator";
 import TeamAvatars from "@/components/staff/dashboard/TeamAvatars";
 import InternProjectMilestones from "@/components/intern/InternProjectMilestones";
-import { INTERN_USER, INTERN_PROJECT } from "@/lib/intern/mock-data";
+import { getInternUser } from "@/lib/intern/session";
+import { INTERN_PROJECT } from "@/lib/intern/mock-data";
 
 export const metadata: Metadata = {
   title: "My Project — LUNEX TECH Intern Portal",
@@ -12,11 +13,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function InternProjectPage() {
+export default async function InternProjectPage() {
   const project = INTERN_PROJECT;
+  const user = await getInternUser();
 
   return (
-    <InternLayout active="project" user={INTERN_USER}>
+    <InternLayout active="project" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <Link href="/intern/dashboard" className="dash-metric-link text-xs font-medium tracking-[0.15em] uppercase">
           ← My workspace

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import InternLayout from "@/components/intern/InternLayout";
 import InternTasksContent from "@/components/intern/tasks/InternTasksContent";
-import { INTERN_USER, INTERN_TASKS } from "@/lib/intern/mock-data";
+import { getInternUser } from "@/lib/intern/session";
+import { INTERN_TASKS } from "@/lib/intern/mock-data";
 
 export const metadata: Metadata = {
   title: "My Tasks — LUNEX TECH Intern Portal",
@@ -9,9 +10,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function InternTasksPage() {
+export default async function InternTasksPage() {
+  const user = await getInternUser();
   return (
-    <InternLayout active="tasks" user={INTERN_USER}>
+    <InternLayout active="tasks" user={user}>
       <InternTasksContent tasks={INTERN_TASKS} />
     </InternLayout>
   );

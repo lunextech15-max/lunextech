@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import InternLayout from "@/components/intern/InternLayout";
 import InternModuleWorkspace from "@/components/intern/learning/InternModuleWorkspace";
-import { INTERN_USER, INTERN_LEARNING_MODULES } from "@/lib/intern/mock-data";
+import { getInternUser } from "@/lib/intern/session";
+import { INTERN_LEARNING_MODULES } from "@/lib/intern/mock-data";
 import "@/styles/staff-projects.css";
 import "@/styles/staff-task-detail.css";
 
@@ -30,9 +31,10 @@ export default async function InternLearningModulePage({
   const { moduleId } = await params;
   const learningModule = INTERN_LEARNING_MODULES.find((m) => m.id === moduleId);
   if (!learningModule || learningModule.status === "locked") notFound();
+  const user = await getInternUser();
 
   return (
-    <InternLayout active="learning" user={INTERN_USER}>
+    <InternLayout active="learning" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <Link href="/intern/learning" className="dash-metric-link text-xs font-medium tracking-[0.15em] uppercase">
           ← Learning

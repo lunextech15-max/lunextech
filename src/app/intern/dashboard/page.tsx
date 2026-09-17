@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import InternLayout from "@/components/intern/InternLayout";
 import InternDashboardContent from "@/components/intern/InternDashboardContent";
+import { getInternUser } from "@/lib/intern/session";
 import {
-  INTERN_USER,
   INTERN_PROJECT,
   INTERN_TASKS,
   INTERN_ACTIVITY,
@@ -15,11 +15,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function InternDashboardPage() {
+export default async function InternDashboardPage() {
+  const user = await getInternUser();
   return (
-    <InternLayout active="dashboard" user={INTERN_USER}>
+    <InternLayout active="dashboard" user={user}>
       <InternDashboardContent
-        user={INTERN_USER}
+        user={user}
         project={INTERN_PROJECT}
         tasks={INTERN_TASKS}
         activity={INTERN_ACTIVITY}

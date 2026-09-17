@@ -1,10 +1,11 @@
 import Link from "next/link";
 import InternLayout from "@/components/intern/InternLayout";
-import { INTERN_USER } from "@/lib/intern/mock-data";
+import { getInternUser } from "@/lib/intern/session";
 
-export default function InternTaskNotFound() {
+export default async function InternTaskNotFound() {
+  const user = await getInternUser();
   return (
-    <InternLayout active="tasks" user={INTERN_USER}>
+    <InternLayout active="tasks" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
           03 <span className="text-accent">/ Tasks</span>

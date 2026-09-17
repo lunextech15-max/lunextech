@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import InternLayout from "@/components/intern/InternLayout";
 import ProgressIndicator from "@/components/staff/dashboard/ProgressIndicator";
+import { getInternUser } from "@/lib/intern/session";
 import {
-  INTERN_USER,
   INTERN_PROJECT,
   INTERN_TASKS,
   INTERN_JOURNEY,
@@ -29,7 +29,8 @@ const JOURNEY_STATUS_LABEL: Record<string, string> = {
   upcoming: "Upcoming",
 };
 
-export default function InternProfilePage() {
+export default async function InternProfilePage() {
+  const user = await getInternUser();
   const learning = getLearningProgress();
   const taskCompletion = Math.round(
     (INTERN_TASKS.filter((t) => t.status === "completed").length / INTERN_TASKS.length) * 100
@@ -37,7 +38,7 @@ export default function InternProfilePage() {
   const currentStage = INTERN_JOURNEY.find((s) => s.status === "in-progress");
 
   return (
-    <InternLayout active="profile" user={INTERN_USER}>
+    <InternLayout active="profile" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
           07 <span className="text-accent">/ Profile</span>
@@ -49,14 +50,14 @@ export default function InternProfilePage() {
 
         <div className="mt-10 flex items-center gap-5">
           <span className="dash-avatar" style={{ width: 56, height: 56, fontSize: 16 }} aria-hidden>
-            {INTERN_USER.initials}
+            {user.initials}
           </span>
           <div>
             <h2 className="font-display text-2xl font-black tracking-tight text-soft-white uppercase sm:text-3xl">
-              {INTERN_USER.name}
+              {user.name}
             </h2>
             <p className="mt-1 text-[11px] font-medium tracking-[0.2em] text-accent uppercase">
-              {INTERN_USER.role}
+              {user.role}
             </p>
             <p className="mt-1 text-[10px] font-medium tracking-[0.15em] text-soft-white/40 uppercase">
               LUNEX TECH
@@ -76,15 +77,15 @@ export default function InternProfilePage() {
               <div className="mt-4 grid grid-cols-2 gap-5">
                 <div>
                   <p className="text-[10px] font-medium tracking-[0.2em] text-soft-white/40 uppercase">Role</p>
-                  <p className="mt-1.5 text-sm font-medium text-soft-white/80">{INTERN_USER.role}</p>
+                  <p className="mt-1.5 text-sm font-medium text-soft-white/80">{user.role}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-medium tracking-[0.2em] text-soft-white/40 uppercase">Department</p>
-                  <p className="mt-1.5 text-sm font-medium text-soft-white/80">{INTERN_USER.department}</p>
+                  <p className="mt-1.5 text-sm font-medium text-soft-white/80">{user.department}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-medium tracking-[0.2em] text-soft-white/40 uppercase">Start date</p>
-                  <p className="mt-1.5 text-sm font-medium text-soft-white/80">{INTERN_USER.startDate}</p>
+                  <p className="mt-1.5 text-sm font-medium text-soft-white/80">{user.startDate}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-medium tracking-[0.2em] text-soft-white/40 uppercase">Status</p>

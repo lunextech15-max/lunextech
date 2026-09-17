@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import InternLayout from "@/components/intern/InternLayout";
 import InternTaskWorkspace from "@/components/intern/tasks/InternTaskWorkspace";
-import { INTERN_USER, INTERN_TASKS } from "@/lib/intern/mock-data";
+import { getInternUser } from "@/lib/intern/session";
+import { INTERN_TASKS } from "@/lib/intern/mock-data";
 import "@/styles/staff-tasks.css";
 import "@/styles/staff-task-detail.css";
 
@@ -24,9 +25,10 @@ export default async function InternTaskDetailPage({ params }: PageProps<"/inter
   const { id } = await params;
   const task = INTERN_TASKS.find((t) => t.id === id);
   if (!task) notFound();
+  const user = await getInternUser();
 
   return (
-    <InternLayout active="tasks" user={INTERN_USER}>
+    <InternLayout active="tasks" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <Link href="/intern/tasks" className="dash-metric-link text-xs font-medium tracking-[0.15em] uppercase">
           ← All tasks

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import InternLayout from "@/components/intern/InternLayout";
-import { INTERN_USER, INTERN_ANNOUNCEMENTS } from "@/lib/intern/mock-data";
+import { getInternUser } from "@/lib/intern/session";
+import { INTERN_ANNOUNCEMENTS } from "@/lib/intern/mock-data";
 import "@/styles/staff-announcements.css";
 
 export const metadata: Metadata = {
@@ -9,9 +10,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function InternAnnouncementsPage() {
+export default async function InternAnnouncementsPage() {
+  const user = await getInternUser();
   return (
-    <InternLayout active="announcements" user={INTERN_USER}>
+    <InternLayout active="announcements" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
           06 <span className="text-accent">/ Announcements</span>

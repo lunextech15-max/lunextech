@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import InternLayout from "@/components/intern/InternLayout";
 import InternModuleRow from "@/components/intern/learning/InternModuleRow";
-import { INTERN_USER, INTERN_LEARNING_MODULES, getLearningProgress } from "@/lib/intern/mock-data";
+import { getInternUser } from "@/lib/intern/session";
+import { INTERN_LEARNING_MODULES, getLearningProgress } from "@/lib/intern/mock-data";
 import "@/styles/staff-team.css";
 
 export const metadata: Metadata = {
@@ -10,11 +11,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function InternLearningPage() {
+export default async function InternLearningPage() {
   const { completed, total, percent } = getLearningProgress();
+  const user = await getInternUser();
 
   return (
-    <InternLayout active="learning" user={INTERN_USER}>
+    <InternLayout active="learning" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
         <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
           04 <span className="text-accent">/ Learning</span>
