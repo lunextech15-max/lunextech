@@ -1,10 +1,10 @@
 // Adapts the real Project shape (real-projects.ts, public.projects) to the
 // InternProject shape the existing "My Project" page/dashboard components
-// already render. Fields with no real backing (responsibilities,
-// milestones — no itemized-responsibility or milestone system exists yet)
-// come back honestly empty rather than invented.
+// already render. Fields with no real backing (itemized per-person
+// responsibilities) come back honestly empty rather than invented.
 
 import { getProjectsForMember } from "@/lib/staff/real-projects";
+import { getProjectMilestones } from "@/lib/staff/milestones";
 import type { InternProject, InternTeamMember } from "./types";
 
 function toInternStatus(status: string): "in-progress" | "completed" {
@@ -20,6 +20,7 @@ export async function getMyInternProject(staffId: string): Promise<InternProject
 
   const active = projects.filter((p) => p.status === "in-progress" || p.status === "review");
   const project = (active.length > 0 ? active : projects).sort((a, b) => b.progress - a.progress)[0];
+  const milestones = await getProjectMilestones(project.code);
 
   const team: InternTeamMember[] = project.team.map((m) => ({
     id: m.id,
@@ -38,10 +39,10 @@ export async function getMyInternProject(staffId: string): Promise<InternProject
     team,
     goal: project.objective,
     roleTitle: project.team.find((m) => m.id === staffId)?.role ?? "—",
-    // No itemized per-person responsibilities or real milestone system
-    // exists yet — honestly empty rather than invented.
+    // No itemized per-person responsibility system exists yet — honestly
+    // empty rather than invented.
     responsibilities: [],
     nextMilestone: project.nextMilestone,
-    milestones: [],
+    milestones,
   };
 }
