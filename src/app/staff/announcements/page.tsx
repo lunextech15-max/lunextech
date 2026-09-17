@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import StaffLayout from "@/components/staff/dashboard/StaffLayout";
 import AnnouncementsContent from "@/components/staff/announcements/AnnouncementsContent";
 import { getStaffSession } from "@/lib/staff/session";
-import { MOCK_ANNOUNCEMENTS } from "@/lib/staff/announcements-data";
+import { getRealAnnouncements } from "@/lib/staff/real-announcements";
 
 export const metadata: Metadata = {
   title: "Announcements — LUNEX TECH Staff Portal",
@@ -11,11 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default async function StaffAnnouncementsPage() {
-  const user = await getStaffSession();
-  // Announcements aren't real yet (later phase) — still mock demo data.
+  const [user, announcements] = await Promise.all([getStaffSession(), getRealAnnouncements()]);
   return (
     <StaffLayout active="announcements" user={user}>
-      <AnnouncementsContent announcements={MOCK_ANNOUNCEMENTS} />
+      <AnnouncementsContent announcements={announcements} />
     </StaffLayout>
   );
 }

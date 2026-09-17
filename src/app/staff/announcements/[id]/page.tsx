@@ -4,16 +4,12 @@ import { notFound } from "next/navigation";
 import StaffLayout from "@/components/staff/dashboard/StaffLayout";
 import MarkAnnouncementRead from "@/components/staff/announcements/MarkAnnouncementRead";
 import { getStaffSession } from "@/lib/staff/session";
-import { MOCK_ANNOUNCEMENTS } from "@/lib/staff/announcements-data";
+import { getRealAnnouncement } from "@/lib/staff/real-announcements";
 import "@/styles/staff-announcements.css";
-
-export function generateStaticParams() {
-  return MOCK_ANNOUNCEMENTS.map((a) => ({ id: a.id }));
-}
 
 export async function generateMetadata({ params }: PageProps<"/staff/announcements/[id]">): Promise<Metadata> {
   const { id } = await params;
-  const announcement = MOCK_ANNOUNCEMENTS.find((a) => a.id === id);
+  const announcement = await getRealAnnouncement(id);
   return {
     title: announcement ? `${announcement.title} — LUNEX TECH Staff Portal` : "Announcement — LUNEX TECH Staff Portal",
     robots: { index: false, follow: false },
@@ -30,8 +26,7 @@ export default async function StaffAnnouncementDetailPage({
   params,
 }: PageProps<"/staff/announcements/[id]">) {
   const { id } = await params;
-  const user = await getStaffSession();
-  const announcement = MOCK_ANNOUNCEMENTS.find((a) => a.id === id);
+  const [user, announcement] = await Promise.all([getStaffSession(), getRealAnnouncement(id)]);
   if (!announcement) notFound();
 
   return (

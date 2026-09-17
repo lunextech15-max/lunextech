@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import InternLayout from "@/components/intern/InternLayout";
 import { getInternUser } from "@/lib/intern/session";
-import { INTERN_ANNOUNCEMENTS } from "@/lib/intern/mock-data";
+import { getRealAnnouncements } from "@/lib/staff/real-announcements";
 import "@/styles/staff-announcements.css";
 
 export const metadata: Metadata = {
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function InternAnnouncementsPage() {
-  const user = await getInternUser();
+  const [user, announcements] = await Promise.all([getInternUser(), getRealAnnouncements()]);
   return (
     <InternLayout active="announcements" user={user}>
       <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
@@ -23,12 +23,12 @@ export default async function InternAnnouncementsPage() {
         </h1>
         <p className="mt-3 text-sm text-soft-white/50 sm:text-base">Updates from LUNEX TECH.</p>
 
-        {INTERN_ANNOUNCEMENTS.length > 0 ? (
+        {announcements.length > 0 ? (
           <div className="mt-10 border border-line px-6 sm:px-8">
-            {INTERN_ANNOUNCEMENTS.map((announcement) => (
+            {announcements.map((announcement) => (
               <div
                 key={announcement.id}
-                className={`announcement-row ${announcement.important ? "announcement-important" : ""}`}
+                className={`announcement-row ${announcement.priority === "important" ? "announcement-important" : ""}`}
               >
                 <p className="announcement-category text-[10px] font-medium tracking-[0.2em] uppercase">
                   {announcement.category}
