@@ -4,6 +4,7 @@ import type { CallerUser } from "@/lib/caller/session";
 export type CallerNavId =
   | "dashboard"
   | "leads"
+  | "attendance"
   | "queue"
   | "followups"
   | "scripts"
@@ -20,6 +21,7 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   { id: "dashboard", number: "01", label: "Dashboard", href: "/caller/dashboard" },
   { id: "leads", number: "02", label: "Leads", href: "/caller/leads" },
+  { id: "attendance", number: "03", label: "Attendance", href: "/caller/attendance" },
   { id: "queue", number: "04", label: "Call Queue", href: "/caller/queue" },
   { id: "followups", number: "05", label: "Follow-ups", href: "/caller/followups" },
   { id: "scripts", number: "06", label: "Scripts", href: "/caller/scripts" },
