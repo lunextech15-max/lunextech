@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import CallerSidebar, { type CallerNavId } from "./CallerSidebar";
+import NotificationBell from "@/components/shared/notifications/NotificationBell";
 import type { CallerUser } from "@/lib/caller/session";
 import "@/styles/staff-dashboard.css";
 
@@ -45,25 +46,28 @@ export default function CallerLayout({
           <Link href="/" className="dash-logo text-sm">
             LUNEX <span className="text-accent">TECH</span>
           </Link>
-          <button
-            type="button"
-            aria-label={drawerOpen ? "Close menu" : "Open menu"}
-            aria-expanded={drawerOpen}
-            aria-controls="caller-mobile-nav"
-            onClick={() => setDrawerOpen((v) => !v)}
-            className="flex h-9 w-9 flex-col items-center justify-center gap-1.5"
-          >
-            <span
-              className={`h-[1.5px] w-6 bg-soft-white transition-transform ${
-                drawerOpen ? "translate-y-[3.5px] rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`h-[1.5px] w-6 bg-soft-white transition-transform ${
-                drawerOpen ? "-translate-y-[3.5px] -rotate-45" : ""
-              }`}
-            />
-          </button>
+          <div className="flex items-center gap-3">
+            <NotificationBell staffId={user.staffId} notificationsHref="/caller/notifications" />
+            <button
+              type="button"
+              aria-label={drawerOpen ? "Close menu" : "Open menu"}
+              aria-expanded={drawerOpen}
+              aria-controls="caller-mobile-nav"
+              onClick={() => setDrawerOpen((v) => !v)}
+              className="flex h-9 w-9 flex-col items-center justify-center gap-1.5"
+            >
+              <span
+                className={`h-[1.5px] w-6 bg-soft-white transition-transform ${
+                  drawerOpen ? "translate-y-[3.5px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`h-[1.5px] w-6 bg-soft-white transition-transform ${
+                  drawerOpen ? "-translate-y-[3.5px] -rotate-45" : ""
+                }`}
+              />
+            </button>
+          </div>
         </header>
 
         <main className="min-w-0 flex-1">{children}</main>

@@ -3,6 +3,7 @@ import CallerLayout from "@/components/caller/CallerLayout";
 import { getCallerUser } from "@/lib/caller/session";
 import { getMyLeads, getMyCalls } from "@/lib/caller/leads";
 import { getPerformanceStats } from "@/lib/caller/metrics";
+import NotificationPreferencesPanel from "@/components/shared/notifications/NotificationPreferencesPanel";
 
 export const metadata: Metadata = {
   title: "Profile — LUNEX TECH Cold Caller Portal",
@@ -72,6 +73,15 @@ export default async function CallerProfilePage() {
                 </p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="text-[11px] font-medium tracking-[0.25em] text-soft-white/45 uppercase">
+            Notification preferences
+          </h2>
+          <div className="mt-4 max-w-lg border border-line px-6 py-2 sm:px-8">
+            <NotificationPreferencesPanel staffId={user.staffId} />
           </div>
         </section>
       </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SignOutButton from "@/components/staff/SignOutButton";
+import NotificationBell from "@/components/shared/notifications/NotificationBell";
 import type { StaffUser } from "@/lib/staff/types";
 
 export type StaffNavId =
@@ -9,6 +10,7 @@ export type StaffNavId =
   | "team"
   | "attendance"
   | "announcements"
+  | "notifications"
   | "profile";
 
 type NavItem = {
@@ -25,7 +27,8 @@ const NAV_ITEMS: NavItem[] = [
   { id: "team", number: "04", label: "Team", href: "/staff/team" },
   { id: "attendance", number: "05", label: "Attendance", href: "/staff/attendance" },
   { id: "announcements", number: "06", label: "Announcements", href: "/staff/announcements" },
-  { id: "profile", number: "07", label: "Profile", href: "/staff/profile" },
+  { id: "notifications", number: "07", label: "Notifications", href: "/staff/notifications" },
+  { id: "profile", number: "08", label: "Profile", href: "/staff/profile" },
 ];
 
 export default function Sidebar({
@@ -43,6 +46,7 @@ export default function Sidebar({
         <Link href="/" className="dash-logo text-sm">
           LUNEX <span className="text-accent">TECH</span>
         </Link>
+        <NotificationBell staffId={user.id} notificationsHref="/staff/notifications" />
       </div>
       <div className="px-6 pb-6">
         <p className="text-[10px] font-medium tracking-[0.3em] text-soft-white/35 uppercase">

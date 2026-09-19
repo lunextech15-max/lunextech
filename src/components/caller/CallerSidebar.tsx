@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NotificationBell from "@/components/shared/notifications/NotificationBell";
 import type { CallerUser } from "@/lib/caller/session";
 
 export type CallerNavId =
@@ -9,6 +10,7 @@ export type CallerNavId =
   | "followups"
   | "scripts"
   | "performance"
+  | "notifications"
   | "profile";
 
 type NavItem = {
@@ -26,7 +28,8 @@ const NAV_ITEMS: NavItem[] = [
   { id: "followups", number: "05", label: "Follow-ups", href: "/caller/followups" },
   { id: "scripts", number: "06", label: "Scripts", href: "/caller/scripts" },
   { id: "performance", number: "07", label: "Performance", href: "/caller/performance" },
-  { id: "profile", number: "08", label: "Profile", href: "/caller/profile" },
+  { id: "notifications", number: "08", label: "Notifications", href: "/caller/notifications" },
+  { id: "profile", number: "09", label: "Profile", href: "/caller/profile" },
 ];
 
 export default function CallerSidebar({
@@ -44,6 +47,7 @@ export default function CallerSidebar({
         <Link href="/" className="dash-logo text-sm">
           LUNEX <span className="text-accent">TECH</span>
         </Link>
+        <NotificationBell staffId={user.staffId} notificationsHref="/caller/notifications" />
       </div>
       <div className="px-6 pb-6">
         <p className="text-[10px] font-medium tracking-[0.3em] text-soft-white/35 uppercase">Caller workspace</p>

@@ -5,6 +5,7 @@ import { getInternUser } from "@/lib/intern/session";
 import { getMyInternProject } from "@/lib/intern/real-project";
 import { getMyInternTasks } from "@/lib/intern/real-tasks";
 import { getMyLearningProgress } from "@/lib/intern/learning";
+import NotificationPreferencesPanel from "@/components/shared/notifications/NotificationPreferencesPanel";
 import { INTERN_JOURNEY } from "@/lib/intern/mock-data";
 
 export const metadata: Metadata = {
@@ -200,6 +201,15 @@ export default async function InternProfilePage() {
               </p>
             </div>
           )}
+        </div>
+
+        <div className="mt-14 border-t border-line pt-10">
+          <h2 className="text-[11px] font-medium tracking-[0.25em] text-soft-white/45 uppercase">
+            Notification preferences
+          </h2>
+          <div className="mt-4 max-w-lg border border-line px-6 py-2 sm:px-8">
+            <NotificationPreferencesPanel staffId={user.id} />
+          </div>
         </div>
       </div>
     </InternLayout>

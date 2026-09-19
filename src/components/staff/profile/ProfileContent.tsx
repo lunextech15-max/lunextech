@@ -9,6 +9,7 @@ import ProfileEdit from "./ProfileEdit";
 import ProfileWork from "./ProfileWork";
 import ProfileProjects from "./ProfileProjects";
 import RecentActivity from "@/components/staff/dashboard/RecentActivity";
+import NotificationPreferencesPanel from "@/components/shared/notifications/NotificationPreferencesPanel";
 import type { ActivityItem, StaffProject, StaffTeamMember } from "@/lib/staff/types";
 import "@/styles/staff-team.css";
 import "@/styles/staff-task-detail.css";
@@ -134,6 +135,15 @@ export default function ProfileContent({
           emptyTitle="No recent activity."
           emptyDescription="Your workspace activity will appear here."
         />
+      </div>
+
+      <div className="dash-fade mt-10" style={{ animationDelay: "0.3s" }}>
+        <h2 className="text-[11px] font-medium tracking-[0.25em] text-soft-white/45 uppercase">
+          06 / Notification preferences
+        </h2>
+        <div className="mt-4 max-w-lg border border-line px-6 py-2 sm:px-8">
+          <NotificationPreferencesPanel staffId={member.id} />
+        </div>
       </div>
     </div>
   );

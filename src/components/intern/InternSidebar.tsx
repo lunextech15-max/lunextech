@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NotificationBell from "@/components/shared/notifications/NotificationBell";
 import type { InternUser } from "@/lib/intern/types";
 
 export type InternNavId =
@@ -9,6 +10,7 @@ export type InternNavId =
   | "team"
   | "attendance"
   | "announcements"
+  | "notifications"
   | "profile";
 
 type NavItem = {
@@ -26,7 +28,8 @@ const NAV_ITEMS: NavItem[] = [
   { id: "team", number: "05", label: "Team", href: "/intern/team" },
   { id: "attendance", number: "06", label: "Attendance", href: "/intern/attendance" },
   { id: "announcements", number: "07", label: "Announcements", href: "/intern/announcements" },
-  { id: "profile", number: "08", label: "Profile", href: "/intern/profile" },
+  { id: "notifications", number: "08", label: "Notifications", href: "/intern/notifications" },
+  { id: "profile", number: "09", label: "Profile", href: "/intern/profile" },
 ];
 
 export default function InternSidebar({
@@ -44,6 +47,7 @@ export default function InternSidebar({
         <Link href="/" className="dash-logo text-sm">
           LUNEX <span className="text-accent">TECH</span>
         </Link>
+        <NotificationBell staffId={user.id} notificationsHref="/intern/notifications" />
       </div>
       <div className="px-6 pb-6">
         <p className="text-[10px] font-medium tracking-[0.3em] text-soft-white/35 uppercase">Intern workspace</p>
