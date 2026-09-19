@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { PROGRAMS } from "@/lib/programs";
 import type { ApplicationInput } from "@/lib/applications";
+import FormField from "@/components/shared/FormField";
 import ApplicationSuccess from "@/components/shared/ApplicationSuccess";
 
 const EMPTY: ApplicationInput = {
@@ -120,234 +121,123 @@ export default function ApplicationForm() {
       <section className="flex flex-col gap-6">
         <p className="apply-section-title">Personal information</p>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div className="apply-field">
-            <label htmlFor={`${idBase}-name`} className="apply-field-label">
-              Full name
-            </label>
-            <input
-              id={`${idBase}-name`}
-              className="apply-input"
-              value={data.name}
-              onChange={field("name")}
-              aria-invalid={!!errors.name}
-              aria-describedby={errors.name ? `${idBase}-name-error` : undefined}
-            />
-            {errors.name && (
-              <p id={`${idBase}-name-error`} className="apply-error" role="alert">
-                {errors.name}
-              </p>
-            )}
-          </div>
-          <div className="apply-field">
-            <label htmlFor={`${idBase}-email`} className="apply-field-label">
-              Email address
-            </label>
-            <input
-              id={`${idBase}-email`}
-              type="email"
-              className="apply-input"
-              value={data.email}
-              onChange={field("email")}
-              aria-invalid={!!errors.email}
-              aria-describedby={errors.email ? `${idBase}-email-error` : undefined}
-            />
-            {errors.email && (
-              <p id={`${idBase}-email-error`} className="apply-error" role="alert">
-                {errors.email}
-              </p>
-            )}
-          </div>
-          <div className="apply-field">
-            <label htmlFor={`${idBase}-phone`} className="apply-field-label">
-              Phone number <span className="normal-case text-soft-white/55">(optional)</span>
-            </label>
-            <input id={`${idBase}-phone`} className="apply-input" value={data.phone} onChange={field("phone")} />
-          </div>
-          <div className="apply-field">
-            <label htmlFor={`${idBase}-location`} className="apply-field-label">
-              City / location
-            </label>
-            <input
-              id={`${idBase}-location`}
-              className="apply-input"
-              value={data.location}
-              onChange={field("location")}
-              aria-invalid={!!errors.location}
-              aria-describedby={errors.location ? `${idBase}-location-error` : undefined}
-            />
-            {errors.location && (
-              <p id={`${idBase}-location-error`} className="apply-error" role="alert">
-                {errors.location}
-              </p>
-            )}
-          </div>
+          <FormField id={`${idBase}-name`} label="Full name" value={data.name} onChange={field("name")} error={errors.name} />
+          <FormField
+            id={`${idBase}-email`}
+            label="Email address"
+            type="email"
+            value={data.email}
+            onChange={field("email")}
+            error={errors.email}
+          />
+          <FormField id={`${idBase}-phone`} label="Phone number" optional value={data.phone} onChange={field("phone")} />
+          <FormField
+            id={`${idBase}-location`}
+            label="City / location"
+            value={data.location}
+            onChange={field("location")}
+            error={errors.location}
+          />
         </div>
       </section>
 
       {/* Program interest */}
       <section className="flex flex-col gap-6">
         <p className="apply-section-title">Program interest</p>
-        <div className="apply-field max-w-md">
-          <label htmlFor={`${idBase}-program`} className="apply-field-label">
-            Select program
-          </label>
-          <select
-            id={`${idBase}-program`}
-            className="apply-select"
-            value={data.program}
-            onChange={field("program")}
-            aria-invalid={!!errors.program}
-            aria-describedby={errors.program ? `${idBase}-program-error` : undefined}
-          >
-            <option value="">Choose a program</option>
-            {PROGRAMS.filter((program) => program.applicationsOpen).map((program) => (
-              <option key={program.slug} value={program.slug}>
-                {program.title.join(" ")}
-              </option>
-            ))}
-          </select>
-          {errors.program && (
-            <p id={`${idBase}-program-error`} className="apply-error" role="alert">
-              {errors.program}
-            </p>
-          )}
-        </div>
+        <FormField
+          id={`${idBase}-program`}
+          label="Select program"
+          as="select"
+          className="max-w-md"
+          value={data.program}
+          onChange={field("program")}
+          error={errors.program}
+        >
+          <option value="">Choose a program</option>
+          {PROGRAMS.filter((program) => program.applicationsOpen).map((program) => (
+            <option key={program.slug} value={program.slug}>
+              {program.title.join(" ")}
+            </option>
+          ))}
+        </FormField>
       </section>
 
       {/* About you */}
       <section className="flex flex-col gap-6">
         <p className="apply-section-title">About you</p>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div className="apply-field">
-            <label htmlFor={`${idBase}-education`} className="apply-field-label">
-              Current education
-            </label>
-            <input
-              id={`${idBase}-education`}
-              className="apply-input"
-              placeholder="e.g. B.Tech, 3rd year"
-              value={data.education}
-              onChange={field("education")}
-              aria-invalid={!!errors.education}
-              aria-describedby={errors.education ? `${idBase}-education-error` : undefined}
-            />
-            {errors.education && (
-              <p id={`${idBase}-education-error`} className="apply-error" role="alert">
-                {errors.education}
-              </p>
-            )}
-          </div>
-          <div className="apply-field">
-            <label htmlFor={`${idBase}-field`} className="apply-field-label">
-              Field of study
-            </label>
-            <input
-              id={`${idBase}-field`}
-              className="apply-input"
-              value={data.fieldOfStudy}
-              onChange={field("fieldOfStudy")}
-              aria-invalid={!!errors.fieldOfStudy}
-              aria-describedby={errors.fieldOfStudy ? `${idBase}-field-error` : undefined}
-            />
-            {errors.fieldOfStudy && (
-              <p id={`${idBase}-field-error`} className="apply-error" role="alert">
-                {errors.fieldOfStudy}
-              </p>
-            )}
-          </div>
-          <div className="apply-field">
-            <label htmlFor={`${idBase}-year`} className="apply-field-label">
-              Current year <span className="normal-case text-soft-white/55">(optional)</span>
-            </label>
-            <input id={`${idBase}-year`} className="apply-input" value={data.year} onChange={field("year")} />
-          </div>
+          <FormField
+            id={`${idBase}-education`}
+            label="Current education"
+            placeholder="e.g. B.Tech, 3rd year"
+            value={data.education}
+            onChange={field("education")}
+            error={errors.education}
+          />
+          <FormField
+            id={`${idBase}-field`}
+            label="Field of study"
+            value={data.fieldOfStudy}
+            onChange={field("fieldOfStudy")}
+            error={errors.fieldOfStudy}
+          />
+          <FormField id={`${idBase}-year`} label="Current year" optional value={data.year} onChange={field("year")} />
         </div>
       </section>
 
       {/* Tell us */}
       <section className="flex flex-col gap-6">
         <p className="apply-section-title">Tell us</p>
-        <div className="apply-field">
-          <label htmlFor={`${idBase}-motivation`} className="apply-field-label">
-            Why are you interested in this program?
-          </label>
-          <textarea
-            id={`${idBase}-motivation`}
-            className="apply-textarea"
-            value={data.motivation}
-            onChange={field("motivation")}
-            aria-invalid={!!errors.motivation}
-            aria-describedby={errors.motivation ? `${idBase}-motivation-error` : undefined}
-          />
-          {errors.motivation && (
-            <p id={`${idBase}-motivation-error`} className="apply-error" role="alert">
-              {errors.motivation}
-            </p>
-          )}
-        </div>
-        <div className="apply-field">
-          <label htmlFor={`${idBase}-goals`} className="apply-field-label">
-            What would you like to learn or explore?
-          </label>
-          <textarea
-            id={`${idBase}-goals`}
-            className="apply-textarea"
-            value={data.learningGoals}
-            onChange={field("learningGoals")}
-            aria-invalid={!!errors.learningGoals}
-            aria-describedby={errors.learningGoals ? `${idBase}-goals-error` : undefined}
-          />
-          {errors.learningGoals && (
-            <p id={`${idBase}-goals-error`} className="apply-error" role="alert">
-              {errors.learningGoals}
-            </p>
-          )}
-        </div>
+        <FormField
+          id={`${idBase}-motivation`}
+          label="Why are you interested in this program?"
+          as="textarea"
+          value={data.motivation}
+          onChange={field("motivation")}
+          error={errors.motivation}
+        />
+        <FormField
+          id={`${idBase}-goals`}
+          label="What would you like to learn or explore?"
+          as="textarea"
+          value={data.learningGoals}
+          onChange={field("learningGoals")}
+          error={errors.learningGoals}
+        />
       </section>
 
       {/* Skills */}
       <section className="flex flex-col gap-6">
         <p className="apply-section-title">Skills</p>
-        <div className="apply-field">
-          <label htmlFor={`${idBase}-skills`} className="apply-field-label">
-            What skills or technologies have you explored? <span className="normal-case text-soft-white/55">(optional)</span>
-          </label>
-          <textarea id={`${idBase}-skills`} className="apply-textarea" value={data.skills} onChange={field("skills")} />
-        </div>
+        <FormField
+          id={`${idBase}-skills`}
+          label="What skills or technologies have you explored?"
+          optional
+          as="textarea"
+          value={data.skills}
+          onChange={field("skills")}
+        />
       </section>
 
       {/* Portfolio */}
       <section className="flex flex-col gap-6">
         <p className="apply-section-title">Portfolio</p>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          <div className="apply-field">
-            <label htmlFor={`${idBase}-portfolio`} className="apply-field-label">
-              Portfolio link <span className="normal-case text-soft-white/55">(optional)</span>
-            </label>
-            <input
-              id={`${idBase}-portfolio`}
-              className="apply-input"
-              value={data.portfolio}
-              onChange={field("portfolio")}
-            />
-          </div>
-          <div className="apply-field">
-            <label htmlFor={`${idBase}-github`} className="apply-field-label">
-              GitHub <span className="normal-case text-soft-white/55">(optional)</span>
-            </label>
-            <input id={`${idBase}-github`} className="apply-input" value={data.github} onChange={field("github")} />
-          </div>
-          <div className="apply-field">
-            <label htmlFor={`${idBase}-linkedin`} className="apply-field-label">
-              LinkedIn <span className="normal-case text-soft-white/55">(optional)</span>
-            </label>
-            <input
-              id={`${idBase}-linkedin`}
-              className="apply-input"
-              value={data.linkedin}
-              onChange={field("linkedin")}
-            />
-          </div>
+          <FormField
+            id={`${idBase}-portfolio`}
+            label="Portfolio link"
+            optional
+            value={data.portfolio}
+            onChange={field("portfolio")}
+          />
+          <FormField id={`${idBase}-github`} label="GitHub" optional value={data.github} onChange={field("github")} />
+          <FormField
+            id={`${idBase}-linkedin`}
+            label="LinkedIn"
+            optional
+            value={data.linkedin}
+            onChange={field("linkedin")}
+          />
         </div>
       </section>
 
