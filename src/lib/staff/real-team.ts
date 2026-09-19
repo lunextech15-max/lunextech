@@ -16,6 +16,7 @@ type StaffRow = {
   department: string | null;
   status: string;
   created_at: string;
+  skills: string[] | null;
 };
 
 function initialsFrom(name: string): string {
@@ -33,7 +34,7 @@ export async function getAllTeamMembers(): Promise<StaffTeamMember[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("staff")
-    .select("staff_id, full_name, role, title, department, status, created_at")
+    .select("staff_id, full_name, role, title, department, status, created_at, skills")
     .order("full_name", { ascending: true });
 
   if (error) {
@@ -50,7 +51,7 @@ export async function getAllTeamMembers(): Promise<StaffTeamMember[]> {
       initials: initialsFrom(row.full_name),
       role: row.title || (row.role === "intern" ? "Intern" : "Team member"),
       discipline: row.department || "—",
-      skills: [],
+      skills: row.skills ?? [],
       // Project membership now comes from real-projects.ts (project_members)
       // rather than being duplicated here — see getMemberProjectCodes.
       projectIds: [],

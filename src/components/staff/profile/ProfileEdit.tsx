@@ -12,6 +12,8 @@ export default function ProfileEdit({
   onRemoveSkill,
   onSave,
   onCancel,
+  saving,
+  error,
 }: {
   name: string;
   role: string;
@@ -22,6 +24,8 @@ export default function ProfileEdit({
   onRemoveSkill: (skill: string) => void;
   onSave: () => void;
   onCancel: () => void;
+  saving?: boolean;
+  error?: string | null;
 }) {
   const nameId = useId();
   const roleId = useId();
@@ -113,20 +117,26 @@ export default function ProfileEdit({
       <div className="mt-7 flex items-center gap-6">
         <button
           type="button"
-          disabled={!isValid}
+          disabled={!isValid || saving}
           onClick={onSave}
           className="task-action text-xs font-semibold tracking-[0.15em] text-soft-white uppercase disabled:cursor-not-allowed disabled:opacity-40"
         >
-          Save changes
+          {saving ? "Saving…" : "Save changes"}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="profile-edit-toggle text-xs font-medium tracking-[0.15em] uppercase"
+          disabled={saving}
+          className="profile-edit-toggle text-xs font-medium tracking-[0.15em] uppercase disabled:cursor-not-allowed disabled:opacity-40"
         >
           Cancel
         </button>
       </div>
+      {error && (
+        <p className="mt-4 text-[11px] text-accent" role="alert">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

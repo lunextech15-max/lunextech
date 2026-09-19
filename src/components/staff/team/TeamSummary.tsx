@@ -1,4 +1,3 @@
-import { getDisciplines } from "@/lib/staff/team-data";
 import type { StaffProject, StaffTeamMember } from "@/lib/staff/types";
 
 export default function TeamSummary({
@@ -9,7 +8,7 @@ export default function TeamSummary({
   projects: StaffProject[];
 }) {
   const activeProjects = projects.filter((p) => p.status === "in-progress" || p.status === "review").length;
-  const disciplines = getDisciplines().length;
+  const disciplines = new Set(team.map((member) => member.discipline)).size;
 
   const items = [
     { label: "Team members", value: team.length },

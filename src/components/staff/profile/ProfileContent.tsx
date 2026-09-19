@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { updateMyProfile } from "@/lib/staff/profile-client";
 import ProfileHeader from "./ProfileHeader";
 import ProfileOverview from "./ProfileOverview";
 import ProfileSkills from "./ProfileSkills";
@@ -30,21 +31,13 @@ export default function ProfileContent({
   projects: StaffProject[];
   activity: ActivityItem[];
 }) {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const id = setTimeout(() => setLoading(false), 400);
-    return () => clearTimeout(id);
-  }, []);
-
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(member.name);
   const [role, setRole] = useState(member.role);
   const [skills, setSkills] = useState(member.skills);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
-  // Prototype-local edit state, seeded from the centralized team data — this
-  // is never written back to team-data.ts (no backend to persist it),
-  // exactly like the Task Detail Workspace's status/checklist edits.
   const [draftName, setDraftName] = useState(name);
   const [draftRole, setDraftRole] = useState(role);
   const [draftSkills, setDraftSkills] = useState(skills);
@@ -53,30 +46,25 @@ export default function ProfileContent({
     setDraftName(name);
     setDraftRole(role);
     setDraftSkills(skills);
+    setSaveError(null);
     setEditing(true);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!draftName.trim() || !draftRole.trim()) return;
+    setSaving(true);
+    setSaveError(null);
+    const ok = await updateMyProfile({ fullName: draftName.trim(), title: draftRole.trim(), skills: draftSkills });
+    setSaving(false);
+    if (!ok) {
+      setSaveError("Couldn't save your changes. Please try again.");
+      return;
+    }
     setName(draftName.trim());
     setRole(draftRole.trim());
     setSkills(draftSkills);
     setEditing(false);
   };
-
-  if (loading) {
-    return (
-      <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
-        <div className="dash-skeleton h-4 w-32" />
-        <div className="dash-skeleton mt-4 h-10 w-56" />
-        <div className="dash-skeleton mt-8 h-16 w-full max-w-sm" />
-        <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
-          <div className="dash-skeleton h-48" />
-          <div className="dash-skeleton h-48" />
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="px-6 py-10 md:px-10 lg:px-16 lg:py-14">
@@ -117,6 +105,8 @@ export default function ProfileContent({
             onRemoveSkill={(skill) => setDraftSkills((prev) => prev.filter((s) => s !== skill))}
             onSave={handleSave}
             onCancel={() => setEditing(false)}
+            saving={saving}
+            error={saveError}
           />
         </div>
       )}
