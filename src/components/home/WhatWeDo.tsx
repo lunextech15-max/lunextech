@@ -92,7 +92,7 @@ export default function WhatWeDo() {
     >
       <div className="flex min-h-screen flex-col justify-center px-6 py-20 md:px-10 lg:py-14 xl:px-16">
         {/* Section label */}
-        <div className="wwd-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <div className="wwd-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           <span className="font-display text-accent">03</span>
           <span aria-hidden className="h-px w-8 bg-accent/60" />
           <span>What we do</span>
@@ -133,14 +133,14 @@ export default function WhatWeDo() {
                     >
                       <span
                         className={`font-display text-[10px] tracking-[0.25em] transition-colors duration-500 ${
-                          isActive ? "text-accent" : "text-soft-white/30"
+                          isActive ? "text-accent" : "text-soft-white/55"
                         }`}
                       >
                         0{i + 1}
                       </span>
                       <span
                         className={`font-display text-base font-bold tracking-[0.06em] uppercase transition-colors duration-500 sm:text-lg lg:text-[1.05rem] xl:text-lg ${
-                          isActive ? "text-soft-white" : "text-soft-white/45 group-hover:text-soft-white/70"
+                          isActive ? "text-soft-white" : "text-soft-white/62 group-hover:text-soft-white/70"
                         }`}
                       >
                         {service.title}
@@ -148,7 +148,7 @@ export default function WhatWeDo() {
                       <span
                         aria-hidden
                         className={`ml-auto text-xs transition-all duration-500 ${
-                          isActive ? "translate-x-0 text-accent opacity-100" : "-translate-x-2 text-soft-white/30 opacity-0"
+                          isActive ? "translate-x-0 text-accent opacity-100" : "-translate-x-2 text-soft-white/55 opacity-0"
                         }`}
                       >
                         →
@@ -202,10 +202,10 @@ export default function WhatWeDo() {
               ))}
 
               {/* Caption */}
-              <div className="absolute right-0 bottom-0 left-0 flex items-center justify-between border-t border-line bg-carbon/70 px-5 py-3 text-[10px] font-medium tracking-[0.25em] text-soft-white/40 uppercase backdrop-blur-sm">
+              <div className="absolute right-0 bottom-0 left-0 flex items-center justify-between border-t border-line bg-carbon/70 px-5 py-3 text-[10px] font-medium tracking-[0.25em] text-soft-white/62 uppercase backdrop-blur-sm">
                 <span>
                   <span className="font-display text-accent">0{active + 1}</span>
-                  <span className="mx-2 text-soft-white/20">/</span>05
+                  <span className="mx-2 text-soft-white/55">/</span>05
                 </span>
                 <span className="hidden text-soft-white/60 xl:inline">{SERVICES[active].title}</span>
                 <span className="flex items-center gap-1.5" aria-hidden>

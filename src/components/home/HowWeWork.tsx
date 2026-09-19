@@ -107,7 +107,7 @@ export default function HowWeWork() {
 
       <div className="relative z-10 px-6 py-20 md:px-10 lg:py-28 xl:px-16">
         {/* Section label */}
-        <div className="hww-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <div className="hww-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           <span className="font-display text-accent">05</span>
           <span aria-hidden className="h-px w-8 bg-accent/60" />
           <span>How we work</span>
@@ -138,7 +138,7 @@ export default function HowWeWork() {
         </div>
 
         {/* Microcopy */}
-        <div className="hww-micro mt-8 flex items-center gap-3 text-[11px] font-medium tracking-[0.3em] text-soft-white/35 uppercase lg:mt-10">
+        <div className="hww-micro mt-8 flex items-center gap-3 text-[11px] font-medium tracking-[0.3em] text-soft-white/55 uppercase lg:mt-10">
           <span>Idea</span>
           <span aria-hidden className="text-accent">
             →

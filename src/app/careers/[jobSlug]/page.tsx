@@ -182,7 +182,7 @@ export default async function JobDetailPage({ params }: PageProps<"/careers/[job
             </>
           ) : (
             <>
-              <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+              <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
                 This position is no longer open.
               </p>
               <Link

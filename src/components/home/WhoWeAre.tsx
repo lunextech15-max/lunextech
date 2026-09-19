@@ -118,7 +118,7 @@ export default function WhoWeAre() {
 
       <div className="relative z-10 flex flex-1 flex-col px-6 py-20 md:px-10 lg:py-28 xl:px-16">
         {/* Section label */}
-        <div className="wa-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <div className="wa-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           <span className="font-display text-accent">02</span>
           <span aria-hidden className="h-px w-8 bg-accent/60" />
           <span>Who we are</span>
@@ -183,10 +183,10 @@ export default function WhoWeAre() {
                     aria-hidden
                     className="wa-dot absolute top-1/2 left-0 h-[7px] w-[7px] -translate-y-1/2 rounded-full bg-line md:top-auto md:-bottom-[3px] md:translate-y-0"
                   />
-                  <span className="wa-step-num font-display text-[10px] tracking-[0.25em] text-soft-white/30">
+                  <span className="wa-step-num font-display text-[10px] tracking-[0.25em] text-soft-white/55">
                     0{i + 1}
                   </span>
-                  <span className="wa-step-label text-[11px] font-medium tracking-[0.25em] text-soft-white/45 uppercase">
+                  <span className="wa-step-label text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
                     {step}
                   </span>
                 </li>

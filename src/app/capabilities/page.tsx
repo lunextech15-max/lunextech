@@ -68,7 +68,7 @@ export default function CapabilitiesPage() {
             <div key={category.id} className="border-t border-line py-10 first:border-t-0 lg:py-12">
               <div className="flex flex-col gap-6 lg:flex-row lg:gap-14">
                 <div className="lg:w-80 lg:shrink-0">
-                  <span className="font-display text-xs tracking-[0.25em] text-soft-white/30">
+                  <span className="font-display text-xs tracking-[0.25em] text-soft-white/55">
                     {category.number}
                   </span>
                   <h3 className="mt-3 font-display text-3xl font-black tracking-tight text-soft-white uppercase">
@@ -82,7 +82,7 @@ export default function CapabilitiesPage() {
                     <li key={example.title} className="page-card">
                       <p className="text-sm font-semibold text-soft-white">{example.title}</p>
                       <p className="mt-1.5 text-xs leading-relaxed text-soft-white/50">{example.useCase}</p>
-                      <p className="mt-2 text-[10px] font-medium tracking-[0.15em] text-soft-white/35 uppercase">
+                      <p className="mt-2 text-[10px] font-medium tracking-[0.15em] text-soft-white/55 uppercase">
                         {example.audience.join(" · ")}
                       </p>
                     </li>

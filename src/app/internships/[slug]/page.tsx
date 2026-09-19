@@ -146,7 +146,7 @@ export default async function ProgramDetailPage({ params }: PageProps<"/internsh
           ))}
         </ul>
 
-        <p className="mt-10 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <p className="mt-10 text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           You do not need to know everything before you start.
         </p>
       </section>

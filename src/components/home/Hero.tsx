@@ -56,15 +56,15 @@ export default function Hero() {
 
       {/* Masthead strip */}
       <div className="hero-masthead relative z-10 flex items-center justify-between border-b border-line px-6 pt-24 pb-4 md:px-10 xl:px-16">
-        <span className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <span className="text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           N&deg;01 — Lunex Tech
         </span>
-        <span className="hidden text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase sm:flex sm:gap-2">
+        <span className="hidden text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase sm:flex sm:gap-2">
           Technology <span className="text-accent">×</span> Creativity{" "}
           <span className="text-accent">×</span> People{" "}
           <span className="text-accent">×</span> Impact
         </span>
-        <span className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <span className="text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           Scroll
         </span>
       </div>
@@ -112,7 +112,7 @@ export default function Hero() {
 
       {/* Footline */}
       <div className="hero-footline relative z-10 flex items-center justify-between border-t border-line px-6 py-5 md:px-10 xl:px-16">
-        <span className="text-[11px] font-medium tracking-[0.2em] text-soft-white/40 uppercase">
+        <span className="text-[11px] font-medium tracking-[0.2em] text-soft-white/62 uppercase">
           Same vision. A brighter tomorrow.
         </span>
         <span aria-hidden className="h-px w-10 bg-accent" />

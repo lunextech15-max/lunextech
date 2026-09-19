@@ -102,7 +102,7 @@ export default function FinalCTA() {
 
       <div className="relative z-10 flex min-h-screen flex-col justify-center px-6 py-24 md:px-10 lg:px-16">
         {/* Section label */}
-        <div className="cta-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <div className="cta-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           <span className="font-display text-accent">08</span>
           <span aria-hidden className="h-px w-8 bg-accent/60" />
           <span>Start a project</span>
@@ -191,7 +191,7 @@ export default function FinalCTA() {
         </div>
 
         {/* Microcopy */}
-        <p className="cta-micro mt-8 text-[11px] font-medium tracking-[0.25em] text-soft-white/35 uppercase lg:mt-10">
+        <p className="cta-micro mt-8 text-[11px] font-medium tracking-[0.25em] text-soft-white/55 uppercase lg:mt-10">
           No idea is too early to start a conversation.
         </p>
       </div>

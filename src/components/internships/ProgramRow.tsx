@@ -6,7 +6,7 @@ export default function ProgramRow({ program }: { program: Program }) {
     <Link href={`/internships/${program.slug}`} className="program-row group block">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-10">
         <div className="flex items-baseline gap-5 lg:w-64">
-          <span className="font-display text-sm text-soft-white/30">{program.number}</span>
+          <span className="font-display text-sm text-soft-white/55">{program.number}</span>
           <h3 className="program-row-title font-display text-2xl leading-[1.05] font-black tracking-tight uppercase sm:text-3xl lg:text-[2.1vw] xl:text-3xl">
             {program.title[0]}
             <br />

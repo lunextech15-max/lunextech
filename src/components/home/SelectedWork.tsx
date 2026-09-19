@@ -15,7 +15,7 @@ const TOTAL = String(PROJECTS.length).padStart(2, "0");
 function CategoryLine({ category }: { category: string }) {
   const parts = category.split("×");
   return (
-    <div className="sw-meta mt-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/45 uppercase">
+    <div className="sw-meta mt-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
       {parts.map((part, idx) => (
         <span key={idx}>
           {part.trim()}
@@ -94,7 +94,7 @@ export default function SelectedWork() {
 
       <div className="relative z-10 px-6 py-20 md:px-10 lg:py-28 xl:px-16">
         {/* Section label */}
-        <div className="sw-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <div className="sw-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           <span className="font-display text-accent">06</span>
           <span aria-hidden className="h-px w-8 bg-accent/60" />
           <span>Selected work</span>
@@ -133,7 +133,7 @@ export default function SelectedWork() {
                 <div className={`flex flex-col ${g.header}`}>
                   <div className="sw-num flex items-baseline gap-3 font-display text-[11px] tracking-[0.25em]">
                     <span className="text-accent">0{i + 1}</span>
-                    <span className="text-soft-white/25">/ {TOTAL}</span>
+                    <span className="text-soft-white/55">/ {TOTAL}</span>
                   </div>
 
                   <h3 className="sw-title mt-4 font-display text-[10vw] font-black uppercase leading-none tracking-tight text-soft-white sm:text-[6vw] lg:text-[3.4vw] xl:text-[3rem]">
@@ -161,7 +161,7 @@ export default function SelectedWork() {
                     ) : (
                       <div className="sw-placeholder flex h-full w-full items-center justify-center">
                         <div className="sw-placeholder-scan" aria-hidden />
-                        <span className="relative z-10 text-[11px] font-medium tracking-[0.3em] text-soft-white/30 uppercase">
+                        <span className="relative z-10 text-[11px] font-medium tracking-[0.3em] text-soft-white/55 uppercase">
                           Case study visual coming soon
                         </span>
                       </div>
@@ -204,11 +204,11 @@ export default function SelectedWork() {
                     ) : (
                       <span
                         aria-disabled="true"
-                        className="inline-flex flex-wrap items-center gap-3 text-xs font-semibold tracking-[0.15em] text-soft-white/35 uppercase"
+                        className="inline-flex flex-wrap items-center gap-3 text-xs font-semibold tracking-[0.15em] text-soft-white/55 uppercase"
                       >
                         Explore Project
                         <span aria-hidden>→</span>
-                        <span className="text-[10px] font-medium tracking-[0.2em] text-soft-white/25 normal-case">
+                        <span className="text-[10px] font-medium tracking-[0.2em] text-soft-white/55 normal-case">
                           (Case study coming soon)
                         </span>
                       </span>

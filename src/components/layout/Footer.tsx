@@ -97,7 +97,7 @@ export default function Footer() {
           >
             LUNEX <span className="text-accent">TECH</span>
           </Link>
-          <p className="mt-4 text-xs font-medium tracking-[0.3em] text-soft-white/45 uppercase sm:text-sm">
+          <p className="mt-4 text-xs font-medium tracking-[0.3em] text-soft-white/62 uppercase sm:text-sm">
             From idea to impact.
           </p>
         </div>
@@ -107,7 +107,7 @@ export default function Footer() {
           <nav className="footer-fade" aria-labelledby="footer-explore-heading">
             <h3
               id="footer-explore-heading"
-              className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase"
+              className="text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase"
             >
               Explore
             </h3>
@@ -125,7 +125,7 @@ export default function Footer() {
           <nav className="footer-fade" aria-labelledby="footer-capabilities-heading">
             <h3
               id="footer-capabilities-heading"
-              className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase"
+              className="text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase"
             >
               Capabilities
             </h3>
@@ -143,7 +143,7 @@ export default function Footer() {
           <nav className="footer-fade" aria-labelledby="footer-connect-heading">
             <h3
               id="footer-connect-heading"
-              className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase"
+              className="text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase"
             >
               Connect
             </h3>
@@ -161,7 +161,7 @@ export default function Footer() {
                   aria-disabled="true"
                 >
                   Social Links
-                  <span className="ml-2 text-[10px] tracking-[0.2em] text-soft-white/25 uppercase">
+                  <span className="ml-2 text-[10px] tracking-[0.2em] text-soft-white/55 uppercase">
                     Coming soon
                   </span>
                 </span>
@@ -171,9 +171,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="footer-fade mt-16 flex flex-col items-center gap-4 border-t border-line pt-8 text-[11px] font-medium tracking-[0.2em] text-soft-white/40 uppercase sm:flex-row sm:justify-between lg:mt-20">
+        <div className="footer-fade mt-16 flex flex-col items-center gap-4 border-t border-line pt-8 text-[11px] font-medium tracking-[0.2em] text-soft-white/62 uppercase sm:flex-row sm:justify-between lg:mt-20">
           <span>© 2026 Lunex Tech</span>
-          <span className="text-soft-white/30">From idea to impact.</span>
+          <span className="text-soft-white/55">From idea to impact.</span>
           <Link href="/staff" className="footer-portal">
             Staff / Intern Login
             <span aria-hidden>→</span>

@@ -34,7 +34,7 @@ export default function FileUpload({ onFileNameChange }: FileUploadProps) {
         <span className="text-xs text-soft-white/50">
           {fileName ?? "No file selected"}
         </span>
-        <span className="ml-auto text-[10px] font-medium tracking-[0.15em] text-soft-white/30 uppercase">
+        <span className="ml-auto text-[10px] font-medium tracking-[0.15em] text-soft-white/55 uppercase">
           PDF · DOC · DOCX
         </span>
       </div>

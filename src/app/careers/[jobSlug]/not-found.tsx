@@ -7,7 +7,7 @@ export default function JobNotFound() {
     <div className="flex flex-1 flex-col bg-carbon">
       <Nav />
       <main className="flex flex-1 flex-col justify-center px-6 py-24 md:px-10 lg:px-16">
-        <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           03 <span className="text-accent">/ Careers</span>
         </p>
         <h1 className="mt-6 font-display text-4xl font-black tracking-tight text-soft-white uppercase">

@@ -134,7 +134,7 @@ export default function WhatWeBuild() {
     >
       <div className="px-6 py-20 md:px-10 lg:py-28 xl:px-16">
         {/* Section label */}
-        <div className="wwb-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <div className="wwb-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           <span className="font-display text-accent">04</span>
           <span aria-hidden className="h-px w-8 bg-accent/60" />
           <span>What we build</span>
@@ -178,7 +178,7 @@ export default function WhatWeBuild() {
                 >
                   <div className="wwb-num flex items-baseline gap-3 font-display text-[11px] tracking-[0.25em]">
                     <span className="text-accent">{category.number}</span>
-                    <span className="text-soft-white/25">/ {TOTAL}</span>
+                    <span className="text-soft-white/55">/ {TOTAL}</span>
                   </div>
 
                   <h3 className="mt-5 font-display text-[8vw] font-black leading-[1] tracking-tight break-words text-soft-white uppercase sm:text-[5.5vw] lg:text-[2.8vw] xl:text-[2.6rem]">
@@ -212,9 +212,9 @@ export default function WhatWeBuild() {
                         <span className="block text-[12px] font-medium tracking-[0.15em] text-soft-white/85 uppercase transition-colors duration-300 sm:text-sm">
                           {example.title}
                         </span>
-                        <span className="mt-1.5 block text-[11.5px] leading-relaxed text-soft-white/45 sm:text-[12.5px]">
+                        <span className="mt-1.5 block text-[11.5px] leading-relaxed text-soft-white/62 sm:text-[12.5px]">
                           {example.useCase}
-                          <span className="text-soft-white/25">
+                          <span className="text-soft-white/55">
                             {" "}
                             — {example.audience.join(" · ")}
                           </span>

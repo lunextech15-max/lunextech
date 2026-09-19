@@ -159,7 +159,7 @@ export default function ApplicationForm() {
           </div>
           <div className="apply-field">
             <label htmlFor={`${idBase}-phone`} className="apply-field-label">
-              Phone number <span className="normal-case text-soft-white/30">(optional)</span>
+              Phone number <span className="normal-case text-soft-white/55">(optional)</span>
             </label>
             <input id={`${idBase}-phone`} className="apply-input" value={data.phone} onChange={field("phone")} />
           </div>
@@ -257,7 +257,7 @@ export default function ApplicationForm() {
           </div>
           <div className="apply-field">
             <label htmlFor={`${idBase}-year`} className="apply-field-label">
-              Current year <span className="normal-case text-soft-white/30">(optional)</span>
+              Current year <span className="normal-case text-soft-white/55">(optional)</span>
             </label>
             <input id={`${idBase}-year`} className="apply-input" value={data.year} onChange={field("year")} />
           </div>
@@ -310,7 +310,7 @@ export default function ApplicationForm() {
         <p className="apply-section-title">Skills</p>
         <div className="apply-field">
           <label htmlFor={`${idBase}-skills`} className="apply-field-label">
-            What skills or technologies have you explored? <span className="normal-case text-soft-white/30">(optional)</span>
+            What skills or technologies have you explored? <span className="normal-case text-soft-white/55">(optional)</span>
           </label>
           <textarea id={`${idBase}-skills`} className="apply-textarea" value={data.skills} onChange={field("skills")} />
         </div>
@@ -322,7 +322,7 @@ export default function ApplicationForm() {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
           <div className="apply-field">
             <label htmlFor={`${idBase}-portfolio`} className="apply-field-label">
-              Portfolio link <span className="normal-case text-soft-white/30">(optional)</span>
+              Portfolio link <span className="normal-case text-soft-white/55">(optional)</span>
             </label>
             <input
               id={`${idBase}-portfolio`}
@@ -333,13 +333,13 @@ export default function ApplicationForm() {
           </div>
           <div className="apply-field">
             <label htmlFor={`${idBase}-github`} className="apply-field-label">
-              GitHub <span className="normal-case text-soft-white/30">(optional)</span>
+              GitHub <span className="normal-case text-soft-white/55">(optional)</span>
             </label>
             <input id={`${idBase}-github`} className="apply-input" value={data.github} onChange={field("github")} />
           </div>
           <div className="apply-field">
             <label htmlFor={`${idBase}-linkedin`} className="apply-field-label">
-              LinkedIn <span className="normal-case text-soft-white/30">(optional)</span>
+              LinkedIn <span className="normal-case text-soft-white/55">(optional)</span>
             </label>
             <input
               id={`${idBase}-linkedin`}

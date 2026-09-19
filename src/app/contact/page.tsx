@@ -33,7 +33,7 @@ export default function ContactPage() {
 
         <div className="relative z-10 flex min-h-screen flex-col justify-center px-6 pt-28 pb-24 md:px-10 lg:px-16">
           {/* Section label */}
-          <div className="contact-fade flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+          <div className="contact-fade flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
             <span className="font-display text-accent">→</span>
             <span aria-hidden className="h-px w-8 bg-accent/60" />
             <span>Start a project</span>
@@ -54,7 +54,7 @@ export default function ContactPage() {
           <div className="contact-fade mt-14 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-16">
             {CHANNELS.map((channel) => (
               <div key={channel.label} className="contact-channel">
-                <span className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+                <span className="text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
                   {channel.label}
                 </span>
                 <a href={channel.href} className="contact-channel-link text-lg font-semibold tracking-wide sm:text-xl">
@@ -64,7 +64,7 @@ export default function ContactPage() {
             ))}
           </div>
 
-          <p className="contact-fade mt-10 text-[11px] font-medium tracking-[0.25em] text-soft-white/35 uppercase">
+          <p className="contact-fade mt-10 text-[11px] font-medium tracking-[0.25em] text-soft-white/55 uppercase">
             No idea is too early to start a conversation.
           </p>
         </div>

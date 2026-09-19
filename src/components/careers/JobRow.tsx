@@ -6,7 +6,7 @@ export default function JobRow({ job }: { job: Job }) {
     <Link href={`/careers/${job.slug}`} className="job-row group block">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-10">
         <div className="flex items-baseline gap-5 lg:w-64">
-          <span className="font-display text-sm text-soft-white/30">{job.number}</span>
+          <span className="font-display text-sm text-soft-white/55">{job.number}</span>
           <h3 className="job-row-title font-display text-2xl leading-[1.05] font-black tracking-tight uppercase sm:text-3xl lg:text-[2.1vw] xl:text-3xl">
             {job.title[0]}
             <br />

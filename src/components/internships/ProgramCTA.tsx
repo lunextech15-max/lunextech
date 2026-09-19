@@ -5,7 +5,7 @@ export default function ProgramCTA({ program }: { program: Program }) {
   if (!program.applicationsOpen) {
     return (
       <div className="border border-line p-8 text-center sm:p-12">
-        <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           Applications currently closed.
         </p>
         <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-soft-white/55">

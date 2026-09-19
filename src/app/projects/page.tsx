@@ -49,14 +49,14 @@ export default function ProjectsPage() {
                     className="object-cover object-top"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center text-[11px] font-medium tracking-[0.25em] text-soft-white/30 uppercase">
+                  <div className="flex h-full w-full items-center justify-center text-[11px] font-medium tracking-[0.25em] text-soft-white/55 uppercase">
                     Case study coming soon
                   </div>
                 )}
               </div>
 
               <div className="flex flex-1 flex-col p-7 sm:p-8">
-                <span className="font-display text-xs tracking-[0.25em] text-soft-white/30">
+                <span className="font-display text-xs tracking-[0.25em] text-soft-white/55">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h2 className="mt-3 font-display text-2xl font-black tracking-tight text-soft-white uppercase">
@@ -92,7 +92,7 @@ export default function ProjectsPage() {
                       <span aria-hidden>↗</span>
                     </a>
                   ) : (
-                    <span className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.15em] text-soft-white/30 uppercase">
+                    <span className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.15em] text-soft-white/55 uppercase">
                       Case study coming soon
                     </span>
                   )}

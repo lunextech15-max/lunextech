@@ -43,7 +43,7 @@ export default function AboutPage() {
           <ol className="page-fade mt-16 grid grid-cols-2 gap-6 lg:mt-20 lg:grid-cols-4">
             {["Idea", "Design", "Technology", "Impact"].map((step, i) => (
               <li key={step} className="border-t border-accent/60 pt-4">
-                <span className="font-display text-[10px] tracking-[0.25em] text-soft-white/30">0{i + 1}</span>
+                <span className="font-display text-[10px] tracking-[0.25em] text-soft-white/55">0{i + 1}</span>
                 <p className="mt-2 text-[11px] font-medium tracking-[0.25em] text-soft-white/70 uppercase">{step}</p>
               </li>
             ))}
@@ -83,7 +83,7 @@ export default function AboutPage() {
         <ol className="mt-12 flex flex-col lg:mt-16">
           {PROCESS_STEPS.map((step) => (
             <li key={step.id} className="grid grid-cols-1 gap-4 border-t border-line py-8 first:border-t-0 sm:grid-cols-[auto_1fr_2fr] sm:items-center sm:gap-8">
-              <span className="font-display text-xs tracking-[0.25em] text-soft-white/30">{step.number}</span>
+              <span className="font-display text-xs tracking-[0.25em] text-soft-white/55">{step.number}</span>
               <h3 className="font-display text-2xl font-black tracking-tight text-soft-white uppercase">{step.title}</h3>
               <p className="text-sm leading-relaxed text-soft-white/55 sm:text-base">{step.description}</p>
             </li>

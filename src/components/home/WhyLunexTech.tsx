@@ -91,7 +91,7 @@ export default function WhyLunexTech() {
 
       <div className="relative z-10 px-6 py-20 md:px-10 lg:py-28 xl:px-16">
         {/* Section label */}
-        <div className="why-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">
+        <div className="why-label flex items-center gap-4 text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">
           <span className="font-display text-accent">07</span>
           <span aria-hidden className="h-px w-8 bg-accent/60" />
           <span>Why Lunex Tech</span>

@@ -17,13 +17,13 @@ export default function RequirementsList({ requirements }: { requirements: JobRe
   return (
     <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
       <div>
-        <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">Required</p>
+        <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">Required</p>
         <div className="mt-5">
           <QualityList items={requirements.required} />
         </div>
       </div>
       <div>
-        <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/40 uppercase">Nice to have</p>
+        <p className="text-[11px] font-medium tracking-[0.25em] text-soft-white/62 uppercase">Nice to have</p>
         <div className="mt-5">
           <QualityList items={requirements.niceToHave} />
         </div>

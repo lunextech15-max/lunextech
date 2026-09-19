@@ -172,7 +172,7 @@ export default function JobApplicationForm({ job }: { job: Job }) {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div className="apply-field">
             <label htmlFor={`${idBase}-role`} className="apply-field-label">
-              Current role <span className="normal-case text-soft-white/30">(optional)</span>
+              Current role <span className="normal-case text-soft-white/55">(optional)</span>
             </label>
             <input id={`${idBase}-role`} className="apply-input" value={data.currentRole} onChange={field("currentRole")} />
           </div>
@@ -250,19 +250,19 @@ export default function JobApplicationForm({ job }: { job: Job }) {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
           <div className="apply-field">
             <label htmlFor={`${idBase}-portfolio`} className="apply-field-label">
-              Portfolio URL <span className="normal-case text-soft-white/30">(optional)</span>
+              Portfolio URL <span className="normal-case text-soft-white/55">(optional)</span>
             </label>
             <input id={`${idBase}-portfolio`} className="apply-input" value={data.portfolio} onChange={field("portfolio")} />
           </div>
           <div className="apply-field">
             <label htmlFor={`${idBase}-github`} className="apply-field-label">
-              GitHub <span className="normal-case text-soft-white/30">(optional)</span>
+              GitHub <span className="normal-case text-soft-white/55">(optional)</span>
             </label>
             <input id={`${idBase}-github`} className="apply-input" value={data.github} onChange={field("github")} />
           </div>
           <div className="apply-field">
             <label htmlFor={`${idBase}-linkedin`} className="apply-field-label">
-              LinkedIn <span className="normal-case text-soft-white/30">(optional)</span>
+              LinkedIn <span className="normal-case text-soft-white/55">(optional)</span>
             </label>
             <input id={`${idBase}-linkedin`} className="apply-input" value={data.linkedin} onChange={field("linkedin")} />
           </div>
