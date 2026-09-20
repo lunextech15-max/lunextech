@@ -76,7 +76,7 @@ export const SelectedWork = () => {
     <AbsoluteFill style={{ opacity: exitOpacity }}>
       <Backdrop glowX={0.5} glowY={0.5} intensity={0.8} />
       <div style={{ position: "absolute", top: 70, left: 140, opacity: labelOpacity }}>
-        <TechnicalLabel number="04" label="Selected work" />
+        <TechnicalLabel number="06" label="Selected work" />
       </div>
       {SHOWN.map((project, i) => (
         <Sequence key={project.id} from={i * ITEM_DURATION} durationInFrames={ITEM_DURATION} layout="none">
