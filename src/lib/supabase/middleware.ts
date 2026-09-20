@@ -46,8 +46,49 @@ export async function updateSession(request: NextRequest) {
   const isCallerSection = pathname === "/caller" || pathname.startsWith("/caller/");
   const isProtectedRoute = isStaffSection || isInternSection || isCallerSection;
 
+  // Every redirect this function can issue goes through here. Auth state
+  // (getUser(), get_my_role()) has turned out to be inconsistent across the
+  // rapid consecutive requests a redirect chain itself fires — sometimes
+  // seeing a valid session, sometimes not, for the SAME browser session
+  // milliseconds apart (a token-refresh race). Bouncing on every
+  // inconsistent read turned into an infinite ping-pong loop
+  // (ERR_TOO_MANY_REDIRECTS / browser navigation throttling).
+  //
+  // A Referer-based loop check isn't reliable here — browsers don't
+  // consistently update Referer per hop while auto-following a redirect
+  // chain — so this counts consecutive redirects in a short-lived cookie
+  // instead: real, deliberate cross-portal redirects. A user takes at most
+  // 1-2 in a row; a few in immediate succession is the signature of the
+  // race, not a real navigation attempt.
+  const REDIRECT_GUARD_COOKIE = "mw_redirect_count";
+  const MAX_CONSECUTIVE_REDIRECTS = 3;
+  const redirectCount = Number(request.cookies.get(REDIRECT_GUARD_COOKIE)?.value ?? "0");
+
+  const redirectTo = (path: string) => {
+    if (redirectCount >= MAX_CONSECUTIVE_REDIRECTS) {
+      console.error("updateSession: too many redirects in a row, breaking a potential loop", {
+        pathname,
+        target: path,
+        redirectCount,
+      });
+      supabaseResponse.cookies.delete(REDIRECT_GUARD_COOKIE);
+      return supabaseResponse;
+    }
+    const response = NextResponse.redirect(new URL(path, request.url));
+    response.cookies.set(REDIRECT_GUARD_COOKIE, String(redirectCount + 1), { maxAge: 5, path: "/" });
+    return response;
+  };
+
+  // Any request that reaches here without redirecting is a real, landed
+  // page load — clear the guard so it doesn't outlive the burst it was
+  // meant to catch.
+  const landed = () => {
+    if (redirectCount > 0) supabaseResponse.cookies.delete(REDIRECT_GUARD_COOKIE);
+    return supabaseResponse;
+  };
+
   if (!user && isProtectedRoute) {
-    return NextResponse.redirect(new URL("/staff", request.url));
+    return redirectTo("/staff");
   }
 
   if (user && (isLoginPage || isProtectedRoute)) {
@@ -57,20 +98,15 @@ export async function updateSession(request: NextRequest) {
     };
 
     // A transient RPC failure (network blip, DB timeout) must never be
-    // treated the same as "this user has no role" — doing so previously
-    // bounced a real intern/caller to /staff/dashboard on a failed lookup,
-    // then back to their real section once the next request's lookup
-    // succeeded, then back again on the next failure: an infinite
-    // ping-pong redirect loop (ERR_TOO_MANY_REDIRECTS / browser navigation
-    // throttling). On a failed lookup, fail open — let the request through
-    // unredirected rather than guess.
+    // treated the same as "this user has no role" — that bounced a real
+    // intern/caller to /staff/dashboard on a failed lookup.
     if (roleError) {
       console.error("updateSession: get_my_role failed, skipping role-based redirect", roleError);
-      return supabaseResponse;
+      return landed();
     }
 
     if (isLoginPage) {
-      return NextResponse.redirect(new URL(ROLE_HOME[role ?? "staff"] ?? "/staff/dashboard", request.url));
+      return redirectTo(ROLE_HOME[role ?? "staff"] ?? "/staff/dashboard");
     }
 
     // Cross-portal access control: each role has exactly one home section
@@ -85,23 +121,9 @@ export async function updateSession(request: NextRequest) {
       ((role === "staff" || role === "admin" || !role) && isStaffSection);
 
     if (!inOwnSection) {
-      const target = new URL(home, request.url);
-
-      // Circuit breaker: if the browser just came from the page we're
-      // about to send it to, get_my_role() is almost certainly returning
-      // inconsistent results across rapid consecutive requests (e.g. a
-      // session-token refresh race during a redirect chain) rather than a
-      // real cross-portal access attempt — bouncing again would continue
-      // an infinite loop instead of breaking it. Fail open.
-      const referer = request.headers.get("referer");
-      if (referer === target.toString()) {
-        console.error("updateSession: breaking a potential redirect loop", { pathname, role, home });
-        return supabaseResponse;
-      }
-
-      return NextResponse.redirect(target);
+      return redirectTo(home);
     }
   }
 
-  return supabaseResponse;
+  return landed();
 }
