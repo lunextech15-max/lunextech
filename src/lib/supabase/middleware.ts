@@ -85,7 +85,21 @@ export async function updateSession(request: NextRequest) {
       ((role === "staff" || role === "admin" || !role) && isStaffSection);
 
     if (!inOwnSection) {
-      return NextResponse.redirect(new URL(home, request.url));
+      const target = new URL(home, request.url);
+
+      // Circuit breaker: if the browser just came from the page we're
+      // about to send it to, get_my_role() is almost certainly returning
+      // inconsistent results across rapid consecutive requests (e.g. a
+      // session-token refresh race during a redirect chain) rather than a
+      // real cross-portal access attempt — bouncing again would continue
+      // an infinite loop instead of breaking it. Fail open.
+      const referer = request.headers.get("referer");
+      if (referer === target.toString()) {
+        console.error("updateSession: breaking a potential redirect loop", { pathname, role, home });
+        return supabaseResponse;
+      }
+
+      return NextResponse.redirect(target);
     }
   }
 
