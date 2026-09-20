@@ -9,6 +9,8 @@
     "lint": "eslint",
     "video": "remotion render remotion/index.ts HeroReel public/videos/hero-reel.mp4 --codec h264 --crf 26",
     "video:brand": "remotion render remotion/index.ts BrandShowcase public/videos/brand-showcase.mp4 --codec h264 --crf 20",
+    "video:reel": "remotion render remotion/index.ts LunexReel public/videos/lunex-reel.mp4 --codec h264 --crf 18",
+    "video:reel:preview": "remotion render remotion/index.ts LunexReel public/videos/lunex-reel-preview.mp4 --codec h264 --crf 32 --scale 0.4",
     "video:studio": "remotion studio remotion/index.ts"
   },
   "dependencies": {
