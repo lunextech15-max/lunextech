@@ -51,7 +51,23 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (user && (isLoginPage || isProtectedRoute)) {
-    const { data: role } = (await supabase.rpc("get_my_role")) as { data: string | null };
+    const { data: role, error: roleError } = (await supabase.rpc("get_my_role")) as {
+      data: string | null;
+      error: unknown;
+    };
+
+    // A transient RPC failure (network blip, DB timeout) must never be
+    // treated the same as "this user has no role" — doing so previously
+    // bounced a real intern/caller to /staff/dashboard on a failed lookup,
+    // then back to their real section once the next request's lookup
+    // succeeded, then back again on the next failure: an infinite
+    // ping-pong redirect loop (ERR_TOO_MANY_REDIRECTS / browser navigation
+    // throttling). On a failed lookup, fail open — let the request through
+    // unredirected rather than guess.
+    if (roleError) {
+      console.error("updateSession: get_my_role failed, skipping role-based redirect", roleError);
+      return supabaseResponse;
+    }
 
     if (isLoginPage) {
       return NextResponse.redirect(new URL(ROLE_HOME[role ?? "staff"] ?? "/staff/dashboard", request.url));
