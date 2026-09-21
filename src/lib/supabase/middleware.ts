@@ -37,6 +37,7 @@ export async function updateSession(request: NextRequest) {
   // Touching getUser() is what actually refreshes the session token.
   const {
     data: { user },
+    error: userError,
   } = await supabase.auth.getUser();
 
   const { pathname } = request.nextUrl;
@@ -97,6 +98,21 @@ export async function updateSession(request: NextRequest) {
     if (redirectCount > 0) supabaseResponse.cookies.delete(REDIRECT_GUARD_COOKIE);
     return supabaseResponse;
   };
+
+  // A getUser() call that itself errored (network blip calling Supabase's
+  // Auth API from the edge — never actually confirmed the session is gone)
+  // must not be treated the same as "confirmed logged out". That was the
+  // real source of the /staff <-> /staff/dashboard ping-pong: this check
+  // never distinguished the two, so a transient failure bounced to login,
+  // the next request's fresh getUser() succeeded and bounced back, and so
+  // on. Only a *successful* check that found no user redirects; a failed
+  // check just lets the request through — the page itself re-verifies
+  // auth authoritatively, same as Proxy is meant to be used (optimistic
+  // check only, not the sole authorization boundary).
+  if (userError) {
+    console.error("updateSession: getUser() failed, skipping auth redirect this request", userError);
+    return landed();
+  }
 
   if (!user && isProtectedRoute) {
     return redirectTo("/staff");
