@@ -15,19 +15,43 @@ function initialsFrom(name: string): string {
 
 export async function getStaffSession(): Promise<StaffUser & { staffId: string }> {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+
+  // getUser() calls out to Supabase's Auth API — a transient network blip
+  // there must not be treated the same as "confirmed logged out" (that was
+  // the real source of the /staff <-> /staff/dashboard redirect loop: this
+  // check redirected on ANY failure, including ones where the session was
+  // actually fine). One retry absorbs a one-off blip; only a second
+  // consecutive failure is treated as a real logged-out session.
+  let user = (await supabase.auth.getUser()).data.user;
+  if (!user) {
+    const retry = await supabase.auth.getUser();
+    if (retry.error) {
+      console.error("getStaffSession: getUser() failed twice, redirecting to login", retry.error);
+    }
+    user = retry.data.user;
+  }
 
   if (!user) {
     redirect("/staff");
   }
 
-  const { data: row } = await supabase
+  let { data: row, error: rowError } = await supabase
     .from("staff")
     .select("staff_id, full_name, role")
     .eq("email", user.email ?? "")
     .maybeSingle();
+
+  if (!row) {
+    const retry = await supabase
+      .from("staff")
+      .select("staff_id, full_name, role")
+      .eq("email", user.email ?? "")
+      .maybeSingle();
+    if (retry.error) {
+      console.error("getStaffSession: staff row lookup failed twice, redirecting to login", rowError, retry.error);
+    }
+    row = retry.data;
+  }
 
   if (!row) {
     redirect("/staff");

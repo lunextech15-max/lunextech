@@ -110,11 +110,19 @@ export async function updateSession(request: NextRequest) {
   // auth authoritatively, same as Proxy is meant to be used (optimistic
   // check only, not the sole authorization boundary).
   if (userError) {
-    console.error("updateSession: getUser() failed, skipping auth redirect this request", userError);
+    console.error("updateSession: getUser() failed, skipping auth redirect this request", {
+      pathname,
+      message: userError.message,
+      status: userError.status,
+    });
     return landed();
   }
 
   if (!user && isProtectedRoute) {
+    console.error("updateSession: no user on protected route, redirecting to /staff", {
+      pathname,
+      redirectCount,
+    });
     return redirectTo("/staff");
   }
 
@@ -133,6 +141,11 @@ export async function updateSession(request: NextRequest) {
     }
 
     if (isLoginPage) {
+      console.error("updateSession: authenticated on login page, redirecting home", {
+        pathname,
+        role,
+        redirectCount,
+      });
       return redirectTo(ROLE_HOME[role ?? "staff"] ?? "/staff/dashboard");
     }
 
